@@ -2,7 +2,7 @@ export const environment = {
     production: false,
 
     LoginRequired: true,
-    CurrentVersion: '1.7.477',
+    CurrentVersion: '2.0.677',
     ReleasedDate: '2023.12.31',
     DefaultLanguage: 'en',
 

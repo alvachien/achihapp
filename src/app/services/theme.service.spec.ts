@@ -16,6 +16,6 @@ describe('ThemeService', () => {
 
   it('Change the theme',() => {
     service.toggleTheme();
-    expect(service.currentTheme).toBeTrue();
+    expect(service.currentTheme).toBeTruthy();
   });
 });

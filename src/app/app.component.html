@@ -32,6 +32,22 @@
           </li>
         </ul>
       </li>
+      <li nz-submenu [nzTitle]="'Common.Help' | transloco" nzIcon="question-circle">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/about">{{ 'Nav.About' | transloco }}</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/version">{{ 'Nav.Version' | transloco }}</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/credits">{{ 'Nav.Credits' | transloco }}</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/languages">{{ 'Common.Languages' | transloco }}</a>
+          </li>
+        </ul>
+      </li>
     </ul>
   </nz-sider>
   <nz-layout>
