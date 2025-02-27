@@ -6,5 +6,4 @@ import { Component } from '@angular/core';
   styleUrl: './welcome.component.less'
 })
 export class WelcomeComponent {
-  constructor() {}
 }

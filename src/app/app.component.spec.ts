@@ -1,10 +1,25 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { getTranslocoModule } from '../test/';
+import { provideRouter } from '@angular/router';
+import { provideNzIcons } from 'ng-zorro-antd/icon';
+import { icons } from './icons-provider';
+import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [
+        getTranslocoModule(),
+        AppComponent,
+      ],
+      providers: [
+        provideRouter([]),
+        provideNzIcons(icons), 
+        provideNzI18n(en_US),
+        provideNoopAnimations(),
+      ]
     }).compileComponents();
   });
 
@@ -14,16 +29,23 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'achihapp' title`, () => {
+  it(`should have the currentYear property`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('achihapp');
+    expect(app.currentYear).toEqual(new Date().getFullYear().toString());
   });
 
-  it('should render title', () => {
+  it('should have the isCollapsed property', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const app = fixture.componentInstance;
+    expect(app.isCollapsed).toBeFalse();
+  });
+
+  it('should have the app title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, achihapp');
+    expect(compiled.querySelector('h1')?.textContent).toContain('HIH');    
   });
 });
