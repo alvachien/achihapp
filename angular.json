@@ -26,6 +26,7 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "less",
             "assets": [
+              "src/assets",
               {
                 "glob": "**/*",
                 "input": "public"
@@ -37,9 +38,26 @@
               }
             ],
             "styles": [
-              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
-              "src/styles.less"
+              "src/styles.less",
+              {
+                "input": "src/styles/default.less",
+                "bundleName": "default",
+                "inject": false
+              },
+              {
+                "input": "src/styles/dark.less",
+                "bundleName": "dark",
+                "inject": false
+              },
+              {
+                "input": "src/styles/aliyun.less",
+                "bundleName": "aliyun",
+                "inject": false
+              }
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/styles/themes"]
+            },
             "scripts": []
           },
           "configurations": {
@@ -91,6 +109,7 @@
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "less",
             "assets": [
+              "src/assets",
               {
                 "glob": "**/*",
                 "input": "public"

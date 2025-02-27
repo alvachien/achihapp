@@ -4,19 +4,18 @@
     nzWidth="256px"
     nzBreakpoint="md"
     [(nzCollapsed)]="isCollapsed"
-    [nzTrigger]="null"
-  >
+    [nzTrigger]="null">
     <div class="sidebar-logo">
       <a href="https://ng.ant.design/" target="_blank">
         <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
-        <h1>Ant Design of Angular</h1>
+        <h1>HIH App</h1>
       </a>
     </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+    <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome">Welcome</a>
+            <a routerLink="/welcome">{{'Nav.Welcome' | transloco}}</a>
           </li>
           <li nz-menu-item nzMatchRouter>
             <a>Monitor</a>
@@ -38,9 +37,28 @@
   <nz-layout>
     <nz-header>
       <div class="app-header">
-        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+        <span class="header-item" (click)="isCollapsed = !isCollapsed">
           <nz-icon class="trigger" [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" />
         </span>
+        <span class="header-item" (click)="toggleTheme()">
+          <i class="trigger" nz-icon nzType="skin" nzTheme="outline"></i>
+        </span>
+        <span class="header-item">
+          <a nz-dropdown [nzDropdownMenu]="menuLanguage">
+            <i nz-icon nzType="global" nzTheme="outline" class="app-header-icon"></i>
+          </a>
+          <nz-dropdown-menu #menuLanguage="nzDropdownMenu">
+            <ul nz-menu nzSelectable>
+              <li nz-menu-item (click)="switchLanguage('en')">
+                {{ 'Nav.English' | transloco }}
+              </li>
+              <li nz-menu-item (click)="switchLanguage('zh_CN')">
+                {{ 'Nav.SimplifiedChinese' | transloco }}
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+        </span>
+
       </div>
     </nz-header>
     <nz-content>
@@ -48,6 +66,6 @@
         <router-outlet></router-outlet>
       </div>
     </nz-content>
-    <nz-footer>© 2020 - 2020 Implement By Alva Chien</nz-footer>
+    <nz-footer>© 2016 - {{currentYear}}, Alva Chien, All rights reserved</nz-footer>
   </nz-layout>
 </nz-layout>

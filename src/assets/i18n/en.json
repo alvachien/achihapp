@@ -1,1 +1,16 @@
-{}
+{
+    "Nav": {
+        "English": "English",
+        "SimplifiedChinese": "Simplified Chinese",
+        "Welcome": "Welcome"
+    },
+    "Common": {
+        "Back": "Back",
+        "PageNotFoundHeader": "Page not found",
+        "PageNotFoundContent": "The page which you aim to visit is not exist",
+        "PageFatalErrorHeader": "Fatal Error",
+        "PageFatalErrorContent": "There is a fatal error occurs in API layer and the DB layer. Please contact system administrator",
+        "PageLackAuthorityHeader": "Lack of Authority",
+        "PageLackAuthorityContent": "The page which you aim to visit are banned due to lack of authority"
+    }
+}
