@@ -1,16 +1,17 @@
 {
   "name": "achihapp",
-  "version": "0.0.0",
+  "version": "2.0.677",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --ssl true -o --ssl-key ssl/server.key --ssl-cert ssl/server.crt",
     "build": "ng build",
+    "build-prod": "ng build --base-href=/hih/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "testinci": "ng test --no-watch --no-progress --browsers=ChromeHeadless"
   },
   "engines": {
-    "node": "^20"
+    "node": ">=20.0.0"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +24,9 @@
     "@angular/platform-browser-dynamic": "^19.2.0",
     "@angular/router": "^19.2.0",
     "@jsverse/transloco": "^7.5.1",
+    "actslib": "^0.5.70",
+    "angular-auth-oidc-client": "19.0.0",
+    "date-fns": "^4.1.0",
     "ng-zorro-antd": "^19.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

@@ -41,9 +41,9 @@ export class CreditsComponent {
       desp: 'The internationalization (i18n) library for Angular.',
     },
     {
-      name: 'Moment.js',
-      url: 'https://momentjs.com/',
-      desp: 'Parse, validate, manipulate, and display dates and times in JavaScript',
+      name: 'date-fns',
+      url: 'https://date-fns.org/',
+      desp: 'date-fns provides the most comprehensive, yet simple and consistent toolset for manipulating JavaScript dates in a browser & Node.js.',
     },
     {
       name: '.NET',

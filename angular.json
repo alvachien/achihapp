@@ -12,7 +12,7 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "hih",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
@@ -99,6 +99,11 @@
             "development": {
               "buildTarget": "achihapp:build:development"
             }
+          },
+          "options": {
+            "port": 29528,
+            "host": "localhost",
+            "buildTarget": "achihapp:build"
           },
           "defaultConfiguration": "development"
         },
