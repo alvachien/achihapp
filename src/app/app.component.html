@@ -74,7 +74,18 @@
             </ul>
           </nz-dropdown-menu>
         </span>
-
+        @if(!isLoggedIn)
+        {
+          <span class="header-item" (click)="onLogon()">
+            <i class="trigger" nz-icon nzType="idcard" nzTheme="outline"></i>            
+          </span>
+        }
+        @if(isLoggedIn)
+        {
+          <span class="header-item" (click)="onGoToUserDetail()">
+            <i class="trigger" nz-icon nzType="idcard" nzTheme="outline"></i>
+          </span>
+        }
       </div>
     </nz-header>
     <nz-content>

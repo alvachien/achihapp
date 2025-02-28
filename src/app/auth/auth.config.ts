@@ -8,7 +8,7 @@ export const authConfig: PassedInitialConfig = {
     redirectUrl: environment.AppHost, // window.location.origin,
     postLogoutRedirectUri: environment.AppHost,
 
-    clientId: 'achihapp',
+    clientId: 'achihui.js',
     scope: 'openid profile api.hih offline_access', // 'openid profile ' + your scopes
     // scope: 'please-enter-scopes', // 'openid profile offline_access ' + your scopes
     responseType: 'code',
