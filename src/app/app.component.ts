@@ -55,7 +55,7 @@ export class AppComponent implements OnInit {
           this.titleLogin = x.getUserName();
         }
       });
-    });      
+    });
   }
 
   toggleTheme(): void {

@@ -1,1 +1,6 @@
-<p>welcome works!</p>
+@if(isLoggedIn) {
+    <p><span>{{titleLogin}}</span>, Welcome logon HIH!</p>
+}
+@else {
+    <p>Welcome to HIH!</p>
+}

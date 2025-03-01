@@ -6,8 +6,8 @@
     [(nzCollapsed)]="isCollapsed"
     [nzTrigger]="null">
     <div class="sidebar-logo">
-      <a href="https://ng.ant.design/" target="_blank">
-        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
+      <a href="/" target="_blank">
+        <img src="/favicon.ico" alt="logo">
         <h1>HIH App</h1>
       </a>
     </div>
@@ -56,6 +56,7 @@
         <span class="header-item" (click)="isCollapsed = !isCollapsed">
           <nz-icon class="trigger" [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" />
         </span>
+        <span class="header-spacer"></span>
         <span class="header-item" (click)="toggleTheme()">
           <i class="trigger" nz-icon nzType="skin" nzTheme="outline"></i>
         </span>
@@ -80,10 +81,10 @@
             <i class="trigger" nz-icon nzType="idcard" nzTheme="outline"></i>            
           </span>
         }
-        @if(isLoggedIn)
+        @else
         {
           <span class="header-item" (click)="onGoToUserDetail()">
-            <i class="trigger" nz-icon nzType="idcard" nzTheme="outline"></i>
+            <i class="trigger" nz-icon nzType="user" nzTheme="outline"></i>
           </span>
         }
       </div>

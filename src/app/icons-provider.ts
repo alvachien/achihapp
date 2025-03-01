@@ -6,6 +6,7 @@ import {
   SkinOutline,
   GlobalOutline,
   IdcardOutline,
+  UserOutline
 } from '@ant-design/icons-angular/icons';
 
 export const icons = [
@@ -16,4 +17,5 @@ export const icons = [
   SkinOutline,
   GlobalOutline,
   IdcardOutline,
+  UserOutline,
 ];
