@@ -1,11 +1,28 @@
 {
   "name": "achihapp",
-  "version": "2.0.677",
+  "version": "2.0.680",
+  "description": "An AI empowered App for building Information Hub for each home.",
+  "keywords": [
+    "hih",
+    "AI",
+    "home info. hub",
+    "finance"
+  ],
+  "author": {
+    "name": "Alva Chien",
+    "email": "alvachien@163.com",
+    "url": "https://github.com/alvachien"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "github",    
+    "url": "https://github.com/alvachien/achihapp"
+  },  
   "scripts": {
     "ng": "ng",
     "start": "ng serve --ssl true -o --ssl-key ssl/server.key --ssl-cert ssl/server.crt",
     "build": "ng build",
-    "build-prod": "ng build --base-href=/hih/",
+    "build:prod": "ng build --base-href=/hih/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "testinci": "ng test --no-watch --no-progress --browsers=ChromeHeadless"
@@ -13,7 +30,7 @@
   "engines": {
     "node": ">=20.0.0"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "^19.2.0",
     "@angular/common": "^19.2.0",

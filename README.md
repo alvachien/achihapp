@@ -1,27 +1,95 @@
-# Achihapp
+# Home Info. Hub (AI enpowered Version)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.4.
+**Home Information Hub**, with the abbreviation **HIH**. **HIH** targets to build the warehouse for all necessary information among all family members. 
 
-## Development server
+Key features are:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Finance** system. This feature allows you record (nearly) all the finance activities, and provides the reports for you to review the healthy of the family, such as the balance report, cash journal, etc;
+- **Libraries** (Under design phrase).
+- Events (Under design phrase).
+- Integratoin with **AI** capability, the system can help:
+    - Analyzing cash statement and/or expense. 
+    - Provides suggestion upon the finance situation.  
+    - Supported AI LLM models are: DeepSeek, Alicloud Qwen models.
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## How to use it
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+**HIH** is expected to run on Cloud or a HTTP/HTTPS server, which shall be easily access by all workstations/mobile devices.     
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Ideally, **HIH** can be used in Cloud server, or runs on a NAS/Family Server with ASP.NET Core supporting as well as HTTP server enabling.     
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Live Demo / Example
 
-## Further help
+***Live application***  hosted in [AlvaChien.com](http://www.alvachien.com/hih).   
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Snapshots
+
+![Image of Index page](https://github.com/alvachien/achihui/blob/master/docs/images/index.JPG)
+Welcome page
+
+
+![Image of Finance report](https://github.com/alvachien/achihui/blob/master/docs/images/finance_report.JPG)
+Finance reports
+
+
+![Image of Tag Cloud](https://github.com/alvachien/achihui/blob/master/docs/images/tag_cloud.JPG)
+Cloud of Tag
+
+
+![Image of Create Document](https://github.com/alvachien/achihui/blob/master/docs/images/create_doc.JPG)
+Create a document
+
+
+![Image of Document display](https://github.com/alvachien/achihui/blob/master/docs/images/display_doc.JPG)
+Display a posted document   
+
+
+### Relevant API/App used
+
+The live demo used the following API/App:
+
+- AC ID Server [Github Project Link](https://github.com/alvachien/acidserver) : an Identity service hosted in [Azure Link (will be obseleted soon)](https://acidserver.azurewebsites.net);
+- AC HIH API [Github Project Link](https://github.com/alvachien/achihapi) : an Web API hosted in [Azure Link (will be obseleted soon)](https://achihapi.azurewebsites.net).
+
+
+## What's HIH
+
+
+**HIH**, the abbreviation of **Home Information Hub**, is a warehouse storing the necessary information among all family memebers.
+Since version 0.1, it supports the Finance Traces and Learning Traces. The detail explaination of the modules listed below. 
+
+## Histories
+
+This project is the UI layer of new HIH, and it continues the HIH development since the previous HIH [Github Project](https://github.com/alvachien/hih);
+
+This project used tons of new UI technologies, including: Angular 10+, TypeScript 3+, Ant Design 9+, ECharts, etc;   
+
+## Credits
+
+As an open source project, **HIH** relies on the following open source projects/libraries:
+
+* [Deepseek](https://deepseek.com)
+* [Typescript](https://www.typescriptlang.org)
+* [Angular](https://github.com/angular/angular)
+* [Ant Design](https://ng.ant.design)
+* [ECharts](https://echarts.apache.org)
+* [ngx-echarts](https://github.com/xieziyu/ngx-echarts/)
+
+
+## Contact me
+
+**Alva Chien | 钱红俊**
+
+A programmer, a Photographer, and a father. 
+
+Contact me:
+
+1. Via mail: alvachien@163.com. Or,
+2. [Check my website](https://www.alvachien.com). 
+ 
+## License
+MIT
