@@ -15,19 +15,20 @@
     <p nz-paragraph>
         <strong>UI {{ 'Nav.Version' | transloco }}:</strong>
         <span nz-text><strong id="curversion">{{ version }}</strong></span>.
+        <span nz-text><strong id="releaseddate">{{ releaseddate }}</strong></span>.
     </p>
     <nz-divider></nz-divider>
-    <!-- <p nz-paragraph>
+    <p nz-paragraph>
         API (Built with Odata) Version:
         <span nz-text>
-            <strong>{{ resultVersion!.APIVersion }} </strong>
+            <strong>{{ resultVersion ? resultVersion.APIVersion : '' }}</strong>
         </span>
     </p>
     <nz-divider></nz-divider>
     <p nz-paragraph>
         Database Schema Version:
         <span nz-text>
-            <strong>{{ resultVersion!.StorageVersion }} </strong>
+            <strong>{{ resultVersion ? resultVersion.StorageVersion : '' }}</strong>
         </span>
-    </p> -->
+    </p>
 </article>

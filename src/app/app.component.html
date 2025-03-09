@@ -6,9 +6,9 @@
     [(nzCollapsed)]="isCollapsed"
     [nzTrigger]="null">
     <div class="sidebar-logo">
-      <a href="/" target="_blank">
-        <img src="/favicon.ico" alt="logo">
-        <h1>HIH App</h1>
+      <a href="./" target="_blank">
+        <img src="./favicon.ico" alt="logo">
+        <h1>H. I. H.</h1>
       </a>
     </div>
     <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
@@ -22,13 +22,6 @@
           </li>
           <li nz-menu-item nzMatchRouter>
             <a>Workplace</a>
-          </li>
-        </ul>
-      </li>
-      <li nz-submenu nzOpen nzTitle="Form" nzIcon="form">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a>Basic Form</a>
           </li>
         </ul>
       </li>
@@ -85,6 +78,7 @@
         {
           <span class="header-item" (click)="onGoToUserDetail()">
             <i class="trigger" nz-icon nzType="user" nzTheme="outline"></i>
+            {{titleLogin}}
           </span>
         }
       </div>

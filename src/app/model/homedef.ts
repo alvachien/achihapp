@@ -227,6 +227,7 @@ export class HomeDef extends hih.BaseModel {
   }
 
   public parseJSONData(data: HomeDefJson): void {
+    super.onSetData(data);
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this._id = data.ID!;
     this._name = data.Name;

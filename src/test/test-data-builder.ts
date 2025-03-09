@@ -71,5 +71,8 @@ export class TestDataBuilder {
       this._currUser.setContent(usr);  
     }
   }
+  public clearCurrentUser() {
+    this._currUser = undefined;
+  }
 
 }
