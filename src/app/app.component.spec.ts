@@ -10,12 +10,12 @@ import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 
-import { AuthService, HomeDefService } from './services';
+import { AuthService, HomeDefineStorageService } from './services';
 import { CheckVersionResult, } from './model';
 
 describe('AppComponent without login', () => {
   let testdatabuilder: TestDataBuilder;
-  const homeSrvStub: Partial<HomeDefService> = {};
+  const homeSrvStub: Partial<HomeDefineStorageService> = {};
 
   beforeAll(() => {
     testdatabuilder = new TestDataBuilder();
@@ -47,7 +47,7 @@ describe('AppComponent without login', () => {
           useClass: AuthServiceStub
         },
         {
-          provide: HomeDefService,
+          provide: HomeDefineStorageService,
           useValue: homeSrvStub
         }
       ]

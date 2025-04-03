@@ -2,15 +2,15 @@ import { TestBed } from '@angular/core/testing';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 
-import { HomeDefService } from './home-def.service';
 import { AuthServiceStub, TestDataBuilder } from '../../test';
 import { environment } from '../../environments/environment';
 import { AuthService } from './auth.service';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { HomeDef, HomeMemberRelationEnum } from '../model';
+import { HomeDefineStorageService } from './home-define-storage.service';
 
-describe('HomeDefService', () => {
-  let service: HomeDefService;
+describe('HomeDefineStorageService', () => {
+  let service: HomeDefineStorageService;
   let httpTesting: HttpTestingController;
   const tdbuilder = new TestDataBuilder();
   const dataAPIURL = environment.ApiUrl + '/HomeDefines';
@@ -32,7 +32,7 @@ describe('HomeDefService', () => {
           }
         ]
       });
-      service = TestBed.inject(HomeDefService);
+      service = TestBed.inject(HomeDefineStorageService);
       httpTesting = TestBed.inject(HttpTestingController);
     });
     afterEach(() => {
@@ -109,7 +109,7 @@ describe('HomeDefService', () => {
           }
         ]
       });
-      service = TestBed.inject(HomeDefService);
+      service = TestBed.inject(HomeDefineStorageService);
       httpTesting = TestBed.inject(HttpTestingController);
     });
     afterEach(() => {

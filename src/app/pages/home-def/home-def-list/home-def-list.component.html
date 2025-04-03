@@ -1,0 +1,59 @@
+<nz-spin [nzSpinning]="isLoadingResults" *transloco="let t">
+  <nz-page-header nzBackIcon [nzTitle]="t('Nav.Home')">
+    <nz-breadcrumb nz-page-header-breadcrumb>
+      <nz-breadcrumb-item>{{ 'Nav.HomeList' | transloco }}</nz-breadcrumb-item>
+    </nz-breadcrumb>
+    <nz-page-header-extra>
+      <a nz-button nzType="link" routerLink="/homedef/create">{{ 'Common.Create' | transloco }}</a>
+    </nz-page-header-extra>
+  </nz-page-header>
+  <div class="wrap">
+    <p nz-paragraph>
+      {{ 'Common.RequireChooseHome' | transloco }}
+    </p>
+    <div>
+      <nz-table #basicTable [nzData]="dataSource">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>{{ 'Common.Name' | transloco }}</th>
+            <th>{{ 'Common.Host' | transloco }}</th>
+            <th>{{ 'Finance.Currency' | transloco }}</th>
+            <th>{{ 'Common.Detail' | transloco }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(row of basicTable.data; track $index) {
+            <tr>
+              <td>
+                <span>{{ row.ID }}</span>
+                <nz-divider nzType="vertical"></nz-divider>
+                @if(!IsCurrentHomeChosed) {
+                  <a (click)="onChooseHome(row)">{{ 'Common.ChooseThisHome' | transloco }}</a>
+                }
+                
+                @if(IsCurrentHomeChosed) {
+                  <a nz-button nzType="link" routerLink="/homedef/display/{{ row.ID }}">
+                    {{ 'Common.Display' | transloco }}
+                  </a>  
+                }
+                @if(IsCurrentHomeChosed && !IsChildMode) {
+                  <a
+                    nz-button
+                    nzType="link"
+                    routerLink="/homedef/edit/{{ row.ID }}">
+                    {{ 'Common.Edit' | transloco }}
+                  </a>
+                }
+              </td>
+              <td>{{ row.Name }}</td>
+              <td>{{ row.CreatorDisplayAs }}</td>
+              <td>{{ row.BaseCurrency }}</td>
+              <td>{{ row.Details }}</td>
+            </tr>  
+          }
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+</nz-spin>

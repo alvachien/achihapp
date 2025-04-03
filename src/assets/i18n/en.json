@@ -1,12 +1,27 @@
 {
     "Nav": {
-        "English": "English",
-        "SimplifiedChinese": "Simplified Chinese",
-        "Welcome": "Welcome",
+        "Home": "Home",
+        "HomeList": "Home List",
+        "HomeDetail": "Home Detail",
+        "Users": "Users",
+        "UserList": "User List",
+        "UserDetail": "User Detail",
+        "TakeALookAtUserDetail": "Take a look at User Detail",
+        "LearningTrace": "Learning Trace",
+        "FinanceTrace": "Finance Trace",
+        "LibraryTrace": "Library Trace",
+        "EventTrace": "Event Trace",
+        "Blogs": "Blogs",
         "About": "About",
         "Acknowledgements": "Acknowledgements",
         "Credits": "Credits",
-        "Version": "Version"
+        "Version": "Version",
+        "Libraries": "Libraries",
+        "English": "English",
+        "SimplifiedChinese": "Simplified Chinese",
+        "InitialPage": "Initial page",
+        "Person": "Person",
+        "Location": "Location"
     },
     "Common": {
         "OK": "OK",

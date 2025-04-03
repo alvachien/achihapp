@@ -1,20 +1,20 @@
 import { isWithinInterval } from 'date-fns';
 import { UICommonLabelEnum, QuestionBankTypeEnum, TagTypeEnum, OverviewScopeEnum, RepeatFrequencyEnum } from './common';
-// import {
-//   AccountStatusEnum,
-//   RepaymentMethodEnum,
-//   TranTypeLevelEnum,
-//   FinanceQuickAccessTypeEnum,
-//   PlanTypeEnum,
-//   Account,
-//   AccountCategory,
-//   Order,
-//   financeAccountCategoryBorrowFrom,
-//   financeAccountCategoryAsset,
-//   financeAccountCategoryAdvancePayment,
-//   IAccountCategoryFilter,
-//   financeAccountCategoryLendTo,
-// } from './financemodel';
+import {
+  AccountStatusEnum,
+  RepaymentMethodEnum,
+  TranTypeLevelEnum,
+  FinanceQuickAccessTypeEnum,
+  PlanTypeEnum,
+  Account,
+  AccountCategory,
+  Order,
+  financeAccountCategoryBorrowFrom,
+  financeAccountCategoryAsset,
+  financeAccountCategoryAdvancePayment,
+  IAccountCategoryFilter,
+  financeAccountCategoryLendTo,
+} from './financemodel';
 import { HomeMemberRelationEnum } from './homedef';
 // import { LocationTypeEnum } from './librarymodel';
 
@@ -113,14 +113,14 @@ export type UIDisplayStringEnum =
   | QuestionBankTypeEnum
   | TagTypeEnum
   | OverviewScopeEnum
-  // | AccountStatusEnum
-  // | RepaymentMethodEnum
+  | AccountStatusEnum
+  | RepaymentMethodEnum
   | RepeatFrequencyEnum
-  // | TranTypeLevelEnum
+  | TranTypeLevelEnum
   | GeneralFilterOperatorEnum
-  // | FinanceQuickAccessTypeEnum
+  | FinanceQuickAccessTypeEnum
   | HomeMemberRelationEnum
-  // | PlanTypeEnum
+  | PlanTypeEnum
   // | LocationTypeEnum;
   ;
 
@@ -212,17 +212,17 @@ export class UIDisplayStringUtil {
   public static getAccountStatusStrings(): UIDisplayString[] {
     const arrst: UIDisplayString[] = [];
 
-    // for (const se in AccountStatusEnum) {
-    //   if (Number.isNaN(+se)) {
-    //     // Do nothing
-    //   } else {
-    //     arrst.push({
-    //       value: +se,
-    //       i18nterm: UIDisplayStringUtil.getAccountStatusDisplayString(+se),
-    //       displaystring: '',
-    //     } as UIDisplayString);
-    //   }
-    // }
+    for (const se in AccountStatusEnum) {
+      if (Number.isNaN(+se)) {
+        // Do nothing
+      } else {
+        arrst.push({
+          value: +se,
+          i18nterm: UIDisplayStringUtil.getAccountStatusDisplayString(+se),
+          displaystring: '',
+        } as UIDisplayString);
+      }
+    }
 
     return arrst;
   }
@@ -230,17 +230,17 @@ export class UIDisplayStringUtil {
   public static getRepaymentMethodStrings(): UIDisplayString[] {
     const arrst: UIDisplayString[] = [];
 
-    // for (const se in RepaymentMethodEnum) {
-    //   if (Number.isNaN(+se)) {
-    //     // Do nothing
-    //   } else {
-    //     arrst.push({
-    //       value: +se,
-    //       i18nterm: UIDisplayStringUtil.getRepaymentMethodDisplayString(+se),
-    //       displaystring: '',
-    //     } as UIDisplayString);
-    //   }
-    // }
+    for (const se in RepaymentMethodEnum) {
+      if (Number.isNaN(+se)) {
+        // Do nothing
+      } else {
+        arrst.push({
+          value: +se,
+          i18nterm: UIDisplayStringUtil.getRepaymentMethodDisplayString(+se),
+          displaystring: '',
+        } as UIDisplayString);
+      }
+    }
 
     return arrst;
   }
@@ -283,17 +283,17 @@ export class UIDisplayStringUtil {
   public static getTranTypeLevelDisplayStrings(): UIDisplayString[] {
     const arrst: UIDisplayString[] = [];
 
-    // for (const rfe in TranTypeLevelEnum) {
-    //   if (Number.isNaN(+rfe)) {
-    //     // Do nothing
-    //   } else {
-    //     arrst.push({
-    //       value: +rfe,
-    //       i18nterm: UIDisplayStringUtil.getTranTypeLevelDisplayString(+rfe as TranTypeLevelEnum),
-    //       displaystring: '',
-    //     } as UIDisplayString);
-    //   }
-    // }
+    for (const rfe in TranTypeLevelEnum) {
+      if (Number.isNaN(+rfe)) {
+        // Do nothing
+      } else {
+        arrst.push({
+          value: +rfe,
+          i18nterm: UIDisplayStringUtil.getTranTypeLevelDisplayString(+rfe as TranTypeLevelEnum),
+          displaystring: '',
+        } as UIDisplayString);
+      }
+    }
 
     return arrst;
   }
@@ -319,17 +319,17 @@ export class UIDisplayStringUtil {
   public static getFinanceQuickAccessTypeEnumStrings(): UIDisplayString[] {
     const arrst: UIDisplayString[] = [];
 
-    // for (const qat in FinanceQuickAccessTypeEnum) {
-    //   if (Number.isNaN(+qat)) {
-    //     // Do nothing
-    //   } else {
-    //     arrst.push({
-    //       value: +qat,
-    //       i18nterm: UIDisplayStringUtil.getFinanceQuickAccessTypeEnumDisplayString(+qat as FinanceQuickAccessTypeEnum),
-    //       displaystring: '',
-    //     } as UIDisplayString);
-    //   }
-    // }
+    for (const qat in FinanceQuickAccessTypeEnum) {
+      if (Number.isNaN(+qat)) {
+        // Do nothing
+      } else {
+        arrst.push({
+          value: +qat,
+          i18nterm: UIDisplayStringUtil.getFinanceQuickAccessTypeEnumDisplayString(+qat as FinanceQuickAccessTypeEnum),
+          displaystring: '',
+        } as UIDisplayString);
+      }
+    }
 
     return arrst;
   }
@@ -337,17 +337,17 @@ export class UIDisplayStringUtil {
   public static getFinancePlanTypeEnumDisplayStrings(): UIDisplayString[] {
     const arrst: UIDisplayString[] = [];
 
-    // for (const qat in PlanTypeEnum) {
-    //   if (Number.isNaN(+qat)) {
-    //     // Do nothing
-    //   } else {
-    //     arrst.push({
-    //       value: +qat,
-    //       i18nterm: UIDisplayStringUtil.getFinancePlanTypeEnumDisplayString(+qat as PlanTypeEnum),
-    //       displaystring: '',
-    //     } as UIDisplayString);
-    //   }
-    // }
+    for (const qat in PlanTypeEnum) {
+      if (Number.isNaN(+qat)) {
+        // Do nothing
+      } else {
+        arrst.push({
+          value: +qat,
+          i18nterm: UIDisplayStringUtil.getFinancePlanTypeEnumDisplayString(+qat as PlanTypeEnum),
+          displaystring: '',
+        } as UIDisplayString);
+      }
+    }
 
     return arrst;
   }
@@ -482,8 +482,8 @@ export class UIDisplayStringUtil {
       case TagTypeEnum.FinanceDocumentItem:
         return 'Finance.Document';
 
-      case TagTypeEnum.LearnQuestionBank:
-        return 'Learning.QuestionBank';
+      // case TagTypeEnum.LearnQuestionBank:
+      //   return 'Learning.QuestionBank';
 
       default:
         return '';
@@ -524,33 +524,33 @@ export class UIDisplayStringUtil {
     }
   }
 
-  // public static getAccountStatusDisplayString(stat: AccountStatusEnum): string {
-  //   switch (stat) {
-  //     case AccountStatusEnum.Normal:
-  //       return 'Finance.AccountStatusNormal';
-  //     case AccountStatusEnum.Closed:
-  //       return 'Finance.AccountStatusClosed';
-  //     case AccountStatusEnum.Frozen:
-  //       return 'Finance.AccountStatusFrozen';
-  //     default:
-  //       return '';
-  //   }
-  // }
+  public static getAccountStatusDisplayString(stat: AccountStatusEnum): string {
+    switch (stat) {
+      case AccountStatusEnum.Normal:
+        return 'Finance.AccountStatusNormal';
+      case AccountStatusEnum.Closed:
+        return 'Finance.AccountStatusClosed';
+      case AccountStatusEnum.Frozen:
+        return 'Finance.AccountStatusFrozen';
+      default:
+        return '';
+    }
+  }
 
-  // public static getRepaymentMethodDisplayString(pm: RepaymentMethodEnum): string {
-  //   switch (pm) {
-  //     case RepaymentMethodEnum.EqualPrincipal:
-  //       return 'Finance.EqualPrincipal';
-  //     case RepaymentMethodEnum.EqualPrincipalAndInterset:
-  //       return 'Finance.EqualPrincipalAndInterest';
-  //     case RepaymentMethodEnum.DueRepayment:
-  //       return 'Finance.DueRepayment';
-  //     case RepaymentMethodEnum.Informal:
-  //       return 'Finance.Unspecified';
-  //     default:
-  //       return '';
-  //   }
-  // }
+  public static getRepaymentMethodDisplayString(pm: RepaymentMethodEnum): string {
+    switch (pm) {
+      case RepaymentMethodEnum.EqualPrincipal:
+        return 'Finance.EqualPrincipal';
+      case RepaymentMethodEnum.EqualPrincipalAndInterset:
+        return 'Finance.EqualPrincipalAndInterest';
+      case RepaymentMethodEnum.DueRepayment:
+        return 'Finance.DueRepayment';
+      case RepaymentMethodEnum.Informal:
+        return 'Finance.Unspecified';
+      default:
+        return '';
+    }
+  }
 
   // public static getEnPOSDisplayString(ep: EnPOSEnum): string {
   //   switch (ep) {
@@ -593,18 +593,18 @@ export class UIDisplayStringUtil {
     }
   }
 
-  // public static getTranTypeLevelDisplayString(ttl: TranTypeLevelEnum): string {
-  //   switch (ttl) {
-  //     case TranTypeLevelEnum.TopLevel:
-  //       return 'Finance.TranTypeTopLevel';
-  //     case TranTypeLevelEnum.FirstLevel:
-  //       return 'Finance.TranTypeFirstLevel';
-  //     case TranTypeLevelEnum.SecondLevel:
-  //       return 'Finance.TranTypeSecondLevel';
-  //     default:
-  //       return '';
-  //   }
-  // }
+  public static getTranTypeLevelDisplayString(ttl: TranTypeLevelEnum): string {
+    switch (ttl) {
+      case TranTypeLevelEnum.TopLevel:
+        return 'Finance.TranTypeTopLevel';
+      case TranTypeLevelEnum.FirstLevel:
+        return 'Finance.TranTypeFirstLevel';
+      case TranTypeLevelEnum.SecondLevel:
+        return 'Finance.TranTypeSecondLevel';
+      default:
+        return '';
+    }
+  }
 
   public static getGeneralFilterOperatorDisplayString(opte: GeneralFilterOperatorEnum): string {
     switch (opte) {
@@ -629,20 +629,20 @@ export class UIDisplayStringUtil {
     }
   }
 
-  // public static getFinanceQuickAccessTypeEnumDisplayString(qte: FinanceQuickAccessTypeEnum): string {
-  //   switch (qte) {
-  //     case FinanceQuickAccessTypeEnum.Account:
-  //       return 'Finance.Account';
-  //     case FinanceQuickAccessTypeEnum.Document:
-  //       return 'Finance.Document';
-  //     case FinanceQuickAccessTypeEnum.ControlCenter:
-  //       return 'Finance.ControlCenter';
-  //     case FinanceQuickAccessTypeEnum.Order:
-  //       return 'Finance.Activity';
-  //     default:
-  //       return '';
-  //   }
-  // }
+  public static getFinanceQuickAccessTypeEnumDisplayString(qte: FinanceQuickAccessTypeEnum): string {
+    switch (qte) {
+      case FinanceQuickAccessTypeEnum.Account:
+        return 'Finance.Account';
+      case FinanceQuickAccessTypeEnum.Document:
+        return 'Finance.Document';
+      case FinanceQuickAccessTypeEnum.ControlCenter:
+        return 'Finance.ControlCenter';
+      case FinanceQuickAccessTypeEnum.Order:
+        return 'Finance.Activity';
+      default:
+        return '';
+    }
+  }
 
   public static getHomeMemberRelationEnumDisplayString(re: HomeMemberRelationEnum): string {
     switch (re) {
@@ -659,20 +659,20 @@ export class UIDisplayStringUtil {
     }
   }
 
-//   public static getFinancePlanTypeEnumDisplayString(pte: PlanTypeEnum): string {
-//     switch (pte) {
-//       case PlanTypeEnum.Account:
-//         return 'Finance.Account';
-//       case PlanTypeEnum.AccountCategory:
-//         return 'Finance.AccountCategory';
-//       case PlanTypeEnum.ControlCenter:
-//         return 'Finance.ControlCenter';
-//       case PlanTypeEnum.TranType:
-//         return 'Finance.TransactionType';
-//       default:
-//         return '';
-//     }
-//   }
+  public static getFinancePlanTypeEnumDisplayString(pte: PlanTypeEnum): string {
+    switch (pte) {
+      case PlanTypeEnum.Account:
+        return 'Finance.Account';
+      case PlanTypeEnum.AccountCategory:
+        return 'Finance.AccountCategory';
+      case PlanTypeEnum.ControlCenter:
+        return 'Finance.ControlCenter';
+      case PlanTypeEnum.TranType:
+        return 'Finance.TransactionType';
+      default:
+        return '';
+    }
+  }
 }
 
 export enum GeneralFilterValueType {
@@ -907,14 +907,14 @@ export function getSingleFilterString(flt: GeneralFilterItem): string {
 /**
  * Account for selection
  */
-// export class UIAccountForSelection {
-//   public Id = 0;
-//   public CategoryId = 0;
-//   public Name = '';
-//   public CategoryName = '';
-//   public AssetFlag = false;
-//   public Status: AccountStatusEnum = AccountStatusEnum.Normal;
-// }
+export class UIAccountForSelection {
+  public Id = 0;
+  public CategoryId = 0;
+  public Name = '';
+  public CategoryName = '';
+  public AssetFlag = false;
+  public Status: AccountStatusEnum = AccountStatusEnum.Normal;
+}
 
 /**
  * Buildup accounts for select
@@ -924,59 +924,59 @@ export function getSingleFilterString(flt: GeneralFilterItem): string {
  * @param skiploan Skip Loan accounts
  * @param skipasset Skip Asset accounts
  */
-// export function BuildupAccountForSelection(
-//   acnts: Account[],
-//   acntctg: AccountCategory[],
-//   ctgyFilter?: IAccountCategoryFilter
-// ): UIAccountForSelection[] {
-//   const arrst: UIAccountForSelection[] = [];
+export function BuildupAccountForSelection(
+  acnts: Account[],
+  acntctg: AccountCategory[],
+  ctgyFilter?: IAccountCategoryFilter
+): UIAccountForSelection[] {
+  const arrst: UIAccountForSelection[] = [];
 
-//   if (acnts && acnts.length > 0) {
-//     for (const acnt of acnts) {
-//       const rst: UIAccountForSelection = new UIAccountForSelection();
-//       rst.CategoryId = acnt.CategoryId ?? 0;
-//       rst.Id = acnt.Id ?? 0;
-//       rst.Name = acnt.Name ?? '';
-//       rst.Status = acnt.Status;
+  if (acnts && acnts.length > 0) {
+    for (const acnt of acnts) {
+      const rst: UIAccountForSelection = new UIAccountForSelection();
+      rst.CategoryId = acnt.CategoryId ?? 0;
+      rst.Id = acnt.Id ?? 0;
+      rst.Name = acnt.Name ?? '';
+      rst.Status = acnt.Status;
 
-//       // Skip some categories
-//       if (
-//         ctgyFilter !== undefined &&
-//         ctgyFilter.skipADP === true &&
-//         acnt.CategoryId === financeAccountCategoryAdvancePayment
-//       ) {
-//         continue;
-//       }
-//       if (
-//         ctgyFilter !== undefined &&
-//         ctgyFilter.skipLoan === true &&
-//         (acnt.CategoryId === financeAccountCategoryBorrowFrom || acnt.CategoryId === financeAccountCategoryLendTo)
-//       ) {
-//         continue;
-//       }
-//       if (
-//         ctgyFilter !== undefined &&
-//         ctgyFilter.skipAsset === true &&
-//         acnt.CategoryId === financeAccountCategoryAsset
-//       ) {
-//         continue;
-//       }
+      // Skip some categories
+      if (
+        ctgyFilter !== undefined &&
+        ctgyFilter.skipADP === true &&
+        acnt.CategoryId === financeAccountCategoryAdvancePayment
+      ) {
+        continue;
+      }
+      if (
+        ctgyFilter !== undefined &&
+        ctgyFilter.skipLoan === true &&
+        (acnt.CategoryId === financeAccountCategoryBorrowFrom || acnt.CategoryId === financeAccountCategoryLendTo)
+      ) {
+        continue;
+      }
+      if (
+        ctgyFilter !== undefined &&
+        ctgyFilter.skipAsset === true &&
+        acnt.CategoryId === financeAccountCategoryAsset
+      ) {
+        continue;
+      }
 
-//       if (acntctg && acntctg.length > 0) {
-//         for (const ctgy of acntctg) {
-//           if (ctgy.ID === rst.CategoryId) {
-//             rst.CategoryName = ctgy.Name ?? '';
-//             rst.AssetFlag = ctgy.AssetFlag ?? true;
-//           }
-//         }
-//       }
+      if (acntctg && acntctg.length > 0) {
+        for (const ctgy of acntctg) {
+          if (ctgy.ID === rst.CategoryId) {
+            rst.CategoryName = ctgy.Name ?? '';
+            rst.AssetFlag = ctgy.AssetFlag ?? true;
+          }
+        }
+      }
 
-//       arrst.push(rst);
-//     }
-//   }
+      arrst.push(rst);
+    }
+  }
 
-//   return arrst;
-// }
+  return arrst;
+}
 
 /**
  * Order for selection
@@ -993,59 +993,59 @@ export class UIOrderForSelection {
  * @param orders Orders
  * @param skipinv Skip invalid orders
  */
-// export function BuildupOrderForSelection(orders: Order[], skipinv?: boolean): UIOrderForSelection[] {
-//   const arrst: UIOrderForSelection[] = [];
+export function BuildupOrderForSelection(orders: Order[], skipinv?: boolean): UIOrderForSelection[] {
+  const arrst: UIOrderForSelection[] = [];
 
-//   if (orders && orders.length > 0) {
-//     for (const ord of orders) {
-//       const rst: UIOrderForSelection = new UIOrderForSelection();
-//       if (ord.Id) {
-//         rst.Id = ord.Id;
-//       }
-//       rst.Name = ord.Name;
-//       rst._validFrom = ord.ValidFrom ? new Date(ord.ValidFrom.getTime()) : new Date();
-//       rst._validTo = ord.ValidTo? new Date(ord.ValidTo.getTime()) : new Date();
+  if (orders && orders.length > 0) {
+    for (const ord of orders) {
+      const rst: UIOrderForSelection = new UIOrderForSelection();
+      if (ord.Id) {
+        rst.Id = ord.Id;
+      }
+      rst.Name = ord.Name;
+      rst._validFrom = ord.ValidFrom ? new Date(ord.ValidFrom.getTime()) : new Date();
+      rst._validTo = ord.ValidTo? new Date(ord.ValidTo.getTime()) : new Date();
 
-//       // Skip some categories
-//       if (skipinv) {
-//         if (!isWithinInterval(new Date(), { start: rst._validFrom, end: rst._validTo })) {
-//           continue;
-//         }
-//       }
+      // Skip some categories
+      if (skipinv) {
+        if (!isWithinInterval(new Date(), { start: rst._validFrom, end: rst._validTo })) {
+          continue;
+        }
+      }
 
-//       arrst.push(rst);
-//     }
-//   }
+      arrst.push(rst);
+    }
+  }
 
-//   return arrst;
-// }
+  return arrst;
+}
 
 /**
  * Buildup orders for select
  * @param orders Orders
  * @param momentCreation moment of creation
  */
-// export function BuildupOrderForSelectionEx(orders: Order[], momentCreation: Date): UIOrderForSelection[] {
-//   const arrst: UIOrderForSelection[] = [];
+export function BuildupOrderForSelectionEx(orders: Order[], momentCreation: Date): UIOrderForSelection[] {
+  const arrst: UIOrderForSelection[] = [];
 
-//   if (orders && orders.length > 0) {
-//     for (const ord of orders) {
-//       const rst: UIOrderForSelection = new UIOrderForSelection();
-//       if (ord.Id) {
-//         rst.Id = ord.Id;
-//       }
-//       rst.Name = ord.Name;
-//       rst._validFrom = ord.ValidFrom ? new Date(ord.ValidFrom.getTime()) : new Date();
-//       rst._validTo = ord.ValidTo? new Date(ord.ValidTo.getTime()) : new Date();
+  if (orders && orders.length > 0) {
+    for (const ord of orders) {
+      const rst: UIOrderForSelection = new UIOrderForSelection();
+      if (ord.Id) {
+        rst.Id = ord.Id;
+      }
+      rst.Name = ord.Name;
+      rst._validFrom = ord.ValidFrom ? new Date(ord.ValidFrom.getTime()) : new Date();
+      rst._validTo = ord.ValidTo? new Date(ord.ValidTo.getTime()) : new Date();
 
-//       // Skip some orders
-//       if (!isWithinInterval(momentCreation, { start: rst._validFrom, end: rst._validTo })) {
-//         continue;
-//       }
+      // Skip some orders
+      if (!isWithinInterval(momentCreation, { start: rst._validFrom, end: rst._validTo })) {
+        continue;
+      }
 
-//       arrst.push(rst);
-//     }
-//   }
+      arrst.push(rst);
+    }
+  }
 
-//   return arrst;
-// }
+  return arrst;
+}

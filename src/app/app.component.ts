@@ -11,7 +11,7 @@ import { en_US, NzI18nService, zh_CN } from 'ng-zorro-antd/i18n';
 import { ConsoleLogTypeEnum, ModelUtility } from './model';
 import { environment } from '../environments/environment';
 import { AuthService } from './services/auth.service';
-import { HomeDefService, UIStatusService } from './services';
+import { HomeDefineStorageService, UIStatusService } from './services';
 
 @Component({
   selector: 'app-root',
@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
   private readonly i18n = inject(NzI18nService);
   private readonly authService = inject(AuthService);
   private readonly zone = inject(NgZone);
-  private readonly homesrv = inject(HomeDefService);
+  private readonly homesrv = inject(HomeDefineStorageService);
   private readonly uiSrv = inject(UIStatusService);
   private readonly router = inject(Router);
 

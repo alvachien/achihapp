@@ -1,5 +1,7 @@
 import { UIMode } from 'actslib';
-import { format, parse, startOfMonth, endOfMonth, startOfYear, endOfYear, subMonths, subYears, startOfQuarter, endOfQuarter, subQuarters, startOfWeek, endOfWeek, subWeeks, isWithinInterval } from 'date-fns';
+import { format, parse, startOfMonth, endOfMonth, startOfYear, endOfYear, subMonths, 
+  subYears, startOfQuarter, endOfQuarter, subQuarters, startOfWeek, endOfWeek, 
+  subWeeks, isWithinInterval } from 'date-fns';
 
 export const typeParentSplitter: string = ' > ';
 export const idSplitChar: string = ',';
@@ -59,7 +61,7 @@ export enum QuestionBankTypeEnum {
  * Enum for Tag type
  */
 export enum TagTypeEnum {
-  LearnQuestionBank = 1,
+  // LearnQuestionBank = 1,
   // EnglishWord         = 2,
   // EnglishSentence     = 3,
 
@@ -363,8 +365,8 @@ export class Tag {
 
   get LinkTarget(): string {
     switch (this.TagType) {
-      case TagTypeEnum.LearnQuestionBank:
-        return '/learn/questionbank/display/' + this.TagID?.toString();
+      // case TagTypeEnum.LearnQuestionBank:
+      //   return '/learn/questionbank/display/' + this.TagID?.toString();
 
       // case TagTypeEnum.EnglishWord:
       //   return '/learn/enword/display/' + this.TagID.toString();

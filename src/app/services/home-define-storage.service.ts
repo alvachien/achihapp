@@ -9,7 +9,7 @@ import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class HomeDefService {
+export class HomeDefineStorageService {
   private _redirURL = '';
 
   // Buffer
