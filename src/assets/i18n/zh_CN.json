@@ -21,7 +21,8 @@
         "SimplifiedChinese": "简体中文",
         "InitialPage": "起始页",
         "Person": "人物",
-        "Location": "存储位置"
+        "Location": "存储位置",
+        "Welcome": "欢迎使用"
     },
     "Common": {
         "OK": "OK",

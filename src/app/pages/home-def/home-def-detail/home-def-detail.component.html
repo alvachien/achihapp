@@ -1,5 +1,5 @@
-<div *transloco="let t">
-  <nz-page-header nzBackIcon [nzTitle]="t('Nav.Home')">
+<div>
+  <nz-page-header nzBackIcon [nzTitle]="'Nav.Home' | transloco">
     <nz-breadcrumb nz-page-header-breadcrumb>
       <nz-breadcrumb-item><a routerLink="/homedef">{{ 'Nav.HomeList' | transloco }}</a></nz-breadcrumb-item>
     </nz-breadcrumb>
@@ -17,7 +17,7 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="7" nzRequired>{{ 'Common.ID' | transloco }}</nz-form-label>
       <nz-form-control [nzSpan]="12">
-        <input nz-input formControlName="idControl" readonly />
+        <input nz-input formControlName="id" readonly />
       </nz-form-control>
     </nz-form-item>
 
@@ -25,7 +25,7 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="7" nzRequired>{{ 'Common.Name' | transloco }}</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="nameTpl">
-        <input nz-input formControlName="nameControl" maxlength="30" required />
+        <input nz-input formControlName="name" maxlength="30" required />
         <ng-template #nameTpl let-control>
           @if(control.hasError('maxlength')) {
             <ng-container>
@@ -45,7 +45,7 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="7">{{ 'Common.Detail' | transloco }}</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="detailTpl">
-        <input nz-input formControlName="detailControl" maxlength="50" required />
+        <input nz-input formControlName="detail" maxlength="50" required />
         <ng-template #detailTpl let-control>
           @if(control.hasError('maxlength')) {
             <ng-container>
@@ -60,9 +60,9 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="7" nzRequired>{{ 'Finance.Currency' | transloco }}</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="currTpl">
-        <nz-select formControlName="baseCurrControl">
+        <nz-select formControlName="baseCurr">
           @for(cr of arCurrencies; track cr.Currency) {
-            <nz-option [nzValue]="cr.Currency" [nzLabel]="t(cr.Name!) + ' - ' + cr.Symbol"></nz-option>
+            <nz-option [nzValue]="cr.Currency" [nzLabel]="getCurrencyWithSymbol(cr)"></nz-option>
           }
         </nz-select>
         <ng-template #currTpl let-control>
@@ -79,7 +79,7 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="7" nzRequired>{{ 'Common.Host' | transloco }}</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="hostTpl">
-        <input nz-input formControlName="hostControl" maxlength="50" required />
+        <input nz-input formControlName="host" maxlength="50" required />
         <ng-template #hostTpl let-control>
           @if(control.hasError('maxlength')) {
             <ng-container>
@@ -160,7 +160,7 @@
               <nz-form-control nzHasFeedback [nzErrorTip]="rltTpl">
                 <nz-select [nzDisabled]="!isFieldChangable" [(ngModel)]="data.Relation" (ngModelChange)="onChange()">
                   @for(tt of listMemRel; track tt.value) {
-                    <nz-option [nzValue]="tt.value" [nzLabel]="t(tt.i18nterm)"></nz-option>
+                    <nz-option [nzValue]="tt.value" [nzLabel]="tt.i18nterm | transloco"></nz-option>
                   }                  
                 </nz-select>
                 <ng-template #rltTpl let-control>

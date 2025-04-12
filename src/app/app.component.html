@@ -12,7 +12,7 @@
       </a>
     </div>
     <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
+      <li nz-submenu nzOpen [nzTitle]="'Common.Dashboard' | transloco" nzIcon="dashboard">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/welcome">{{'Nav.Welcome' | transloco}}</a>
@@ -20,8 +20,18 @@
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/homedef">{{'Nav.HomeList' | transloco}}</a>
           </li>
+        </ul>        
+      </li>
+      <li nz-submenu [nzTitle]="'Nav.FinanceTrace' | transloco" nzIcon="money-collect">
+        <ul>
           <li nz-menu-item nzMatchRouter>
-            <a>Workplace</a>
+            <a [routerLink]="['/', 'finance', 'overview']">{{ 'Common.Overview' | transloco }}</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a [routerLink]="['/', 'finance', 'currencies']">{{ 'Finance.Currencies' | transloco }}</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a [routerLink]="['/', 'finance', 'config']">{{ 'Finance.ConfigObjects' | transloco }}</a>
           </li>
         </ul>
       </li>
@@ -81,6 +91,9 @@
             {{titleLogin}}
           </span>
         }
+        <span class="header-item" (click)="onOpenGithub()">
+          <i class="trigger" nz-icon nzType="github" nzTheme="outline"></i>
+        </span>
       </div>
     </nz-header>
     <nz-content>

@@ -1,0 +1,24 @@
+<nz-spin [nzSpinning]="isLoadingResults" [nzSize]="'large'" nzTip="Loading...">
+  <nz-table #basicTable [nzData]="dataSet">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>{{ 'Common.Name' | transloco }}</th>
+        <th>{{ 'Finance.IsExpense' | transloco }}</th>
+        <th>{{ 'Common.Parent' | transloco }}</th>
+        <th>{{ 'Common.Comment' | transloco }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(data of basicTable.data; track $index) {
+        <tr>
+          <td>{{ data.Id }}</td>
+          <td>{{ data.Name }}</td>
+          <td><nz-switch [(ngModel)]="data.Expense" nzDisabled></nz-switch></td>
+          <td>{{ data.ParId }}</td>
+          <td>{{ data.Comment }}</td>
+        </tr>
+      }
+    </tbody>
+  </nz-table>
+</nz-spin>

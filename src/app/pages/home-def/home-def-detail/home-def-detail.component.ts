@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
-import { UntypedFormGroup, Validators, UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, Validators, FormControl, FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReplaySubject, forkJoin } from 'rxjs';
 import { takeUntil, finalize } from 'rxjs/operators';
@@ -28,6 +28,14 @@ import {
 } from '../../../model';
 import { AuthService, HomeDefineStorageService, FinanceStorageService } from '../../../services';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+
+interface HomeDefDetailForm {
+  id: FormControl<string | null>;
+  name: FormControl<string | null>;
+  detail: FormControl<string | null>;
+  baseCurr: FormControl<string | null>;
+  host: FormControl<string | null | undefined>;
+}
 
 @Component({
     selector: 'hih-home-def-detail',
@@ -58,7 +66,7 @@ export class HomeDefDetailComponent implements OnInit, OnDestroy {
   public currentMode: string | null = null;
   public uiMode: UIMode = UIMode.Create;
   public arCurrencies: Currency[] = [];
-  public detailFormGroup: UntypedFormGroup;
+  public detailFormGroup: FormGroup<HomeDefDetailForm>;
   public listMembers: HomeMember[] = [];
   public listMemRel: UIDisplayString[] = [];
 
@@ -68,6 +76,7 @@ export class HomeDefDetailComponent implements OnInit, OnDestroy {
   private readonly router = inject(Router);
   private readonly activateRoute = inject(ActivatedRoute);
   private readonly modalService = inject(NzModalService);
+  private readonly formBuilder = inject(FormBuilder);
 
   get IsCreateMode(): boolean {
     return this.uiMode === UIMode.Create;
@@ -109,8 +118,8 @@ export class HomeDefDetailComponent implements OnInit, OnDestroy {
   }
   get currentHomeDefObject(): HomeDef {
     const hdobj = new HomeDef();
-    hdobj.Name = this.detailFormGroup.get('nameControl')?.value;
-    hdobj.BaseCurrency = this.detailFormGroup.get('baseCurrControl')?.value;
+    hdobj.Name = this.detailFormGroup.value.name ?? '';
+    hdobj.BaseCurrency = this.detailFormGroup.value.baseCurr ?? '';
     this.listMembers.forEach((val) => {
       hdobj.Members.push(val);
     });
@@ -118,9 +127,7 @@ export class HomeDefDetailComponent implements OnInit, OnDestroy {
     return hdobj;
   }
 
-  constructor(
-    
-  ) {
+  constructor() {
     ModelUtility.writeConsoleLog(
       'AC_HIH_UI [Debug]: Entering HomeDefDetailComponent constructor...',
       ConsoleLogTypeEnum.debug
@@ -128,19 +135,17 @@ export class HomeDefDetailComponent implements OnInit, OnDestroy {
 
     this.listMemRel = UIDisplayStringUtil.getHomeMemberRelationEnumStrings();
 
-    this.detailFormGroup = new UntypedFormGroup({
-      idControl: new UntypedFormControl({ value: undefined, disabled: true }),
-      nameControl: new UntypedFormControl('', Validators.required),
-      detailControl: new UntypedFormControl(),
-      baseCurrControl: new UntypedFormControl('', Validators.required),
-      hostControl: new UntypedFormControl(
-        {
-          value: this.authService.authSubject.getValue().getUserId(),
-          disabled: true,
-        },
-        Validators.required
-      ),
+    this.detailFormGroup = this.formBuilder.group<HomeDefDetailForm>({
+      id: this.formBuilder.control({ value: null, disabled: true }),
+      name: this.formBuilder.control('', Validators.required),
+      detail: this.formBuilder.control(''),
+      baseCurr: this.formBuilder.control('', Validators.required),
+      host: this.formBuilder.control({
+        value: this.authService.authSubject.getValue().getUserId(),
+        disabled: true,
+      }, Validators.required),
     });
+
     this.isLoadingResults = false;
   }
 
@@ -177,17 +182,20 @@ export class HomeDefDetailComponent implements OnInit, OnDestroy {
             .pipe(
               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               takeUntil(this._destroyed$!),
-              finalize(() => (this.isLoadingResults = false))
+              finalize(() => this.isLoadingResults = false)
             )
             .subscribe({
               next: (rsts) => {
                 this.arCurrencies = rsts[0];
+                console.log(rsts[1]);
 
-                this.detailFormGroup.get('idControl')?.setValue(rsts[1].ID);
-                this.detailFormGroup.get('nameControl')?.setValue(rsts[1].Name);
-                this.detailFormGroup.get('baseCurrControl')?.setValue(rsts[1].BaseCurrency);
-                this.detailFormGroup.get('hostControl')?.setValue(rsts[1].Host);
-                this.detailFormGroup.get('detailControl')?.setValue(rsts[1].Details);
+                this.detailFormGroup.patchValue({
+                  id: rsts[1].ID.toString(),
+                  name: rsts[1].Name,
+                  baseCurr: rsts[1].BaseCurrency,
+                  host: rsts[1].Host,
+                  detail: rsts[1].Details,
+                });
                 this.detailFormGroup.markAsUntouched();
                 this.detailFormGroup.markAsPristine();
 
@@ -195,7 +203,7 @@ export class HomeDefDetailComponent implements OnInit, OnDestroy {
                   this.detailFormGroup.disable();
                 } else if (this.uiMode === UIMode.Update) {
                   this.detailFormGroup.enable();
-                  this.detailFormGroup.get('idControl')?.disable();
+                  this.detailFormGroup.controls.id.disable();
                 }
 
                 this.listMembers = rsts[1].Members.slice();
@@ -268,15 +276,19 @@ export class HomeDefDetailComponent implements OnInit, OnDestroy {
     );
   }
 
+  getCurrencyWithSymbol(cr: Currency): string {
+    return translate(cr.Name!) + ' - ' + cr.Symbol;
+  }
+
   onSave() {
     // Save the data
     if (this.uiMode === UIMode.Create) {
       // Create mode
       const hdobj = new HomeDef();
-      hdobj.Name = this.detailFormGroup.get('nameControl')?.value;
-      hdobj.BaseCurrency = this.detailFormGroup.get('baseCurrControl')?.value;
-      hdobj.Host = this.detailFormGroup.get('hostControl')?.value;
-      hdobj.Details = this.detailFormGroup.get('detailControl')?.value;
+      hdobj.Name = this.detailFormGroup.value.name ?? '';
+      hdobj.BaseCurrency = this.detailFormGroup.value.baseCurr ?? '';
+      hdobj.Host = this.detailFormGroup.value.host ?? '';
+      hdobj.Details = this.detailFormGroup.value.detail ?? '';
 
       this.listMembers.forEach((val) => hdobj.Members.push(val));
       if (!hdobj.isValid) {
@@ -311,10 +323,10 @@ export class HomeDefDetailComponent implements OnInit, OnDestroy {
       // Change mode
       const hdobj = new HomeDef();
       hdobj.ID = +this.routerID;
-      hdobj.Name = this.detailFormGroup.get('nameControl')?.value;
-      hdobj.BaseCurrency = this.detailFormGroup.get('baseCurrControl')?.value;
-      hdobj.Host = this.detailFormGroup.get('hostControl')?.value;
-      hdobj.Details = this.detailFormGroup.get('detailControl')?.value;
+      hdobj.Name = this.detailFormGroup.value.name ?? '';
+      hdobj.BaseCurrency = this.detailFormGroup.value.baseCurr ?? '';
+      hdobj.Host = this.detailFormGroup.value.host ?? '';
+      hdobj.Details = this.detailFormGroup.value.detail ?? '';
 
       this.listMembers.forEach((val) => hdobj.Members.push(val));
       if (!hdobj.isValid) {

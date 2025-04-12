@@ -1,0 +1,20 @@
+<nz-spin [nzSpinning]="isLoadingResults" [nzSize]="'large'">
+  <nz-table #basicTable [nzData]="dataSet">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>{{ 'Common.Name' | transloco }}</th>
+        <th>{{ 'Common.Comment' | transloco }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(data of basicTable.data; track $index) {
+        <tr>
+          <td>{{ data.Id }}</td>
+          <td>{{ data.Name | transloco }}</td>
+          <td>{{ data.Comment }}</td>
+        </tr>  
+      }
+    </tbody>
+  </nz-table>
+</nz-spin>

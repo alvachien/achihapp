@@ -151,9 +151,9 @@ export class HomeDefineStorageService {
       .append('Authorization', 'Bearer ' + this._authService.authSubject.getValue().getAccessToken());
     let params: HttpParams = new HttpParams();
     params = params.append('$expand', 'HomeMembers');
-    params = params.append('$filter', `ID eq ${hid}`);
+    //params = params.append('$filter', `ID eq ${hid}`);
 
-    return this._http.get(this.apiUrl, {
+    return this._http.get(`${this.apiUrl}(${hid})`, {
       headers,
       params,
     })

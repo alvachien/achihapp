@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    ModelUtility.writeConsoleLog('AC HIH UI [Debug]: Entering AppComponent ngOnInit', ConsoleLogTypeEnum.debug);
+    ModelUtility.writeConsoleLog('AC_HIH_APP [Debug]: Entering AppComponent ngOnInit', ConsoleLogTypeEnum.debug);
 
     // Check Version
     this.homesrv.checkDBVersion().subscribe({
@@ -65,7 +65,7 @@ export class AppComponent implements OnInit {
     // Check login status
     this.authService.authContent.subscribe((x) => {
       ModelUtility.writeConsoleLog(
-        'AC HIH UI [Debug]: Entering AppComponent authService.authContent subscribe',
+        'AC_HIH_APP [Debug]: Entering AppComponent authService.authContent subscribe',
         ConsoleLogTypeEnum.debug
       );
       this.zone.run(() => {
@@ -91,14 +91,14 @@ export class AppComponent implements OnInit {
     } 
   }
   public onLogon(): void {
-    ModelUtility.writeConsoleLog('AC HIH UI [Debug]: Entering AppComponent onLogon', ConsoleLogTypeEnum.debug);
+    ModelUtility.writeConsoleLog('AC_HIH_APP [Debug]: Entering AppComponent onLogon', ConsoleLogTypeEnum.debug);
 
     if (environment.LoginRequired) {
       this.authService.doLogin();
     }
   }
   public onLogout(): void {
-    ModelUtility.writeConsoleLog('AC HIH UI [Debug]: Entering AppComponent onLogout', ConsoleLogTypeEnum.debug);
+    ModelUtility.writeConsoleLog('AC_HIH_APP [Debug]: Entering AppComponent onLogout', ConsoleLogTypeEnum.debug);
 
     if (environment.LoginRequired) {
       this.authService.doLogout();
@@ -106,5 +106,8 @@ export class AppComponent implements OnInit {
   }
   public onGoToUserDetail() : void {
 
+  }
+  public onOpenGithub(): void {
+    
   }
 }
