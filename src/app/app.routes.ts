@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { autoLoginPartialRoutesGuard } from 'angular-auth-oidc-client';
+import { homeChosenGuard } from './util';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/welcome' },
@@ -11,7 +12,11 @@ export const routes: Routes = [
   { path: 'homedef', loadChildren: () => import('./pages/home-def/home-def.routes').then( m=> m.HOMEDEF_ROUTES ), canLoad: [autoLoginPartialRoutesGuard], },
 
   // Finance
-  { path: 'finance', loadChildren: () => import('./pages/finance/finance.routes').then( m=> m.FINANCE_ROUTES ) },
+  { 
+    path: 'finance', 
+    canActivateChild: [homeChosenGuard],
+    loadChildren: () => import('./pages/finance/finance.routes').then( m=> m.FINANCE_ROUTES ) 
+  },
 
   // About.
   { path: 'about', loadChildren: () => import('./pages/about/about.routes').then( m=> m.ABOUT_ROUTES ) },

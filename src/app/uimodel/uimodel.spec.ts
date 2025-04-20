@@ -1,0 +1,4 @@
+/**
+ * Spec for uimodel.ts
+ *
+ */

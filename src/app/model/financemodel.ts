@@ -1,4 +1,4 @@
-import { addDays, format, parse } from 'date-fns';
+import { addDays, format, parseISO } from 'date-fns';
 import * as hih from './common';
 import { addYears, addMonths, startOfDay, isBefore, isEqual, isAfter, isWithinInterval } from 'date-fns';
 
@@ -880,10 +880,10 @@ export class AccountExtraAdvancePayment extends AccountExtra {
       this.Direct = false;
     }
     if (data && data.StartDate) {
-      this._startDate = parse(data.StartDate, hih.DateDisplayFormat, new Date());
+      this._startDate = parseISO(data.StartDate);
     }
     if (data && data.EndDate) {
-      this._endDate = parse(data.EndDate, hih.DateDisplayFormat, new Date());
+      this._endDate = parseISO(data.EndDate);
     }
     if (data && data.RepeatType) {
       this.RepeatType = data.RepeatType;
@@ -1016,7 +1016,7 @@ export class AccountExtraAsset extends AccountExtra {
       this.Comment = data.Comment;
     }
     if (data && data.BoughtDate) {
-      this.BoughtDate = parse(data.BoughtDate, hih.DateDisplayFormat, new Date());
+      this.BoughtDate = parseISO(data.BoughtDate);
     }
     if (data && data.ExpiredDate) {
       this.ExpiredDate = new Date(data.ExpiredDate);
@@ -1284,10 +1284,10 @@ export class AccountExtraLoan extends AccountExtra {
     super.onSetData(data);
 
     if (data && data.StartDate) {
-      this._startDate = parse(data.StartDate, hih.DateDisplayFormat, new Date());
+      this._startDate = parseISO(data.StartDate);
     }
     if (data && data.EndDate) {
-      this._endDate = parse(data.EndDate, hih.DateDisplayFormat, new Date());
+      this._endDate = parseISO(data.EndDate);
     }
     if (data && data.AnnualRate) {
       this.annualRate = +data.AnnualRate;
@@ -1734,10 +1734,10 @@ export class Order extends hih.BaseModel {
       this.Comment = data.Comment;
     }
     if (data && data.ValidFrom) {
-      this.ValidFrom = parse(data.ValidFrom, hih.DateDisplayFormat, new Date());
+      this.ValidFrom = parseISO(data.ValidFrom);
     }
     if (data && data.ValidTo) {
-      this.ValidTo = parse(data.ValidTo, hih.DateDisplayFormat, new Date());
+      this.ValidTo = parseISO(data.ValidTo);
     }
 
     this.SRules = [];
@@ -2396,7 +2396,7 @@ export class Document extends hih.BaseModel {
       this.DocType = +data.DocType;
     }
     if (data && data.TranDate) {
-      this.TranDate = parse(data.TranDate, hih.DateDisplayFormat, new Date());
+      this.TranDate = parseISO(data.TranDate);
     }
     if (data && data.TranCurr) {
       this.TranCurr = data.TranCurr;
@@ -2924,7 +2924,7 @@ export abstract class TemplateDocBase extends hih.BaseModel {
       this.AccountId = +data.AccountID;
     }
     if (data && data.TransactionDate) {
-      this.TranDate = parse(data.TransactionDate, hih.DateDisplayFormat, new Date());
+      this.TranDate = parseISO(data.TransactionDate);
     }
     if (data && data.TransactionType) {
       this.TranType = +data.TransactionType;
@@ -3185,10 +3185,10 @@ export class Plan extends hih.BaseModel {
       this.ControlCenterID = data.ControlCenterID;
     }
     if (data && data.StartDate) {
-      this.StartDate = parse(data.StartDate, hih.DateDisplayFormat, new Date());
+      this.StartDate = parseISO(data.StartDate);
     }
     if (data && data.TargetDate) {
-      this.TargetDate = parse(data.TargetDate, hih.DateDisplayFormat, new Date());
+      this.TargetDate = parseISO(data.TargetDate);
     }
     if (data && data.TargetBalance) {
       this.TargetBalance = data.TargetBalance;
@@ -3466,7 +3466,7 @@ export class TranTypeReport {
       this.ExpenseFlag = data.expenseFlag;
     }
     if (data && data.tranDate) {
-      this.TranDate = parse(data.tranDate, hih.DateDisplayFormat, new Date());
+      this.TranDate = parseISO(data.tranDate);
     }
     if (data && data.tranAmount) {
       this.TranAmount = +data.tranAmount;
@@ -3515,7 +3515,7 @@ export class ReportTrendExData {
 
   public onSetData(data: any): void {
     if (data && data.tranDate) {
-      this.tranDate = parse(data.tranDate, hih.DateDisplayFormat, new Date());
+      this.tranDate = parseISO(data.tranDate);
     }
     if (data && data.tranWeek) {
       this.tranWeek = data.tranWeek;
@@ -3603,7 +3603,7 @@ export class DocumentItemWithBalance {
       this.OrderName = data.orderName;
     }
     if (data && data.tranDate) {
-      this.TranDate = parse(data.tranDate, hih.DateDisplayFormat, new Date());
+      this.TranDate = parseISO(data.tranDate);
     }
     if (data && data.docDesp) {
       this.DocDesp = data.docDesp;
@@ -3666,7 +3666,7 @@ export class DocumentWithPlanExgRate {
       this.DocType = +jdata.docType;
     }
     if (jdata && jdata.tranDate) {
-      this.TranDate = parse(jdata.tranDate, hih.DateDisplayFormat, new Date());
+      this.TranDate = parseISO(jdata.tranDate);
     }
     if (jdata && jdata.desp) {
       this.Desp = jdata.desp;
@@ -3926,7 +3926,7 @@ export class FinanceReportEntryPerDate extends FinanceReportEntry {
   public override onSetData(val: any): void {
     super.onSetData(val);
     if (val && val.TransactionDate) {
-      this.transactionDate = parse(val.TransactionDate, hih.DateDisplayFormat, new Date());
+      this.transactionDate = parseISO(val.TransactionDate);
     }
   }
 }

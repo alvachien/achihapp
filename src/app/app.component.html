@@ -33,6 +33,18 @@
           <li nz-menu-item nzMatchRouter>
             <a [routerLink]="['/', 'finance', 'config']">{{ 'Finance.ConfigObjects' | transloco }}</a>
           </li>
+          <li nz-menu-item nzMatchRouter>
+            <a [routerLink]="['/', 'finance', 'controlcenter']">{{ 'Finance.ControlCenters' | transloco }}</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a [routerLink]="['/', 'finance', 'activity']">{{ 'Finance.Activities' | transloco }}</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a [routerLink]="['/', 'finance', 'account']">{{ 'Finance.Accounts' | transloco }}</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a [routerLink]="['/', 'finance', 'document']">{{ 'Finance.Documents' | transloco }}</a>
+          </li>
         </ul>
       </li>
       <li nz-submenu [nzTitle]="'Common.Help' | transloco" nzIcon="question-circle">

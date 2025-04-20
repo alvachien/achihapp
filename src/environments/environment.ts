@@ -3,7 +3,7 @@ export const environment = {
 
     LoginRequired: true,
     CurrentVersion: '2.0.690',
-    ReleasedDate: '2025.3.31',
+    ReleasedDate: '2025.4.21',
     DefaultLanguage: 'zh-CN',
   
     DebugLogging: false,

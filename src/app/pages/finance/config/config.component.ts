@@ -12,6 +12,7 @@ import { DocTypeListComponent } from './doc-type-list';
 import { TranTypeHierarchyComponent } from './tran-type-hierarchy';
 import { TranTypeListComponent } from './tran-type-list';
 import { HomeDefineStorageService } from '../../../services';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'hih-finance-config',
@@ -29,6 +30,7 @@ import { HomeDefineStorageService } from '../../../services';
     TranTypeListComponent,
     TranslocoModule,
     NzModalModule,
+    RouterModule,
   ]
 })
 export class ConfigComponent {
