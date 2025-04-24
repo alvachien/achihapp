@@ -199,6 +199,8 @@
         "CategoryFetchFailedOrNoOne": "类别获取失败或者系统中尚未创建类别",
         "DuplicatedID": "重复的ID",
         "CategoryIsMust": "类别必须输入",
+        "User": "用户",
+        "DisplayAs": "显示名",
         "UserIsMust": "用户是必填项",
         "InvalidUser": "无效的用户",
         "UserFetchedFailed": "用户信息获取失败",

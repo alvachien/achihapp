@@ -199,6 +199,8 @@
         "CategoryFetchFailedOrNoOne": "Failed to fetch categories or no category created at all",
         "DuplicatedID": "Duplicated ID",
         "CategoryIsMust": "Category is a must",
+        "User": "User",
+        "DisplayAs": "Display As",
         "UserIsMust": "User is a must",
         "InvalidUser": "Invalid User",
         "UserFetchedFailed": "Failed to fetch users",

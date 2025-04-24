@@ -38,27 +38,26 @@ interface HomeDefDetailForm {
 }
 
 @Component({
-    selector: 'hih-home-def-detail',
-    templateUrl: './home-def-detail.component.html',
-    styleUrls: ['./home-def-detail.component.less'],
-    imports: [
-      NzPageHeaderModule,
-      NzBreadCrumbModule,
-      TranslocoModule,
-      FormsModule,
-      ReactiveFormsModule,
-      NzFormModule,
-      NzSelectModule,
-      NzDividerModule,
-      NzTableModule,
-      NzInputModule,
-      NzCheckboxModule,
-      NzModalModule,
-      NzButtonModule,
-    ]
+  selector: 'hih-home-def-detail',
+  templateUrl: './home-def-detail.component.html',
+  styleUrls: ['./home-def-detail.component.less'],
+  imports: [
+    NzPageHeaderModule,
+    NzBreadCrumbModule,
+    TranslocoModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NzFormModule,
+    NzSelectModule,
+    NzDividerModule,
+    NzTableModule,
+    NzInputModule,
+    NzCheckboxModule,
+    NzModalModule,
+    NzButtonModule,
+  ]
 })
 export class HomeDefDetailComponent implements OnInit, OnDestroy {
-  /* eslint-disable @typescript-eslint/naming-convention, no-underscore-dangle, id-blacklist, id-match */
   private _destroyed$: ReplaySubject<boolean> | null = null;
   private routerID = -1; // Current object ID in routing
 
@@ -129,7 +128,7 @@ export class HomeDefDetailComponent implements OnInit, OnDestroy {
 
   constructor() {
     ModelUtility.writeConsoleLog(
-      'AC_HIH_UI [Debug]: Entering HomeDefDetailComponent constructor...',
+      'AC_HIH_APP [Debug]: Entering HomeDefDetailComponent constructor...',
       ConsoleLogTypeEnum.debug
     );
 
@@ -180,14 +179,13 @@ export class HomeDefDetailComponent implements OnInit, OnDestroy {
           this.isLoadingResults = true;
           forkJoin([this.finService.fetchAllCurrencies(), this.storageService.readHomeDef(this.routerID)])
             .pipe(
-              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               takeUntil(this._destroyed$!),
               finalize(() => this.isLoadingResults = false)
             )
             .subscribe({
               next: (rsts) => {
                 this.arCurrencies = rsts[0];
-                console.log(rsts[1]);
+                // console.log(rsts[1]);
 
                 this.detailFormGroup.patchValue({
                   id: rsts[1].ID.toString(),
@@ -259,7 +257,7 @@ export class HomeDefDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     ModelUtility.writeConsoleLog(
-      'AC_HIH_UI [Debug]: Entering HomeDefDetailComponent ngOnDestroy...',
+      'AC_HIH_APP [Debug]: Entering HomeDefDetailComponent ngOnDestroy...',
       ConsoleLogTypeEnum.debug
     );
 
@@ -271,7 +269,7 @@ export class HomeDefDetailComponent implements OnInit, OnDestroy {
 
   onChange() {
     ModelUtility.writeConsoleLog(
-      'AC_HIH_UI [Debug]: Entering HomeDefDetailComponent onChange...',
+      'AC_HIH_APP [Debug]: Entering HomeDefDetailComponent onChange...',
       ConsoleLogTypeEnum.debug
     );
   }
@@ -287,7 +285,7 @@ export class HomeDefDetailComponent implements OnInit, OnDestroy {
       const hdobj = new HomeDef();
       hdobj.Name = this.detailFormGroup.value.name ?? '';
       hdobj.BaseCurrency = this.detailFormGroup.value.baseCurr ?? '';
-      hdobj.Host = this.detailFormGroup.value.host ?? '';
+      hdobj.Host = this.detailFormGroup.controls['host'].value ?? '';
       hdobj.Details = this.detailFormGroup.value.detail ?? '';
 
       this.listMembers.forEach((val) => hdobj.Members.push(val));
@@ -303,7 +301,6 @@ export class HomeDefDetailComponent implements OnInit, OnDestroy {
 
       this.storageService
         .createHomeDef(hdobj)
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         .pipe(takeUntil(this._destroyed$!))
         .subscribe({
           next: (val) => {
@@ -341,7 +338,6 @@ export class HomeDefDetailComponent implements OnInit, OnDestroy {
 
       this.storageService
         .changeHomeDef(hdobj)
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         .pipe(takeUntil(this._destroyed$!))
         .subscribe({
           next: () => {
