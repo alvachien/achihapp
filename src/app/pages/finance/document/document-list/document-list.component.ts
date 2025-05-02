@@ -16,12 +16,12 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ReplaySubject, forkJoin, takeUntil, finalize } from 'rxjs';
-import { format } from 'date-fns';
+import { format, addMonths, } from 'date-fns';
 
 import { GeneralFilterItem, Currency, Account, UIAccountForSelection, AccountCategory, DocumentType, 
   ControlCenter, Order, UIOrderForSelection, TranType, ITableFilterValues, ModelUtility, ConsoleLogTypeEnum, 
   BuildupAccountForSelection, BuildupOrderForSelection, GeneralFilterOperatorEnum, 
-  GeneralFilterValueType, BaseListModel, DateDisplayFormat, Document
+  GeneralFilterValueType, BaseListModel, DateDisplayFormat, Document,
 } from '../../../../model';
 import { FinanceStorageService, HomeDefineStorageService } from '../../../../services';
 
@@ -88,21 +88,21 @@ export class DocumentListComponent implements OnInit, OnDestroy {
 
   constructor() {
     ModelUtility.writeConsoleLog(
-      'AC_HIH_UI [Debug]: Entering DocumentListComponent constructor...',
+      'AC_HIH_APP [Debug]: Entering DocumentListComponent constructor...',
       ConsoleLogTypeEnum.debug
     );
   }
 
   ngOnInit() {
     ModelUtility.writeConsoleLog(
-      'AC_HIH_UI [Debug]: Entering DocumentListComponent ngOnInit...',
+      'AC_HIH_APP [Debug]: Entering DocumentListComponent ngOnInit...',
       ConsoleLogTypeEnum.debug
     );
 
     this._destroyed$ = new ReplaySubject(1);
     this._isInitialized = true;
 
-    //this.selectedRange = [moment().startOf('month').toDate(), moment().endOf('month').toDate()];
+    this.selectedRange = [addMonths(new Date(), -1), new Date()];
 
     this.isLoadingResults = true;
     const arseqs = [
@@ -124,7 +124,7 @@ export class DocumentListComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (val: any) => {
           ModelUtility.writeConsoleLog(
-            'AC_HIH_UI [Debug]: Entering DocumentListComponent ngOnInit, forkJoin...',
+            'AC_HIH_APP [Debug]: Entering DocumentListComponent ngOnInit, forkJoin...',
             ConsoleLogTypeEnum.debug
           );
 
@@ -142,7 +142,6 @@ export class DocumentListComponent implements OnInit, OnDestroy {
           this.arCurrencies.forEach((cur) => {
             arfilters.push({
               value: cur.Currency,
-              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               text: translate(cur.Name!),
             });
           });
@@ -152,7 +151,6 @@ export class DocumentListComponent implements OnInit, OnDestroy {
           this.arDocTypes.forEach((dt: any) => {
             arfilters.push({
               value: dt.Id,
-              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               text: translate(dt.Name!),
             });
           });
@@ -160,7 +158,7 @@ export class DocumentListComponent implements OnInit, OnDestroy {
         },
         error: (err) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Entering DocumentListComponent ngOnInit, forkJoin failed ${err}`,
+            `AC_HIH_APP [Error]: Entering DocumentListComponent ngOnInit, forkJoin failed ${err}`,
             ConsoleLogTypeEnum.error
           );
 
@@ -176,7 +174,7 @@ export class DocumentListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     ModelUtility.writeConsoleLog(
-      'AC_HIH_UI [Debug]: Entering DocumentListComponent ngOnDestroy...',
+      'AC_HIH_APP [Debug]: Entering DocumentListComponent ngOnDestroy...',
       ConsoleLogTypeEnum.debug
     );
 
@@ -190,14 +188,12 @@ export class DocumentListComponent implements OnInit, OnDestroy {
     const curobj = this.arCurrencies.find((c) => {
       return c.Currency === curr;
     });
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return curobj ? translate(curobj.Name!) + `(${curr})` : curr;
   }
   public getDocTypeName(dtid: number) {
     const dtobj = this.arDocTypes.find((dt: any) => {
       return dt.Id === dtid;
     });
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return dtobj ? translate(dtobj.Name!) : dtid.toString();
   }
   public getAccountName(acntid: number): string {
@@ -228,7 +224,7 @@ export class DocumentListComponent implements OnInit, OnDestroy {
 
   onQueryParamsChange(params: NzTableQueryParams) {
     ModelUtility.writeConsoleLog(
-      'AC_HIH_UI [Debug]: Entering DocumentListComponent onQueryParamsChange...',
+      'AC_HIH_APP [Debug]: Entering DocumentListComponent onQueryParamsChange...',
       ConsoleLogTypeEnum.debug
     );
 
@@ -268,20 +264,13 @@ export class DocumentListComponent implements OnInit, OnDestroy {
     }
 
     if (this._isInitialized) {
-      this.fetchData(
-        fieldName && fieldOrder
-          ? {
-            field: fieldName,
-            order: fieldOrder,
-          }
-          : undefined
-      );
+      this.fetchData(fieldName && fieldOrder ? { field: fieldName, order: fieldOrder, } : undefined);
     }
   }
 
   fetchData(orderby?: { field: string; order: string }): void {
     ModelUtility.writeConsoleLog(
-      'AC_HIH_UI [Debug]: Entering DocumentListComponent fetchData...',
+      'AC_HIH_APP [Debug]: Entering DocumentListComponent fetchData...',
       ConsoleLogTypeEnum.debug
     );
 
@@ -297,12 +286,11 @@ export class DocumentListComponent implements OnInit, OnDestroy {
       highValue: format(end, DateDisplayFormat),
       valueType: GeneralFilterValueType.number,
     });
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     if (this.homeService.CurrentMemberInChosedHome!.IsChild) {
       this._filterDocItem.push({
         fieldName: 'Createdby',
         operator: GeneralFilterOperatorEnum.Equal,
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         lowValue: `${this.homeService.CurrentMemberInChosedHome!.User}`,
         highValue: ``,
         valueType: GeneralFilterValueType.string,
@@ -317,7 +305,6 @@ export class DocumentListComponent implements OnInit, OnDestroy {
         orderby
       )
       .pipe(
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         takeUntil(this._destroyed$!),
         finalize(() => (this.isLoadingResults = false))
       )
@@ -330,7 +317,7 @@ export class DocumentListComponent implements OnInit, OnDestroy {
               this.totalDocumentCount = 0;
             }
 
-            this.listOfDocs = revdata.contentList;
+            this.listOfDocs = revdata.contentList.slice();
           } else {
             this.totalDocumentCount = 0;
             this.listOfDocs = [];
@@ -338,7 +325,7 @@ export class DocumentListComponent implements OnInit, OnDestroy {
         },
         error: (err) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Entering DocumentListComponent fetchData, fetchAllDocuments failed ${err}...`,
+            `AC_HIH_APP [Error]: Entering DocumentListComponent fetchData, fetchAllDocuments failed ${err}...`,
             ConsoleLogTypeEnum.error
           );
 
@@ -351,7 +338,6 @@ export class DocumentListComponent implements OnInit, OnDestroy {
       });
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public onRangeChange(event: any): void {
     this.fetchData();
   }
@@ -389,7 +375,6 @@ export class DocumentListComponent implements OnInit, OnDestroy {
     this.router.navigate(['/finance/document/createloanrepay']);
   }
   public onDisplayDocument(doc: Document): void {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this.onDisplay(doc.Id!);
   }
   public onMassCreateNormalDocument(): void {
@@ -422,7 +407,7 @@ export class DocumentListComponent implements OnInit, OnDestroy {
       },
       error: (err: any) => {
         ModelUtility.writeConsoleLog(
-          `AC_HIH_UI [Error]: Entering DocumentListComponent onDelete, failed ${err}...`,
+          `AC_HIH_APP [Error]: Entering DocumentListComponent onDelete, failed ${err}...`,
           ConsoleLogTypeEnum.error
         );
 
@@ -468,7 +453,6 @@ export class DocumentListComponent implements OnInit, OnDestroy {
   }
   public onOpenShortCutDocID(): void {
     if (this.shortcutDocID) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       this.onDisplay(this.shortcutDocID!);
     }
   }

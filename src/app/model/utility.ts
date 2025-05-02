@@ -2,6 +2,7 @@ import { DateDisplayFormat, dateSplitChar, LogLevel, momentDateFormat } from './
 // import { DocumentItem } from './financemodel';
 import { environment } from '../../environments/environment';
 import { format } from 'date-fns';
+import { DocumentItem } from './financemodel';
 
 export enum ConsoleLogTypeEnum {
   log = 0,
@@ -167,20 +168,20 @@ export class ModelUtility {
    * @param items Existing Document Items
    * @returns Next suitable ID
    */
-  // public static getFinanceNextItemID(items: DocumentItem[]): number {
-  //   if (items.length <= 0) {
-  //     return 1;
-  //   }
+  public static getFinanceNextItemID(items: DocumentItem[]): number {
+    if (items.length <= 0) {
+      return 1;
+    }
 
-  //   let nMax = 0;
-  //   for (const item of items) {
-  //     if (item.ItemId > nMax) {
-  //       nMax = item.ItemId;
-  //     }
-  //   }
+    let nMax = 0;
+    for (const item of items) {
+      if (item.ItemId > nMax) {
+        nMax = item.ItemId;
+      }
+    }
 
-  //   return nMax + 1;
-  // }
+    return nMax + 1;
+  }
 
   public static writeConsoleLog(log: string, logType: ConsoleLogTypeEnum = ConsoleLogTypeEnum.log): void {
     if (log) {

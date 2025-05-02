@@ -80,7 +80,7 @@ export class FinanceStorageService {
   
   constructor() {
     ModelUtility.writeConsoleLog(
-      'AC_HIH_APP [Debug]: Entering FinanceOdataService constructor...',
+      'AC_HIH_APP [Debug]: Entering FinanceStorageService constructor...',
       ConsoleLogTypeEnum.debug
     );
   }
@@ -109,7 +109,7 @@ export class FinanceStorageService {
         .pipe(
           map((response: any) => {
             ModelUtility.writeConsoleLog(
-              `AC_HIH_APP [Debug]: Entering map in fetchAllCurrencies in FinanceOdataService`,
+              `AC_HIH_APP [Debug]: Entering map in fetchAllCurrencies in FinanceStorageService`,
               ConsoleLogTypeEnum.debug
             );
 
@@ -129,7 +129,7 @@ export class FinanceStorageService {
           }),
           catchError((error: HttpErrorResponse) => {
             ModelUtility.writeConsoleLog(
-              `AC_HIH_APP [Error]: Failed in fetchAllCurrencies in FinanceOdataService: ${error}`,
+              `AC_HIH_APP [Error]: Failed in fetchAllCurrencies in FinanceStorageService: ${error}`,
               ConsoleLogTypeEnum.error
             );
 
@@ -170,7 +170,7 @@ export class FinanceStorageService {
         .pipe(
           map((response: any) => {
             ModelUtility.writeConsoleLog(
-              `AC_HIH_APP [Debug]: Entering map in fetchAllAccountCategories in FinanceOdataService`,
+              `AC_HIH_APP [Debug]: Entering map in fetchAllAccountCategories in FinanceStorageService`,
               ConsoleLogTypeEnum.debug
             );
 
@@ -192,7 +192,7 @@ export class FinanceStorageService {
           }),
           catchError((error: HttpErrorResponse) => {
             ModelUtility.writeConsoleLog(
-              `AC_HIH_APP [Error]: Failed in fetchAllAccountCategories in FinanceOdataService: ${error}`,
+              `AC_HIH_APP [Error]: Failed in fetchAllAccountCategories in FinanceStorageService: ${error}`,
               ConsoleLogTypeEnum.error
             );
 
@@ -233,7 +233,7 @@ export class FinanceStorageService {
         .pipe(
           map((response: any) => {
             ModelUtility.writeConsoleLog(
-              `AC_HIH_APP [Debug]: Entering map in fetchAllDocTypes in FinanceOdataService.`,
+              `AC_HIH_APP [Debug]: Entering map in fetchAllDocTypes in FinanceStorageService.`,
               ConsoleLogTypeEnum.debug
             );
 
@@ -255,7 +255,7 @@ export class FinanceStorageService {
           }),
           catchError((error: HttpErrorResponse) => {
             ModelUtility.writeConsoleLog(
-              `AC_HIH_APP [Error]: Failed in fetchAllDocTypes in FinanceOdataService: ${error}`,
+              `AC_HIH_APP [Error]: Failed in fetchAllDocTypes in FinanceStorageService: ${error}`,
               ConsoleLogTypeEnum.error
             );
 
@@ -297,7 +297,7 @@ export class FinanceStorageService {
         .pipe(
           map((response: any) => {
             ModelUtility.writeConsoleLog(
-              `AC_HIH_APP [Debug]: Entering FinanceOdataService fetchAllTranTypes`,
+              `AC_HIH_APP [Debug]: Entering FinanceStorageService fetchAllTranTypes`,
               ConsoleLogTypeEnum.debug
             );
 
@@ -341,7 +341,7 @@ export class FinanceStorageService {
           }),
           catchError((error: HttpErrorResponse) => {
             ModelUtility.writeConsoleLog(
-              `AC_HIH_APP [Error]: Entering FinanceOdataService fetchAllTranTypes failed ${error}`,
+              `AC_HIH_APP [Error]: Entering FinanceStorageService fetchAllTranTypes failed ${error}`,
               ConsoleLogTypeEnum.error
             );
 
@@ -382,7 +382,7 @@ export class FinanceStorageService {
         .pipe(
           map((response: any) => {
             ModelUtility.writeConsoleLog(
-              `AC_HIH_APP [Debug]: Entering map in fetchAllAssetCategories in FinanceOdataService`,
+              `AC_HIH_APP [Debug]: Entering map in fetchAllAssetCategories in FinanceStorageService`,
               ConsoleLogTypeEnum.debug
             );
 
@@ -402,7 +402,7 @@ export class FinanceStorageService {
           }),
           catchError((error: HttpErrorResponse) => {
             ModelUtility.writeConsoleLog(
-              `AC_HIH_APP [Error]: Failed in fetchAllAssetCategories in FinanceOdataService: ${error}`,
+              `AC_HIH_APP [Error]: Failed in fetchAllAssetCategories in FinanceStorageService: ${error}`,
               ConsoleLogTypeEnum.error
             );
 
@@ -474,7 +474,7 @@ export class FinanceStorageService {
           .pipe(
             map((response: any) => {
               ModelUtility.writeConsoleLog(
-                `AC_HIH_APP [Debug]: Entering FinanceOdataService, fetchAllControlCenters, map.`,
+                `AC_HIH_APP [Debug]: Entering FinanceStorageService, fetchAllControlCenters, map.`,
                 ConsoleLogTypeEnum.debug
               );
 
@@ -494,7 +494,7 @@ export class FinanceStorageService {
             }),
             catchError((error: HttpErrorResponse) => {
               ModelUtility.writeConsoleLog(
-                `AC_HIH_APP [Error]: Failed in FinanceOdataService fetchAllControlCenters.`,
+                `AC_HIH_APP [Error]: Failed in FinanceStorageService fetchAllControlCenters.`,
                 ConsoleLogTypeEnum.error
               );
 
@@ -533,7 +533,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_APP [Debug]: Entering FinanceOdataService readControlCenter`,
+            `AC_HIH_APP [Debug]: Entering FinanceStorageService readControlCenter`,
             ConsoleLogTypeEnum.debug
           );
 
@@ -556,7 +556,7 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_APP [Error]: Entering FinanceOdataService readControlCenter failed ${error}`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService readControlCenter failed ${error}`,
             ConsoleLogTypeEnum.error
           );
 
@@ -584,7 +584,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            'AC_HIH_APP [Debug]: Entering FinanceOdataService createControlCenter',
+            'AC_HIH_APP [Debug]: Entering FinanceStorageService createControlCenter',
             ConsoleLogTypeEnum.debug
           );
 
@@ -596,7 +596,7 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_APP [Error]: Entering FinanceOdataService createControlCenter, failed ${error}`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService createControlCenter, failed ${error}`,
             ConsoleLogTypeEnum.error
           );
 
@@ -630,7 +630,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            'AC_HIH_APP [Debug]: Entering FinanceOdataService changeControlCenter',
+            'AC_HIH_APP [Debug]: Entering FinanceStorageService changeControlCenter',
             ConsoleLogTypeEnum.debug
           );
 
@@ -652,7 +652,7 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_APP [Error]: Entering FinanceOdataService changeControlCenter failed ${error}`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService changeControlCenter failed ${error}`,
             ConsoleLogTypeEnum.error
           );
 
@@ -683,7 +683,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            'AC_HIH_APP [Debug]: Entering FinanceOdataService changeControlCenterByPatch',
+            'AC_HIH_APP [Debug]: Entering FinanceStorageService changeControlCenterByPatch',
             ConsoleLogTypeEnum.debug
           );
 
@@ -705,7 +705,7 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_APP [Error]: Entering FinanceOdataService changeControlCenterByPatch failed ${error}`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService changeControlCenterByPatch failed ${error}`,
             ConsoleLogTypeEnum.error
           );
 
@@ -732,7 +732,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            'AC_HIH_APP [Debug]: Entering FinanceOdataService deleteControlCenter',
+            'AC_HIH_APP [Debug]: Entering FinanceStorageService deleteControlCenter',
             ConsoleLogTypeEnum.debug
           );
 
@@ -746,7 +746,7 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_APP [Error]: Entering FinanceOdataService deleteControlCenter failed ${error}`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService deleteControlCenter failed ${error}`,
             ConsoleLogTypeEnum.error
           );
 
@@ -776,7 +776,7 @@ export class FinanceStorageService {
       return this.http.get(this.orderAPIUrl, { headers, params }).pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_APP [Debug]: Entering FinanceOdataService fetchAllOrders`,
+            `AC_HIH_APP [Debug]: Entering FinanceStorageService fetchAllOrders`,
             ConsoleLogTypeEnum.debug
           );
 
@@ -797,7 +797,7 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_APP [Error]: Entering FinanceOdataService fetchAllOrders failed ${error}`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService fetchAllOrders failed ${error}`,
             ConsoleLogTypeEnum.error
           );
 
@@ -885,7 +885,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            'AC_HIH_APP [Debug]: Entering FinanceOdataService createOrder.',
+            'AC_HIH_APP [Debug]: Entering FinanceStorageService createOrder.',
             ConsoleLogTypeEnum.debug
           );
 
@@ -898,7 +898,7 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_APP [Error]: Entering FinanceOdataService createOrder failed: ${error}.`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService createOrder failed: ${error}.`,
             ConsoleLogTypeEnum.error
           );
 
@@ -928,7 +928,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_APP [Debug]: Entering FinanceOdataService changeOrder`,
+            `AC_HIH_APP [Debug]: Entering FinanceStorageService changeOrder`,
             ConsoleLogTypeEnum.debug
           );
 
@@ -950,7 +950,7 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_APP [Error]: Entering FinanceOdataService changeOrder failed ${error}`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService changeOrder failed ${error}`,
             ConsoleLogTypeEnum.error
           );
 
@@ -980,7 +980,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_APP [Debug]: Entering FinanceOdataService changeOrderByPatch`,
+            `AC_HIH_APP [Debug]: Entering FinanceStorageService changeOrderByPatch`,
             ConsoleLogTypeEnum.debug
           );
 
@@ -1002,7 +1002,7 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_APP [Error]: Entering FinanceOdataService changeOrderByPatch failed ${error}`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService changeOrderByPatch failed ${error}`,
             ConsoleLogTypeEnum.error
           );
 
@@ -1029,7 +1029,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            'AC_HIH_APP [Debug]: Entering FinanceOdataService deleteOrder succeed.',
+            'AC_HIH_APP [Debug]: Entering FinanceStorageService deleteOrder succeed.',
             ConsoleLogTypeEnum.debug
           );
 
@@ -1045,7 +1045,7 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_APP [Error]: Entering FinanceOdataService deleteOrder failed ${error}.`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService deleteOrder failed ${error}.`,
             ConsoleLogTypeEnum.error
           );
 
@@ -1086,7 +1086,7 @@ export class FinanceStorageService {
         .pipe(
           map((response: any) => {
             ModelUtility.writeConsoleLog(
-              `AC_HIH_UI [Debug]: Entering FinanceOdataService fetchAllAccounts.`,
+              `AC_HIH_APP [Debug]: Entering FinanceStorageService fetchAllAccounts.`,
               ConsoleLogTypeEnum.debug
             );
 
@@ -1106,7 +1106,7 @@ export class FinanceStorageService {
           }),
           catchError((error: HttpErrorResponse) => {
             ModelUtility.writeConsoleLog(
-              `AC_HIH_UI [Error]: Entering FinanceOdataService fetchAllAccount failed ${error}.`,
+              `AC_HIH_APP [Error]: Entering FinanceStorageService fetchAllAccount failed ${error}.`,
               ConsoleLogTypeEnum.error
             );
 
@@ -1143,7 +1143,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Debug]: Entering FinanceOdataService readAccount`,
+            `AC_HIH_APP [Debug]: Entering FinanceStorageService readAccount`,
             ConsoleLogTypeEnum.debug
           );
 
@@ -1167,7 +1167,7 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Entering FinanceOdataService readAccount failed: ${error}.`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService readAccount failed: ${error}.`,
             ConsoleLogTypeEnum.error
           );
 
@@ -1195,7 +1195,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            'AC_HIH_UI [Debug]: Entering FinanceOdataService createAccount succeed',
+            'AC_HIH_APP [Debug]: Entering FinanceStorageService createAccount succeed',
             ConsoleLogTypeEnum.debug
           );
 
@@ -1206,7 +1206,7 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Entering FinanceOdataService createAccount failed ${error}`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService createAccount failed ${error}`,
             ConsoleLogTypeEnum.error
           );
 
@@ -1235,7 +1235,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            'AC_HIH_UI [Debug]: Entering FinanceOdataService changeAccount succeed',
+            'AC_HIH_APP [Debug]: Entering FinanceStorageService changeAccount succeed',
             ConsoleLogTypeEnum.debug
           );
 
@@ -1258,7 +1258,7 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Entering FinanceOdataService changeAccount failed ${error}`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService changeAccount failed ${error}`,
             ConsoleLogTypeEnum.error
           );
 
@@ -1287,7 +1287,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            'AC_HIH_UI [Debug]: Entering FinanceOdataService changeAccountByPatch succeed',
+            'AC_HIH_APP [Debug]: Entering FinanceStorageService changeAccountByPatch succeed',
             ConsoleLogTypeEnum.debug
           );
 
@@ -1310,7 +1310,7 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Entering FinanceOdataService changeAccountByPatch failed ${error}`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService changeAccountByPatch failed ${error}`,
             ConsoleLogTypeEnum.error
           );
 
@@ -1337,7 +1337,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            'AC_HIH_UI [Debug]: Entering FinanceOdataService deleteAccount succeed',
+            'AC_HIH_APP [Debug]: Entering FinanceStorageService deleteAccount succeed',
             ConsoleLogTypeEnum.debug
           );
 
@@ -1352,7 +1352,7 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Entering FinanceOdataService deleteAccount failed ${error}`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService deleteAccount failed ${error}`,
             ConsoleLogTypeEnum.error
           );
 
@@ -1381,7 +1381,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            'AC_HIH_UI [Debug]: Entering FinanceOdataService closeAccount succeed',
+            'AC_HIH_APP [Debug]: Entering FinanceStorageService closeAccount succeed',
             ConsoleLogTypeEnum.debug
           );
 
@@ -1399,7 +1399,7 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Entering FinanceOdataService closeAccount failed ${error}`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService closeAccount failed ${error}`,
             ConsoleLogTypeEnum.error
           );
 
@@ -1437,7 +1437,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            'AC_HIH_UI [Debug]: Entering FinanceOdataService settleAccount succeed',
+            'AC_HIH_APP [Debug]: Entering FinanceStorageService settleAccount succeed',
             ConsoleLogTypeEnum.debug
           );
 
@@ -1447,7 +1447,7 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Entering FinanceOdataService settleAccount failed ${error}`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService settleAccount failed ${error}`,
             ConsoleLogTypeEnum.error
           );
 
@@ -1495,7 +1495,7 @@ export class FinanceStorageService {
     return this.http.get(this.documentAPIUrl, { headers, params }).pipe(
       map((response: any) => {
         ModelUtility.writeConsoleLog(
-          `AC_HIH_UI [Debug]: Entering FinanceOdataService fetchAllDocuments.`,
+          `AC_HIH_APP [Debug]: Entering FinanceStorageService fetchAllDocuments.`,
           ConsoleLogTypeEnum.debug
         );
 
@@ -1517,11 +1517,11 @@ export class FinanceStorageService {
       }),
       catchError((error: HttpErrorResponse) => {
         ModelUtility.writeConsoleLog(
-          `AC_HIH_UI [Error]: Entering FinanceOdataService, fetchAllDocuments failed ${error}`,
+          `AC_HIH_APP [Error]: Entering FinanceStorageService, fetchAllDocuments failed ${error}`,
           ConsoleLogTypeEnum.error
         );
 
-        return throwError(error.statusText + '; ' + error.error + '; ' + error.message);
+        return throwError(() => new Error(error.statusText + '; ' + error.error + '; ' + error.message));
       })
     );
   }
@@ -1543,7 +1543,7 @@ export class FinanceStorageService {
     return this.http.get(this.documentAPIUrl, { headers, params }).pipe(
       map((response: any) => {
         ModelUtility.writeConsoleLog(
-          `AC_HIH_UI [Debug]: Entering FinanceOdataService readDocument`,
+          `AC_HIH_APP [Debug]: Entering FinanceStorageService readDocument`,
           ConsoleLogTypeEnum.debug
         );
 
@@ -1557,11 +1557,11 @@ export class FinanceStorageService {
       }),
       catchError((error: HttpErrorResponse) => {
         ModelUtility.writeConsoleLog(
-          `AC_HIH_UI [Error]: Entering FinanceOdataService readDocument, failed: ${error}`,
+          `AC_HIH_APP [Error]: Entering FinanceStorageService readDocument, failed: ${error}`,
           ConsoleLogTypeEnum.error
         );
 
-        return throwError(error.statusText + '; ' + error.error + '; ' + error.message);
+        return throwError(() => new Error(error.statusText + '; ' + error.error + '; ' + error.message));
       })
     );
   }
@@ -1605,7 +1605,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Debug]: Entering FinanceOdataService fetchAllDPTmpDocs.`,
+            `AC_HIH_APP [Debug]: Entering FinanceStorageService fetchAllDPTmpDocs.`,
             ConsoleLogTypeEnum.debug
           );
 
@@ -1623,7 +1623,7 @@ export class FinanceStorageService {
         }),
         catchError((errresp: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Entering FinanceOdataService, fetchAllDPTmpDocs failed ${errresp}`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService, fetchAllDPTmpDocs failed ${errresp}`,
             ConsoleLogTypeEnum.error
           );
 
@@ -1662,7 +1662,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Debug]: Entering FinanceOdataService fetchLoanTmpDocCountForAccount.`,
+            `AC_HIH_APP [Debug]: Entering FinanceStorageService fetchLoanTmpDocCountForAccount.`,
             ConsoleLogTypeEnum.debug
           );
 
@@ -1670,7 +1670,7 @@ export class FinanceStorageService {
         }),
         catchError((errresp: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Entering FinanceOdataService, fetchLoanTmpDocCountForAccount failed ${errresp}`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService, fetchLoanTmpDocCountForAccount failed ${errresp}`,
             ConsoleLogTypeEnum.error
           );
 
@@ -1726,7 +1726,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Debug]: Entering FinanceOdataService fetchAllLoanTmpDocs.`,
+            `AC_HIH_APP [Debug]: Entering FinanceStorageService fetchAllLoanTmpDocs.`,
             ConsoleLogTypeEnum.debug
           );
 
@@ -1744,7 +1744,7 @@ export class FinanceStorageService {
         }),
         catchError((errresp: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Entering FinanceOdataService, fetchAllLoanTmpDocs failed ${errresp}`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService, fetchAllLoanTmpDocs failed ${errresp}`,
             ConsoleLogTypeEnum.error
           );
 
@@ -1773,7 +1773,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Debug]: Entering FinanceOdataService, createDocument, map.`,
+            `AC_HIH_APP [Debug]: Entering FinanceStorageService, createDocument, map.`,
             ConsoleLogTypeEnum.debug
           );
 
@@ -1783,7 +1783,7 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Entering FinanceOdataService, createDocument failed ${error}`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService, createDocument failed ${error}`,
             ConsoleLogTypeEnum.error
           );
 
@@ -1820,7 +1820,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Debug]: Entering FinanceOdataService, createDocumentFromDPTemplate`,
+            `AC_HIH_APP [Debug]: Entering FinanceStorageService, createDocumentFromDPTemplate`,
             ConsoleLogTypeEnum.debug
           );
 
@@ -1830,7 +1830,7 @@ export class FinanceStorageService {
         }),
         catchError((errresp: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Entering FinanceOdataService, createDocumentFromDPTemplate failed: ${errresp}`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService, createDocumentFromDPTemplate failed: ${errresp}`,
             ConsoleLogTypeEnum.error
           );
 
@@ -1859,7 +1859,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Debug]: Entering FinanceOdataService, deleteDocument, map.`,
+            `AC_HIH_APP [Debug]: Entering FinanceStorageService, deleteDocument, map.`,
             ConsoleLogTypeEnum.debug
           );
 
@@ -1867,7 +1867,7 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Entering FinanceOdataService, deleteDocument failed ${error}`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService, deleteDocument failed ${error}`,
             ConsoleLogTypeEnum.error
           );
 
@@ -1922,7 +1922,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            'AC_HIH_UI [Debug]: Entering Map of createADPDocument in FinanceStorageService: ' + response,
+            'AC_HIH_APP [Debug]: Entering Map of createADPDocument in FinanceStorageService: ' + response,
             ConsoleLogTypeEnum.debug
           );
 
@@ -1932,7 +1932,7 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Failed in createADPDocument in FinanceStorageService.`,
+            `AC_HIH_APP [Error]: Failed in createADPDocument in FinanceStorageService.`,
             ConsoleLogTypeEnum.error
           );
 
@@ -1985,7 +1985,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            'AC_HIH_UI [Debug]: Entering Map of createLoanDocument in FinanceOdataService: ' + response,
+            'AC_HIH_APP [Debug]: Entering Map of createLoanDocument in FinanceStorageService: ' + response,
             ConsoleLogTypeEnum.debug
           );
 
@@ -1995,7 +1995,7 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Failed in createLoanDocument in FinanceOdataService.`,
+            `AC_HIH_APP [Error]: Failed in createLoanDocument in FinanceStorageService.`,
             ConsoleLogTypeEnum.error
           );
 
@@ -2033,7 +2033,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Debug]: Entering FinanceOdataService, createLoanRepayDoc`,
+            `AC_HIH_APP [Debug]: Entering FinanceStorageService, createLoanRepayDoc`,
             ConsoleLogTypeEnum.debug
           );
 
@@ -2044,7 +2044,7 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Entering FinanceOdataService createLoanRepayDoc, failed ${error}`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService createLoanRepayDoc, failed ${error}`,
             ConsoleLogTypeEnum.error
           );
 
@@ -2075,7 +2075,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            'AC_HIH_UI [Debug]: Entering FinanceOdataService createAssetBuyinDocument succeed',
+            'AC_HIH_APP [Debug]: Entering FinanceStorageService createAssetBuyinDocument succeed',
             ConsoleLogTypeEnum.debug
           );
 
@@ -2085,7 +2085,7 @@ export class FinanceStorageService {
         }),
         catchError((errresp: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Entering FinanceOdataService createLoanRepayDoc failed`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService createLoanRepayDoc failed`,
             ConsoleLogTypeEnum.error
           );
 
@@ -2117,7 +2117,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            'AC_HIH_UI [Debug]: Entering Map of createAssetSoldoutDocument in FinanceOdataService: ' + response,
+            'AC_HIH_APP [Debug]: Entering Map of createAssetSoldoutDocument in FinanceStorageService: ' + response,
             ConsoleLogTypeEnum.debug
           );
 
@@ -2127,7 +2127,7 @@ export class FinanceStorageService {
         }),
         catchError((errresp: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Failed in createLoanRepayDoc in FinanceOdataService.`,
+            `AC_HIH_APP [Error]: Failed in createLoanRepayDoc in FinanceStorageService.`,
             ConsoleLogTypeEnum.error
           );
 
@@ -2159,7 +2159,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            'AC_HIH_UI [Debug]: Entering Map of createAssetValChgDocument in FinanceOdataService: ' + response,
+            'AC_HIH_APP [Debug]: Entering Map of createAssetValChgDocument in FinanceStorageService: ' + response,
             ConsoleLogTypeEnum.debug
           );
 
@@ -2169,7 +2169,7 @@ export class FinanceStorageService {
         }),
         catchError((errresp: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Failed in createLoanRepayDoc in FinanceOdataService.`,
+            `AC_HIH_APP [Error]: Failed in createLoanRepayDoc in FinanceStorageService.`,
             ConsoleLogTypeEnum.error
           );
 
@@ -2200,7 +2200,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Debug]: Entering FinanceOdataService, isDocumentChangable, map.`,
+            `AC_HIH_APP [Debug]: Entering FinanceStorageService, isDocumentChangable, map.`,
             ConsoleLogTypeEnum.debug
           );
 
@@ -2208,7 +2208,7 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Entering FinanceOdataService, isDocumentChangable failed ${error}`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService, isDocumentChangable failed ${error}`,
             ConsoleLogTypeEnum.error
           );
 
@@ -2237,7 +2237,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Debug]: Entering FinanceOdataService, changeDocument, map.`,
+            `AC_HIH_APP [Debug]: Entering FinanceStorageService, changeDocument, map.`,
             ConsoleLogTypeEnum.debug
           );
 
@@ -2247,7 +2247,7 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Entering FinanceOdataService, changeDocument failed ${error}`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService, changeDocument failed ${error}`,
             ConsoleLogTypeEnum.error
           );
 
@@ -2277,7 +2277,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            'AC_HIH_UI [Debug]: Entering FinanceOdataService changeDocumentDateViaPatch succeed',
+            'AC_HIH_APP [Debug]: Entering FinanceStorageService changeDocumentDateViaPatch succeed',
             ConsoleLogTypeEnum.debug
           );
 
@@ -2287,11 +2287,11 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Entering FinanceOdataService changeDocumentDateViaPatch failed ${error}`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService changeDocumentDateViaPatch failed ${error}`,
             ConsoleLogTypeEnum.error
           );
 
-          return throwError(error.statusText + '; ' + error.error + '; ' + error.message);
+          return throwError(() => new Error(error.statusText + '; ' + error.error + '; ' + error.message));
         })
       );
   }
@@ -2317,7 +2317,7 @@ export class FinanceStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            'AC_HIH_UI [Debug]: Entering FinanceOdataService changeDocumentDespViaPatch succeed',
+            'AC_HIH_APP [Debug]: Entering FinanceStorageService changeDocumentDespViaPatch succeed',
             ConsoleLogTypeEnum.debug
           );
 
@@ -2327,11 +2327,11 @@ export class FinanceStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Entering FinanceOdataService changeDocumentDespViaPatch failed ${error}`,
+            `AC_HIH_APP [Error]: Entering FinanceStorageService changeDocumentDespViaPatch failed ${error}`,
             ConsoleLogTypeEnum.error
           );
 
-          return throwError(error.statusText + '; ' + error.error + '; ' + error.message);
+          return throwError(() => new Error(error.statusText + '; ' + error.error + '; ' + error.message));
         })
       );
   }

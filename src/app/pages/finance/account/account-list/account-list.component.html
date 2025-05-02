@@ -46,15 +46,14 @@
                   <i nz-icon nzType="down"></i>
                 </a>
                 <nz-divider nzType="vertical"></nz-divider>
-                <a
-                  nz-button
-                  nz-popconfirm
-                  [nzPopconfirmTitle]="'Common.ConfirmToDeleteSelectedItem' | transloco"
-                  *ngIf="!isChildMode"
-                  nzPopconfirmPlacement="bottom"
-                  (nzOnConfirm)="onDelete(data.Id!)"
-                  nzType="link"
-                  nzDanger>{{ 'Common.Delete' | transloco }}</a>
+                @if(!isChildMode) {
+                  <a nz-button
+                     nz-popconfirm [nzPopconfirmTitle]="'Common.ConfirmToDeleteSelectedItem' | transloco"
+                     nzPopconfirmPlacement="bottom"
+                     (nzOnConfirm)="onDelete(data.Id!)"
+                     nzType="link"
+                     nzDanger>{{ 'Common.Delete' | transloco }}</a>
+                }
                 <nz-dropdown-menu #menuForChange="nzDropdownMenu">
                   <ul nz-menu>
                     <li nz-menu-item (click)="onEdit(data.Id!)">

@@ -2050,7 +2050,7 @@ export interface DocumentJson {
 /**
  * Document
  */
-export class Document extends hih.BaseModel {
+export class DocumentHeader extends hih.BaseModel {
   private _id?: number;
   private _tranDate: Date = new Date();
   private _hid?: number;
@@ -2129,8 +2129,6 @@ export class Document extends hih.BaseModel {
   set TranDate(td: Date) {
     this._tranDate = td;
   }
-
-  public Items: DocumentItem[] = [];
 
   get TranDateFormatString(): string {
     return format(this._tranDate, hih.DateDisplayFormat);
@@ -2260,91 +2258,6 @@ export class Document extends hih.BaseModel {
         this._addMessage(hih.MessageType.Error, 'Finance.CurrencyFetchFailed', 'Finance.CurrencyFetchFailed');
         chkrst = false;
       }
-
-      // Items
-      let amtTotal = 0;
-      if (this.Items instanceof Array && this.Items.length > 0) {
-        // Check for duplicated IDs
-        if (this.Items.length > 1) {
-          const idMap: Map<number, any> = new Map();
-          this.Items.forEach((val: DocumentItem) => {
-            if (val.ItemId && !idMap.has(val.ItemId)) {
-              idMap.set(val.ItemId, undefined);
-            }
-          });
-          if (idMap.size !== this.Items.length) {
-            this._addMessage(hih.MessageType.Error, 'Common.DuplicatedID', 'Common.DuplicatedID');
-            chkrst = false;
-          }
-        }
-
-        for (const fit of this.Items) {
-          // amtTotal += fit.TranAmount;
-          if (!fit.onVerify(context)) {
-            for (const imsg of fit.VerifiedMsgs) {
-              this.VerifiedMsgs.push(imsg);
-            }
-            chkrst = false;
-          } else {
-            // Amount
-            let amtItem = 0;
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            for (const tt of context!.TransactionTypes) {
-              const ftt: TranType = tt as TranType;
-              if (ftt.Id === fit.TranType) {
-                if (ftt.Expense) {
-                  amtItem = -1 * fit.TranAmount;
-                } else {
-                  amtItem = fit.TranAmount;
-                }
-              }
-            }
-
-            if (fit.UseCurr2) {
-              if (this.ExgRate2) {
-                amtTotal += Number.parseFloat(((amtItem * this.ExgRate2) / 100).toFixed(3));
-              } else {
-                amtTotal += amtItem;
-              }
-              amtTotal = Number.parseFloat(amtTotal.toFixed(3));
-            } else {
-              if (this.ExgRate) {
-                amtTotal += Number.parseFloat(((amtItem * this.ExgRate) / 100).toFixed(3));
-              } else {
-                amtTotal += amtItem;
-              }
-              amtTotal = Number.parseFloat(amtTotal.toFixed(3));
-            }
-
-            // Order valid check
-            if (fit.OrderId && fit.OrderId > 0 && context && context.Orders.length > 0) {
-              const vordidx: number = context.Orders.findIndex((ord: Order) => {
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                return +fit.OrderId! === +ord!.Id! && isWithinInterval(this.TranDate, {start: ord.ValidFrom!, end: ord.ValidTo!});
-              });
-
-              if (vordidx === -1) {
-                this._addMessage(hih.MessageType.Error, 'Finance.InvalidActivity', 'Finance.InvalidActivity');
-                chkrst = false;
-              }
-            }
-          }
-        }
-      } else {
-        this._addMessage(hih.MessageType.Error, 'Finance.NoDocumentItem', 'Finance.NoDocumentItem');
-        chkrst = false;
-      }
-
-      if (this.DocType === financeDocTypeTransfer || this.DocType === financeDocTypeCurrencyExchange) {
-        if (Math.abs(amtTotal) >= 0.01) {
-          this._addMessage(
-            hih.MessageType.Error,
-            'Finance.AmountIsNotCorrect',
-            'Finance.AmountIsZeroInTransferDocument'
-          );
-          chkrst = false;
-        }
-      }
     }
 
     return chkrst;
@@ -2372,12 +2285,6 @@ export class Document extends hih.BaseModel {
     }
     if (this.ExgRate_Plan2) {
       rstObj.ExgRate_Plan2 = this.ExgRate_Plan2;
-    }
-
-    rstObj.Items = [];
-    for (const di of this.Items) {
-      const item = di.writeJSONObject();
-      rstObj.Items.push(item);
     }
 
     return rstObj;
@@ -2419,7 +2326,122 @@ export class Document extends hih.BaseModel {
     if (data && data.Desp) {
       this.Desp = data.Desp;
     }
+  }
+}
 
+export class Document extends DocumentHeader {
+  public Items: DocumentItem[] = [];
+
+  constructor() {
+    super();
+  }
+
+  public override onInit(): void {
+    super.onInit();
+  }
+
+  public override onVerify(context?: DocumentVerifyContext): boolean {
+    let chkrst = super.onVerify(context);
+    // Items
+    let amtTotal = 0;
+    if (this.Items instanceof Array && this.Items.length > 0) {
+      // Check for duplicated IDs
+      if (this.Items.length > 1) {
+        const idMap: Map<number, any> = new Map();
+        this.Items.forEach((val: DocumentItem) => {
+          if (val.ItemId && !idMap.has(val.ItemId)) {
+            idMap.set(val.ItemId, undefined);
+          }
+        });
+        if (idMap.size !== this.Items.length) {
+          this._addMessage(hih.MessageType.Error, 'Common.DuplicatedID', 'Common.DuplicatedID');
+          chkrst = false;
+        }
+      }
+
+      for (const fit of this.Items) {
+        // amtTotal += fit.TranAmount;
+        if (!fit.onVerify(context)) {
+          for (const imsg of fit.VerifiedMsgs) {
+            this.VerifiedMsgs.push(imsg);
+          }
+          chkrst = false;
+        } else {
+          // Amount
+          let amtItem = 0;
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          for (const tt of context!.TransactionTypes) {
+            const ftt: TranType = tt as TranType;
+            if (ftt.Id === fit.TranType) {
+              if (ftt.Expense) {
+                amtItem = -1 * fit.TranAmount;
+              } else {
+                amtItem = fit.TranAmount;
+              }
+            }
+          }
+
+          if (fit.UseCurr2) {
+            if (this.ExgRate2) {
+              amtTotal += Number.parseFloat(((amtItem * this.ExgRate2) / 100).toFixed(3));
+            } else {
+              amtTotal += amtItem;
+            }
+            amtTotal = Number.parseFloat(amtTotal.toFixed(3));
+          } else {
+            if (this.ExgRate) {
+              amtTotal += Number.parseFloat(((amtItem * this.ExgRate) / 100).toFixed(3));
+            } else {
+              amtTotal += amtItem;
+            }
+            amtTotal = Number.parseFloat(amtTotal.toFixed(3));
+          }
+
+          // Order valid check
+          if (fit.OrderId && fit.OrderId > 0 && context && context.Orders.length > 0) {
+            const vordidx: number = context.Orders.findIndex((ord: Order) => {
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              return +fit.OrderId! === +ord!.Id! && isWithinInterval(this.TranDate, {start: ord.ValidFrom!, end: ord.ValidTo!});
+            });
+
+            if (vordidx === -1) {
+              this._addMessage(hih.MessageType.Error, 'Finance.InvalidActivity', 'Finance.InvalidActivity');
+              chkrst = false;
+            }
+          }
+        }
+      }
+    } else {
+      this._addMessage(hih.MessageType.Error, 'Finance.NoDocumentItem', 'Finance.NoDocumentItem');
+      chkrst = false;
+    }
+
+    if (this.DocType === financeDocTypeTransfer || this.DocType === financeDocTypeCurrencyExchange) {
+      if (Math.abs(amtTotal) >= 0.01) {
+        this._addMessage(
+          hih.MessageType.Error,
+          'Finance.AmountIsNotCorrect',
+          'Finance.AmountIsZeroInTransferDocument'
+        );
+        chkrst = false;
+      }
+    }
+
+    return chkrst;
+  }
+
+  public override writeJSONObject(): DocumentJson {
+    const rstObj = super.writeJSONObject();
+    rstObj.Items = [];
+    for (const di of this.Items) {
+      const item = di.writeJSONObject();
+      rstObj.Items.push(item);
+    }
+    return rstObj;
+  }
+
+  public override onSetData(data: DocumentJson): void {
+    super.onSetData(data);
     this.Items = [];
     if (data && data.Items && data.Items instanceof Array) {
       for (const it of data.Items) {
@@ -2427,7 +2449,7 @@ export class Document extends hih.BaseModel {
         item.onSetData(it as DocumentItemJson);
         this.Items.push(item);
       }
-    }
+    }      
   }
 }
 

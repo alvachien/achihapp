@@ -36,8 +36,10 @@ export const dateRangeValidator: ValidatorFn = (group: AbstractControl): Validat
  * @param group Instance of the form group
  */
 export const costObjectValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
-  const cc: any = group.get('ccControl')?.value;
-  const order: any = group.get('orderControl')?.value;
+  const cc: any = group.value.controlCenter ?? undefined; //.get('ccControl')?.value;
+  const order: any = group.value.order ?? undefined; //.get('orderControl')?.value;
+  // const cc: any = group.get('ccControl')?.value;
+  // const order: any = group.get('orderControl')?.value;
   if (cc) {
     if (order) {
       return { costobjectoverassign: true };
