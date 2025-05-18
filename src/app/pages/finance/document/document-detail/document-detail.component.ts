@@ -25,7 +25,6 @@ interface DocumentDetailForm {
   id: FormControl<number | null>;
   header: FormControl<Document | null>;
 }
-
 @Component({
   selector: 'hih-document-detail',
   imports: [
@@ -63,7 +62,7 @@ export class DocumentDetailComponent implements OnInit, OnDestroy {
   arUIOrders: UIOrderForSelection[] = [];
   arCurrencies: Currency[] = [];
   // Form group
-  docFormGroup: FormGroup;  
+  docFormGroup: FormGroup;
 
   get isFieldChangable(): boolean {
     return isUIEditable(this.uiMode);
@@ -278,9 +277,8 @@ export class DocumentDetailComponent implements OnInit, OnDestroy {
   }
 
   private onSetData() {
-    this.docFormGroup.get('idControl')?.setValue(this.currentDocument.Id);
-    this.docFormGroup.get('headerControl')?.setValue(this.currentDocument);
-    this.docFormGroup.get('itemsControl')?.setValue(this.currentDocument.Items);
+    this.docFormGroup.controls['id'].setValue(this.currentDocument.Id);
+    this.docFormGroup.controls['header'].setValue(this.currentDocument);
 
     if (this.uiMode === UIMode.Display) {
       this.docFormGroup.disable();
@@ -289,7 +287,7 @@ export class DocumentDetailComponent implements OnInit, OnDestroy {
         next: (val) => {
           if (val) {
             this.docFormGroup.enable();
-            this.docFormGroup.get('idControl')?.disable();
+            this.docFormGroup.get('id')?.disable();
           } else {
             const ref: NzModalRef = this.modalService.info({
               nzTitle: translate('Common.Error'),
@@ -327,11 +325,12 @@ export class DocumentDetailComponent implements OnInit, OnDestroy {
     );
     if (this.uiMode === UIMode.Update) {
       // Update mode.
-      const detailObject = this.docFormGroup.get('headerControl')?.value as Document;
+      const detailObject = this.docFormGroup.controls['header'].value as Document;
       detailObject.HID = this.currentDocument.HID;
       detailObject.Id = this.currentDocument.Id;
       detailObject.DocType = this.currentDocument.DocType;
-      detailObject.Items = this.docFormGroup.get('itemsControl')?.value as DocumentItem[];
+      //detailObject.Items = this.docFormGroup.get('itemsControl')?.value as DocumentItem[];
+      // TBD.
       detailObject.Items.forEach((item) => {
         item.DocId = detailObject.Id;
       });

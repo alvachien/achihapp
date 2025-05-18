@@ -1,0 +1,56 @@
+<nz-page-header nzBackIcon>
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item><a routerLink="/finance/overview">{{ 'Common.Overview' | transloco }}</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item><a routerLink="/finance/document/list">{{ 'Finance.Documents' | transloco }}</a>
+    </nz-breadcrumb-item>
+    <nz-page-header-subtitle>{{ currentMode | transloco }}</nz-page-header-subtitle>
+  </nz-breadcrumb>
+  <nz-page-header-title>{{ 'Finance.Document' | transloco }}</nz-page-header-title>
+  <nz-page-header-subtitle>{{ currentMode | transloco }}</nz-page-header-subtitle>
+  <nz-page-header-extra>
+    <button nz-button>
+      {{ 'Common.Edit' | transloco }}
+    </button>
+    <button nz-button nzType="primary" (click)="onSave()" [disabled]="!isSaveAllowed">
+      {{ 'Common.Save' | transloco }}
+    </button>
+  </nz-page-header-extra>
+</nz-page-header>
+
+<form nz-form [formGroup]="docFormGroup">
+  <!-- ID -->
+  <nz-form-item>
+    <nz-form-label [nzSpan]="7">ID</nz-form-label>
+    <nz-form-control [nzSpan]="12" style="text-align: left">
+      <input nz-input formControlName="id" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <!-- Header -->
+  <hih-fin-document-header formControlName="header" [docType]="docHeader.DocType" [currentUIMode]="uiMode"
+    [arDocTypes]="arDocTypes" [arCurrencies]="arCurrencies" [baseCurrency]="baseCurrency"
+    (currencyChanged)="onCurrencyChanged($event)">
+  </hih-fin-document-header>
+
+  <!-- Items -->
+  <div formArrayName="items">
+    @for (control of items.controls; track control; let i = $index) {
+      <nz-divider></nz-divider>
+      <div nz-row>
+        <div nz-col [nzSpan]="1">{{i + 1}}.</div>
+        <div nz-col [nzSpan]="20">
+          <hih-document-item [formControlName]="i" [arUIAccounts]="arUIAccounts" [arTranType]="arTranType"
+            [arControlCenters]="arControlCenters" [arUIOrders]="arUIOrders" [currentUIMode]="uiMode"
+            [docCurrency]="docCurrency"></hih-document-item>        
+        </div>
+        <div nz-col [nzSpan]="1"><nz-icon nzType="minus-circle-o" class="dynamic-delete-button" (click)="removeItem(i)" /></div>
+      </div>
+    }
+  </div>
+
+  <button nz-button nzType="dashed" class="add-button" (click)="addItem($event)">
+    <nz-icon nzType="plus" />
+    Add item
+  </button>
+</form>
+

@@ -1,0 +1,104 @@
+<ng-container [formGroup]="itemFormGroup">
+  <div nz-row [nzGutter]="2" class="full-width">
+    <div nz-col [nzSpan]="8" class="full-width">
+      <nz-form-item class="full-width">
+        <nz-form-label [nzSpan]="7" nzRequired>{{ 'Finance.Account' | transloco }}</nz-form-label>
+        <nz-form-control class="full-width" [nzSpan]="12" nzHasFeedback [nzErrorTip]="accountTpl">
+          <nz-select class="full-width" formControlName="account">
+            @for(acnt of arUIAccounts(); track acnt.Id) {
+              <nz-option [nzValue]="acnt.Id" [nzLabel]="acnt.Name"></nz-option>
+            }                  
+          </nz-select>
+          <ng-template #accountTpl let-control>
+            @if(control.hasError('required')) {
+            <ng-container>
+              {{ 'Common.FieldIsMandatory' | transloco }}
+            </ng-container>
+            }
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col [nzSpan]="8" class="full-width">
+      <nz-form-item class="full-width">
+        <nz-form-label [nzSpan]="7" nzRequired>{{ 'Finance.TransactionType' | transloco }}</nz-form-label>
+        <nz-form-control class="full-width" [nzSpan]="12" nzHasFeedback [nzErrorTip]="tranTypeTpl">
+          <nz-select class="full-width" formControlName="tranType">
+            @for(tt of arTranType(); track tt.Id) {
+              <nz-option [nzValue]="tt.Id" [nzLabel]="tt.FullDisplayText"></nz-option>
+            }                  
+          </nz-select>
+          <ng-template #tranTypeTpl let-control>
+            @if(control.hasError('required')) {
+            <ng-container>
+              {{ 'Common.FieldIsMandatory' | transloco }}
+            </ng-container>
+            }
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col [nzSpan]="8" class="full-width">
+      <nz-form-item class="full-width">
+        <nz-form-label [nzSpan]="7" nzRequired>{{ 'Finance.Amount' | transloco }}</nz-form-label>
+        <nz-form-control class="full-width" [nzSpan]="12" nzHasFeedback [nzErrorTip]="amountTpl">
+          <nz-input-number [nzMin]="0.01" [nzStep]="0.01"  formControlName="tranAmount"
+            [nzPlaceHolder]="'Finance.Amount' | transloco">
+            <span nzInputAddonAfter>{{docCurrency()}}</span>
+          </nz-input-number>
+          <ng-template #amountTpl let-control>
+            @if(control.hasError('required')) {
+              <ng-container>
+                {{ 'Common.FieldIsMandatory' | transloco }}
+              </ng-container>  
+            }
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col [nzSpan]="8" class="full-width">
+      <nz-form-item class="full-width">
+        <nz-form-label [nzSpan]="7" nzRequired>{{ 'Common.Description' | transloco }}</nz-form-label>
+        <nz-form-control class="full-width" [nzSpan]="12" nzHasFeedback [nzErrorTip]="despTpl">
+          <input nz-input type="text"  formControlName="desp" />
+          <ng-template #despTpl let-control>
+            @if(control.hasError('required')) {
+              <ng-container>
+                {{ 'Common.FieldIsMandatory' | transloco }}
+              </ng-container>  
+            }
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col [nzSpan]="8" class="full-width">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7">{{ 'Finance.ControlCenter' | transloco }}</nz-form-label>
+        <nz-form-control class="full-width" [nzSpan]="12">
+          <nz-select class="full-width" formControlName="controlCenter">
+            @for(cc of arControlCenters(); track cc.Id) {
+              <nz-option [nzValue]="cc.Id" [nzLabel]="cc.Name"></nz-option>
+            }                  
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7">{{ 'Finance.Activity' | transloco }}</nz-form-label>
+        <nz-form-control [nzSpan]="12">
+          <nz-select style="width: 100%" formControlName="order">
+            @for(ord of arUIOrders(); track ord.Id) {
+              <nz-option [nzValue]="ord.Id" [nzLabel]="ord.Name"></nz-option>
+            }                  
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+</ng-container>

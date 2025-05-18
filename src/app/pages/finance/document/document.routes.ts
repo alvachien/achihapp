@@ -9,14 +9,14 @@ export const DOCUMENT_ROUTES: Routes = [
         path: 'list',
         loadComponent: () => import('./document-list').then((m) => m.DocumentListComponent)
     },
-    // {
-    //     path: 'createnormal',
-    //     loadComponent: () => import('./document-normal-create').then((m) => m.DocumentNormalCreateComponent)
-    // },
-    // {
-    //     path: 'createtransfer',
-    //     loadComponent: () => import('./document-transfer-create').then((m) => m.DocumentTransferCreateComponent)
-    // },
+    {
+        path: 'createnormal',
+        loadComponent: () => import('./document-normal-create').then((m) => m.DocumentNormalCreateComponent)
+    },
+    {
+        path: 'createtransfer',
+        loadComponent: () => import('./document-transfer-create').then((m) => m.DocumentTransferCreateComponent)
+    },
     // {
     //     path: 'masscreatenormal',
     //     loadComponent: () => import('./document-normal-mass-create').then((m) => m.DocumentNormalMassCreateComponent)

@@ -14,7 +14,7 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { NzFormModule } from 'ng-zorro-antd/form';
-import { TranslocoModule } from '@jsverse/transloco';
+import { translate, TranslocoModule } from '@jsverse/transloco';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzSelectModule } from 'ng-zorro-antd/select';
@@ -24,7 +24,7 @@ import { RouterModule } from '@angular/router';
 import { UIMode } from 'actslib';
 
 import {
-  Document,
+  DocumentHeader,
   Currency,
   financeDocTypeCurrencyExchange,
   financeDocTypeNormal,
@@ -34,6 +34,7 @@ import {
 } from '../../../../model';
 
 @Component({
+  standalone: true,
   selector: 'hih-fin-document-header',
   templateUrl: './document-header.component.html',
   styleUrls: ['./document-header.component.less'],
@@ -159,6 +160,9 @@ export class DocumentHeaderComponent implements ControlValueAccessor, Validator 
 
   public headerForm: FormGroup; //<DocumentHeaderForm>;
 
+  getCurrencyWithLabel(cr: Currency): string {
+    return cr ? translate(cr.Name!) + ' - ' + cr.Symbol : '';
+  }
   get isTranDateEditable(): boolean {
     return (
       this._isChangable &&
@@ -169,25 +173,27 @@ export class DocumentHeaderComponent implements ControlValueAccessor, Validator 
   get isCurrencyExchangeDocument(): boolean {
     return this.docType === financeDocTypeCurrencyExchange;
   }
-  get value(): Document {
-    const insobj: Document = new Document();
-    insobj.DocType = this.headerForm.value.docType ?? undefined;
-    insobj.TranCurr = this.headerForm.value.currency ?? '';
-    insobj.TranDate = this.headerForm.value.docDate ?? new Date();
-    insobj.Desp = this.headerForm.value.desp ?? '';
+  get value(): DocumentHeader {
+    console.debug('Entering get value() of DocumentHeaderComponent');
+
+    const insobj: DocumentHeader = new DocumentHeader();
+    insobj.DocType = this.headerForm.controls['docType'].value ?? undefined;
+    insobj.TranCurr = this.headerForm.controls['currency'].value ?? '';
+    insobj.TranDate = this.headerForm.controls['docDate'].value ?? new Date();
+    insobj.Desp = this.headerForm.controls['desp'].value ?? '';
 
     if (this.isForeignCurrency) {
-      insobj.ExgRate = this.headerForm.get('exgControl')?.value;
-      insobj.ExgRate_Plan = this.headerForm.get('exgpControl')?.value;
+      insobj.ExgRate = this.headerForm.controls['exchangeRate'].value ?? undefined;
+      insobj.ExgRate_Plan = this.headerForm.controls['exchangeRateIsPlan'].value ?? undefined;
     } else {
       insobj.ExgRate = undefined;
       insobj.ExgRate_Plan = undefined;
     }
     if (this.isCurrencyExchangeDocument) {
-      insobj.TranCurr2 = this.headerForm.get('curr2Control')?.value;
+      insobj.TranCurr2 = this.headerForm.controls['secondCurrency'].value ?? '';
       if (this.isForeignCurrency2) {
-        insobj.ExgRate2 = this.headerForm.get('exg2Control')?.value;
-        insobj.ExgRate_Plan2 = this.headerForm.get('exgp2Control')?.value;
+        insobj.ExgRate2 = this.headerForm.controls['secondExchangeRate'].value ?? undefined;
+        insobj.ExgRate_Plan2 = this.headerForm.controls['secondExchangeRateIsPlan'].value ?? undefined;
       } else {
         insobj.ExgRate2 = undefined;
         insobj.ExgRate_Plan2 = undefined;
@@ -203,16 +209,16 @@ export class DocumentHeaderComponent implements ControlValueAccessor, Validator 
     return this._isChangable && (this.currentUIMode === UIMode.Update || this.currentUIMode === UIMode.Create);
   }
   get tranCurrency(): string {
-    return this.headerForm.value.currency ?? '';
+    return this.headerForm.controls['currency'].value ?? '';
   }
   get isForeignCurrency(): boolean {
-    return this.headerForm.value.currency ? this.headerForm.value.currency !== this.baseCurrency : false;
+    return this.headerForm.controls['currency']?.value ? this.headerForm.controls['currency'].value !== this.baseCurrency : false;
   }
   get tranCurrency2(): string {
     return this.headerForm.value.secondCurrency ?? '';
   }
   get isForeignCurrency2(): boolean {
-    return this.headerForm.value.secondCurrency ? this.headerForm.value.secondCurrency !== this.baseCurrency : false;
+    return this.headerForm.controls['secondCurrency'].value ? this.headerForm.controls['secondCurrency'].value !== this.baseCurrency : false;
   }
   get isCurrencyEditable(): boolean {
     return (
@@ -244,18 +250,18 @@ export class DocumentHeaderComponent implements ControlValueAccessor, Validator 
     );
 
     this.headerForm = this.formBuilder.group({
-      docType: this.formBuilder.control({ value: this.docType ?? null, disabled: true }, [Validators.required]),
-      docDate: this.formBuilder.control(new Date(), [Validators.required]),
-      desp: this.formBuilder.control('', [Validators.required, Validators.maxLength(44)]),
-      currency: this.formBuilder.control(null, [Validators.required]),
-      exchangeRate: this.formBuilder.control(null, [this.exchangeRateMissingValidator]),
-      exchangeRateIsPlan: this.formBuilder.control(null),
-      secondCurrency: this.formBuilder.control(null, [
+      docType: this.formBuilder.control<number | null>({ value: this.docType ?? null, disabled: true }, [Validators.required]),
+      docDate: this.formBuilder.control<Date | null>(new Date(), [Validators.required]),
+      desp: this.formBuilder.control<string>('', [Validators.required, Validators.maxLength(44)]),
+      currency: this.formBuilder.control<string>('', [Validators.required]),
+      exchangeRate: this.formBuilder.control<number | null>(null, [DocumentHeaderComponent.exchangeRateMissingValidator('currency', this.baseCurrency)]),
+      exchangeRateIsPlan: this.formBuilder.control<boolean | null>(null),
+      secondCurrency: this.formBuilder.control<string | null>(null, [
         this.curr2MissingValidator,
         this.currencyMustDiffForExchgValidator,
       ]),
-      secondExchangeRate: this.formBuilder.control(null, [this.exchangeRate2MissingValidator]),
-      secondExchangeRateInPlan: this.formBuilder.control(null),
+      secondExchangeRate: this.formBuilder.control<number | null>(null, [this.exchangeRate2MissingValidator]),
+      secondExchangeRateIsPlan: this.formBuilder.control<boolean | null>(null),
     });
   }
 
@@ -278,14 +284,14 @@ export class DocumentHeaderComponent implements ControlValueAccessor, Validator 
     }
   }
 
-  writeValue(val: Document): void {
+  writeValue(val: DocumentHeader): void {
     ModelUtility.writeConsoleLog(
       'AC_HIH_APP [Debug]: Entering DocumentHeaderComponent writeValue...',
       ConsoleLogTypeEnum.debug
     );
 
     if (val) {
-      this.headerForm.setValue({
+      this.headerForm.patchValue({
         docType: val.DocType ? val.DocType : (this.docType ?? null),
         docDate: val.TranDate ?? null,
         desp: val.Desp,
@@ -294,7 +300,10 @@ export class DocumentHeaderComponent implements ControlValueAccessor, Validator 
         exchangeRateIsPlan: val.ExgRate_Plan ?? null,
         secondCurrency: val.TranCurr2 ?? null,
         secondExchangeRate: val.ExgRate2 ?? null,
-        secondExchangeRateInPlan: val.ExgRate_Plan2 ?? null,
+        secondExchangeRateIsPlan: val.ExgRate_Plan2 ?? null,
+      }, {
+        onlySelf: true,
+        emitEvent: false
       });
     }
   }
@@ -323,7 +332,7 @@ export class DocumentHeaderComponent implements ControlValueAccessor, Validator 
       this._isChangable = false;
     } else {
       this.headerForm.enable();
-      this.headerForm.get('docTypeControl')?.disable(); // doc. type cannot be edit
+      this.headerForm.controls['docType'].disable(); // doc. type cannot be edit
       this._isChangable = true;
     }
   }
@@ -344,7 +353,9 @@ export class DocumentHeaderComponent implements ControlValueAccessor, Validator 
       // Beside the basic form valid, it need more checks
       return null;
     } else {
-      return this.headerForm.errors;
+      return Object.values(this.headerForm.controls)
+        .filter(c => c.errors)
+        .map(c => c.errors);
     }
   }
 
@@ -372,19 +383,38 @@ export class DocumentHeaderComponent implements ControlValueAccessor, Validator 
     }
   }
 
-  private exchangeRateMissingValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-    if (this.isForeignCurrency) {
-      if (!this.headerForm.get('exgControl')?.value) {
-        return { required: true };
-      }
-    }
+  // private exchangeRateMissingValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  //   if (this.isForeignCurrency) {
+  //     if (!this.headerForm.value.exchangeRate) {
+  //       return { required: true };
+  //     }
+  //   }
 
-    return null;
-  };
+  //   return null;
+  // };
+
+  public static exchangeRateMissingValidator(dependentControlName: string, basecurr: string, errorKey: string = 'validationError', errorMessage: string = 'validation failed'): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const formGroup = control.parent;
+      if (!formGroup) return null;
+      
+      const dependentControl = formGroup.get(dependentControlName);
+      if (!dependentControl || !dependentControl.value) return null;
+
+      if (basecurr && basecurr !== dependentControl.value) {
+        const isExist =  control.value ? true : false;
+        if (!isExist) {
+          return {['MissingExchangeRate']: 'Missing Exchange Rate when using currency other than base currency'}
+        }  
+      }
+
+      return null;
+    };
+  }
 
   private exchangeRate2MissingValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     if (this.isCurrencyExchangeDocument && this.isForeignCurrency2) {
-      if (!this.headerForm.get('exg2Control')?.value) {
+      if (!this.headerForm.value.secondExchangeRate) {
         return { required: true };
       }
     }
@@ -394,7 +424,7 @@ export class DocumentHeaderComponent implements ControlValueAccessor, Validator 
 
   private curr2MissingValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     if (this.isCurrencyExchangeDocument) {
-      if (!this.headerForm.get('curr2Control')?.value) {
+      if (!this.headerForm.value.secondCurrency) {
         return { required: true };
       }
     }
@@ -405,9 +435,9 @@ export class DocumentHeaderComponent implements ControlValueAccessor, Validator 
   private currencyMustDiffForExchgValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     if (this.isCurrencyExchangeDocument) {
       if (
-        this.headerForm.get('curr2Control')?.value &&
-        this.headerForm.get('currControl')?.value &&
-        this.headerForm.get('curr2Control')?.value === this.headerForm.get('currControl')?.value
+        this.headerForm.value.secondCurrency  &&
+        this.headerForm.value.tranCurrency &&
+        this.headerForm.value.secondCurrency === this.headerForm.value.tranCurrency
       ) {
         return { currencyMustDiff: true };
       }
