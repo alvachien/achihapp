@@ -22,7 +22,7 @@
   <nz-form-item>
     <nz-form-label [nzSpan]="7" nzRequired>{{ 'Common.Date' | transloco }}</nz-form-label>
     <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="trandateErrorTpl" style="text-align: left">
-      <nz-date-picker id="idTranDate" formControlName="docDate" (ngModelChange)="onChange()"></nz-date-picker>
+      <nz-date-picker id="idTranDate" formControlName="docDate"></nz-date-picker>
       <ng-template #trandateErrorTpl let-control>
         @if(control.hasError('required')) {
         <ng-container>
@@ -37,7 +37,7 @@
   <nz-form-item>
     <nz-form-label [nzSpan]="7" nzRequired>{{ 'Common.Description' | transloco }}</nz-form-label>
     <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="despTpl">
-      <input nz-input formControlName="desp" maxlength="45" (ngModelChange)="onChange()" required />
+      <input nz-input formControlName="desp" maxlength="45" required />
       <ng-template #despTpl let-control>
         @if(control.hasError('maxlength')) {
         <ng-container>
@@ -78,7 +78,7 @@
     <nz-form-label [nzSpan]="7" nzRequired>{{ 'Finance.ExchangeRate' | transloco }}</nz-form-label>
     <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="exgTpl">
       <nz-input-number [nzMin]="0.001" [nzPlaceHolder]="'Finance.ExchangeRate' | transloco" [nzStep]="0.001" id="idexg"
-        formControlName="exchangeRate" (ngModelChange)="onChange()"></nz-input-number>
+        formControlName="exchangeRate"></nz-input-number>
       <ng-template #exgTpl let-control>
         @if(control.hasError('required')) {
         <ng-container>
@@ -94,7 +94,7 @@
   @if(tranCurrency && isForeignCurrency) {
   <nz-form-item>
     <nz-form-control [nzSpan]="12" [nzOffset]="7">
-      <label nz-checkbox formControlName="exchangeRateIsPlan" id="exgrate_plan" (ngModelChange)="onChange()">
+      <label nz-checkbox formControlName="exchangeRateIsPlan" id="exgrate_plan">
         {{ 'Finance.ProposedExchangeRate' | transloco }}
       </label>
     </nz-form-control>
@@ -133,7 +133,7 @@
     <nz-form-label [nzSpan]="7" nzRequired>{{ 'Finance.ExchangeRate' | transloco }}</nz-form-label>
     <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="exg2Tpl">
       <nz-input-number [nzMin]="0.001" [nzPlaceHolder]="'Finance.ExchangeRate' | transloco" [nzStep]="0.001" id="idexg2"
-        formControlName="secondExchangeRate" (ngModelChange)="onChange()"></nz-input-number>
+        formControlName="secondExchangeRate"></nz-input-number>
       <ng-template #exg2Tpl let-control>
         @if(control.hasError('required')) {
         <ng-container>
@@ -149,7 +149,7 @@
   @if(isCurrencyExchangeDocument && tranCurrency2 && isForeignCurrency2) {
   <nz-form-item>
     <nz-form-control [nzSpan]="12" [nzOffset]="7">
-      <label nz-checkbox formControlName="secondExchangeRateIsPlan" id="exgrate_plan2" (ngModelChange)="onChange()">
+      <label nz-checkbox formControlName="secondExchangeRateIsPlan" id="exgrate_plan2">
         {{ 'Finance.ProposedExchangeRate' | transloco }}
       </label>
     </nz-form-control>

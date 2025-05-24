@@ -152,18 +152,12 @@ export class DocumentNormalCreateComponent implements OnInit, OnDestroy {
     if(this.isFieldChangable) {
       this.docFormGroup.updateValueAndValidity({ onlySelf: false });
       this.items.controls.forEach(control => {
-        control.updateValueAndValidity({ onlySelf: false, emitEvent: true });
-        
-        // // 要是控件属于FormGroup或者FormArray类型，就递归调用此方法
-        // if (control instanceof FormGroup || control instanceof FormArray) {
-        //   this.updateFormArrayValidity(control as FormArray);
-        // }
+        control.updateValueAndValidity({ onlySelf: false, emitEvent: true });        
       });
 
       if (this.docFormGroup.valid) {
         // Check items
         if (this.docItems.length > 0) {
-
         }
 
         return true;

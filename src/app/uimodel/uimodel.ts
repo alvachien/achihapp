@@ -38,6 +38,7 @@ export const dateRangeValidator: ValidatorFn = (group: AbstractControl): Validat
 export const costObjectValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
   const cc: any = group.value.controlCenter ?? undefined; //.get('ccControl')?.value;
   const order: any = group.value.order ?? undefined; //.get('orderControl')?.value;
+  console.debug(`Entering costObjectValidator with cc = ${cc} and order = ${order}`);
   // const cc: any = group.get('ccControl')?.value;
   // const order: any = group.get('orderControl')?.value;
   if (cc) {
@@ -49,6 +50,7 @@ export const costObjectValidator: ValidatorFn = (group: AbstractControl): Valida
       return { nocostobject: true };
     }
   }
+  console.debug(`Exiting costObjectValidator with successful`);
 
   return null;
 };

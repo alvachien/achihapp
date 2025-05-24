@@ -65,8 +65,6 @@ import {
 })
 export class DocumentHeaderComponent implements ControlValueAccessor, Validator {
   private _isChangable = true; // Default is changable
-  private _onTouched?: () => void = undefined;
-  private _onChange?: (val: any) => void = undefined;
   private _doctype?: number;
   private _uiMode: UIMode = UIMode.Invalid;
 
@@ -242,6 +240,8 @@ export class DocumentHeaderComponent implements ControlValueAccessor, Validator 
   }
 
   private readonly formBuilder = inject(FormBuilder);
+  private _onChange = (value: any) => {};
+  private _onTouched = () => {};
 
   constructor() {
     ModelUtility.writeConsoleLog(
@@ -265,23 +265,13 @@ export class DocumentHeaderComponent implements ControlValueAccessor, Validator 
     });
   }
 
-  @HostListener('change') onChange(): void {
-    ModelUtility.writeConsoleLog(
-      'AC_HIH_APP [Debug]: Entering DocumentHeaderComponent onChange...',
-      ConsoleLogTypeEnum.debug
-    );
-    if (this._onChange) {
-      this._onChange(this.value);
-    }
+  registerOnChange(fn: any): void {
+    this._onChange = fn;
+    this.headerForm.valueChanges.subscribe(fn);
   }
-  @HostListener('blur') onTouched(): void {
-    ModelUtility.writeConsoleLog(
-      'AC_HIH_APP [Debug]: Entering DocumentHeaderComponent onTouched...',
-      ConsoleLogTypeEnum.debug
-    );
-    if (this._onTouched) {
-      this._onTouched();
-    }
+
+  registerOnTouched(fn: any): void {
+    this._onTouched = fn;
   }
 
   writeValue(val: DocumentHeader): void {
@@ -308,20 +298,6 @@ export class DocumentHeaderComponent implements ControlValueAccessor, Validator 
     }
   }
 
-  registerOnChange(fn: any): void {
-    ModelUtility.writeConsoleLog(
-      'AC_HIH_APP [Debug]: Entering DocumentHeaderComponent registerOnChange...',
-      ConsoleLogTypeEnum.debug
-    );
-    this._onChange = fn;
-  }
-  registerOnTouched(fn: any): void {
-    ModelUtility.writeConsoleLog(
-      'AC_HIH_APP [Debug]: Entering DocumentHeaderComponent registerOnTouched...',
-      ConsoleLogTypeEnum.debug
-    );
-    this._onTouched = fn;
-  }
   setDisabledState(isDisabled: boolean): void {
     ModelUtility.writeConsoleLog(
       'AC_HIH_APP [Debug]: Entering DocumentHeaderComponent setDisabledState...',
@@ -348,7 +324,6 @@ export class DocumentHeaderComponent implements ControlValueAccessor, Validator 
       return null;
     }
 
-    this.headerForm.updateValueAndValidity();
     if (this.headerForm.valid) {
       // Beside the basic form valid, it need more checks
       return null;
@@ -366,8 +341,6 @@ export class DocumentHeaderComponent implements ControlValueAccessor, Validator 
       } else {
         this.currencyChanged.emit(event);
       }
-
-      this.onChange();
     }
   }
 
@@ -378,20 +351,8 @@ export class DocumentHeaderComponent implements ControlValueAccessor, Validator 
       } else {
         this.currency2Changed.emit(event);
       }
-
-      this.onChange();
     }
   }
-
-  // private exchangeRateMissingValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-  //   if (this.isForeignCurrency) {
-  //     if (!this.headerForm.value.exchangeRate) {
-  //       return { required: true };
-  //     }
-  //   }
-
-  //   return null;
-  // };
 
   public static exchangeRateMissingValidator(dependentControlName: string, basecurr: string, errorKey: string = 'validationError', errorMessage: string = 'validation failed'): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {

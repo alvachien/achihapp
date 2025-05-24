@@ -49,13 +49,12 @@ export class DocumentItemComponent implements ControlValueAccessor, Validator {
   arControlCenters = input.required<ControlCenter[]>();
   arUIOrders = input.required<UIOrderForSelection[]>();
   docCurrency = input.required<string>();
-  docItem: DocumentItem = new DocumentItem();
-  private _uiMode: UIMode = UIMode.Invalid;
-  private _isChangable = true; // Default is changable
+  private _uiMode: UIMode = UIMode.Update;
   private readonly formBuilder = inject(FormBuilder);
 
-  private _onTouched?: () => void = undefined;
-  private _onChange?: (val: any) => void = undefined;
+  private _onChange = (value: DocumentItem | null) => {};
+  private _onTouched = () => {};
+
   @Input()
   get currentUIMode(): UIMode {
     return this._uiMode;
@@ -75,7 +74,7 @@ export class DocumentItemComponent implements ControlValueAccessor, Validator {
     }
   }
   get isFieldChangable(): boolean {
-    return this._isChangable && (this.currentUIMode === UIMode.Update || this.currentUIMode === UIMode.Create);
+    return this.currentUIMode === UIMode.Update || this.currentUIMode === UIMode.Create;
   }
 
   constructor() {
@@ -89,6 +88,15 @@ export class DocumentItemComponent implements ControlValueAccessor, Validator {
     }, { validators: costObjectValidator });
   }
 
+  registerOnChange(fn: any): void {
+    this._onChange = fn;
+    this.itemFormGroup.valueChanges.subscribe(fn);
+  }
+
+  registerOnTouched(fn: any): void {
+    this._onTouched = fn;
+  }  
+
   setDisabledState(isDisabled: boolean): void {
     ModelUtility.writeConsoleLog(
       'AC_HIH_APP [Debug]: Entering DocumentItemComponent setDisabledState...',
@@ -96,10 +104,10 @@ export class DocumentItemComponent implements ControlValueAccessor, Validator {
     );
     if (isDisabled) {
       this.itemFormGroup.disable();
-      this._isChangable = false;
+      this._uiMode = UIMode.Display;
     } else {
       this.itemFormGroup.enable();
-      this._isChangable = true;
+      this._uiMode = UIMode.Update;
     }
   }
 
@@ -119,9 +127,19 @@ export class DocumentItemComponent implements ControlValueAccessor, Validator {
       // Beside the basic form valid, it need more checks
       return null;
     } else {
-      return Object.values(this.itemFormGroup.controls)
+      // Error on controls
+      let ctrlerrs = Object.values(this.itemFormGroup.controls)
         .filter(c => c.errors)
         .map(c => c.errors);
+      if (ctrlerrs && ctrlerrs.length > 0) {
+        return ctrlerrs;
+      }
+      // Error of the validator
+      if (this.itemFormGroup.errors) {
+        return this.itemFormGroup.errors;
+      }
+      
+      return null;
     }
   }
 
@@ -155,33 +173,5 @@ export class DocumentItemComponent implements ControlValueAccessor, Validator {
     rtnobj.ControlCenterId = this.itemFormGroup.get('controlCenter')?.value ?? undefined;
     rtnobj.OrderId = this.itemFormGroup.get('order')?.value ?? undefined;
     return rtnobj;
-  }
-
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-  
-  @HostListener('change') onChange(): void {
-    ModelUtility.writeConsoleLog(
-      'AC_HIH_APP [Debug]: Entering DocumentItemComponent onChange...',
-      ConsoleLogTypeEnum.debug
-    );
-    if (this._onChange) {
-      this._onChange(this.value);
-    }
-  }
-
-  @HostListener('blur') onTouched(): void {
-    ModelUtility.writeConsoleLog(
-      'AC_HIH_APP [Debug]: Entering DocumentItemComponent onTouched...',
-      ConsoleLogTypeEnum.debug
-    );
-    if (this._onTouched) {
-      this._onTouched();
-    }
   }
 }
