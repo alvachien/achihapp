@@ -171,38 +171,7 @@ export class DocumentHeaderComponent implements ControlValueAccessor, Validator 
   get isCurrencyExchangeDocument(): boolean {
     return this.docType === financeDocTypeCurrencyExchange;
   }
-  get value(): DocumentHeader {
-    console.debug('Entering get value() of DocumentHeaderComponent');
 
-    const insobj: DocumentHeader = new DocumentHeader();
-    insobj.DocType = this.headerForm.controls['docType'].value ?? undefined;
-    insobj.TranCurr = this.headerForm.controls['currency'].value ?? '';
-    insobj.TranDate = this.headerForm.controls['docDate'].value ?? new Date();
-    insobj.Desp = this.headerForm.controls['desp'].value ?? '';
-
-    if (this.isForeignCurrency) {
-      insobj.ExgRate = this.headerForm.controls['exchangeRate'].value ?? undefined;
-      insobj.ExgRate_Plan = this.headerForm.controls['exchangeRateIsPlan'].value ?? undefined;
-    } else {
-      insobj.ExgRate = undefined;
-      insobj.ExgRate_Plan = undefined;
-    }
-    if (this.isCurrencyExchangeDocument) {
-      insobj.TranCurr2 = this.headerForm.controls['secondCurrency'].value ?? '';
-      if (this.isForeignCurrency2) {
-        insobj.ExgRate2 = this.headerForm.controls['secondExchangeRate'].value ?? undefined;
-        insobj.ExgRate_Plan2 = this.headerForm.controls['secondExchangeRateIsPlan'].value ?? undefined;
-      } else {
-        insobj.ExgRate2 = undefined;
-        insobj.ExgRate_Plan2 = undefined;
-      }
-    } else {
-      insobj.TranCurr2 = undefined;
-      insobj.ExgRate2 = undefined;
-      insobj.ExgRate_Plan2 = undefined;
-    }
-    return insobj;
-  }
   get isFieldChangable(): boolean {
     return this._isChangable && (this.currentUIMode === UIMode.Update || this.currentUIMode === UIMode.Create);
   }

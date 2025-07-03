@@ -21,7 +21,7 @@
           <li nz-menu-item (click)="onCreateNormalDocument()">
             {{ 'Finance.Document' | transloco }}
           </li>
-          <li nz-menu-item [nzDisabled]="isChildMode" (click)="onCreateTransferDocument()">
+          <!-- <li nz-menu-item [nzDisabled]="isChildMode" (click)="onCreateTransferDocument()">
             {{ 'Finance.TransferDocument' | transloco }}
           </li>
           <li nz-menu-item [nzDisabled]="isChildMode" (click)="onCreateExgDocument()">
@@ -37,8 +37,8 @@
           <li nz-menu-divider></li>
           <li nz-menu-item [nzDisabled]="isChildMode" (click)="onCreateBorrowFromDocument()">
             {{ 'Sys.DocTy.BorrowFrom' | transloco }}
-          </li>
-          <!-- <li nz-menu-item [nzDisabled]="isChildMode" (click)="onCreateLendToDocument()">{{'Sys.DocTy.LendTo' | transloco}}</li> -->
+          </li> -->
+          <!-- <li nz-menu-item [nzDisabled]="isChildMode" (click)="onCreateLendToDocument()">{{'Sys.DocTy.LendTo' | transloco}}</li> 
           <li nz-menu-item [nzDisabled]="isChildMode" (click)="onCreateRepayDocument()">
             {{ 'Sys.DocTy.Repay' | transloco }}
           </li>
@@ -51,11 +51,11 @@
           </li>
           <li nz-menu-item [nzDisabled]="isChildMode" (click)="onCreateAssetValChgDocument()">
             {{ 'Sys.DocTy.AssetValChg' | transloco }}
-          </li>
+          </li> -->
         </ul>
       </nz-dropdown-menu>
       <nz-divider nzType="vertical"></nz-divider>
-      <button nz-button nzType="primary" nz-dropdown [nzDropdownMenu]="menuMassCreateDocument">
+      <!-- <button nz-button nzType="primary" nz-dropdown [nzDropdownMenu]="menuMassCreateDocument">
         {{ 'Common.MassCreate' | transloco }}
         <i nz-icon nzType="down"></i>
       </button>
@@ -69,7 +69,7 @@
           </li>
         </ul>
       </nz-dropdown-menu>
-      <nz-divider nzType="vertical"></nz-divider>
+      <nz-divider nzType="vertical"></nz-divider> -->
       <nz-range-picker [(ngModel)]="selectedRange" (ngModelChange)="onRangeChange($event)"></nz-range-picker>
     </nz-page-header-extra>
   </nz-page-header>

@@ -15,9 +15,9 @@
   },
   "license": "MIT",
   "repository": {
-    "type": "github",    
+    "type": "github",
     "url": "https://github.com/alvachien/achihapp"
-  },  
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve --ssl true -o --ssl-key ssl/server.key --ssl-cert ssl/server.crt",
@@ -42,7 +42,7 @@
     "@angular/router": "^19.2.0",
     "@jsverse/transloco": "^7.5.1",
     "actslib": "^0.5.70",
-    "angular-auth-oidc-client": "19.0.0",
+    "angular-auth-oidc-client": "^19.0.0",
     "date-fns": "^4.1.0",
     "ng-zorro-antd": "^19.1.0",
     "rxjs": "~7.8.0",

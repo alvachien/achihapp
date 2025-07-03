@@ -33,5 +33,4 @@ export class UIStatusService {
   set versionResult(rst: CheckVersionResult | undefined) {
     this._versionInfo = rst;
   }
-
 }

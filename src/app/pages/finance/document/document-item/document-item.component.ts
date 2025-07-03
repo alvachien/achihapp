@@ -112,10 +112,10 @@ export class DocumentItemComponent implements ControlValueAccessor, Validator {
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    ModelUtility.writeConsoleLog(
-      'AC_HIH_APP [Debug]: Entering DocumentItemComponent validate.',
-      ConsoleLogTypeEnum.debug
-    );
+    // ModelUtility.writeConsoleLog(
+    //   'AC_HIH_APP [Debug]: Entering DocumentItemComponent validate.',
+    //   ConsoleLogTypeEnum.debug
+    // );
 
     // Not editable, then just return
     if (!this.isFieldChangable) {

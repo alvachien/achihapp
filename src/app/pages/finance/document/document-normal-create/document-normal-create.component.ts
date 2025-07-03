@@ -14,12 +14,13 @@ import { Account, AccountCategory, BuildupAccountForSelection, BuildupOrderForSe
   UIAccountForSelection, UIOrderForSelection, Document, DocumentItem, } from '../../../../model';
 import { UIMode } from 'actslib';
 import { FinanceStorageService, HomeDefineStorageService } from '../../../../services';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { forkJoin, takeUntil, finalize, ReplaySubject } from 'rxjs';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { popupDialog } from '../../../message-dialog';
+import { getDocumentHeaderValue, getDocumentItemValue } from '../../../../uimodel';
 
 @Component({
   selector: 'hih-document-normal-create',
@@ -36,6 +37,7 @@ import { popupDialog } from '../../../message-dialog';
     NzButtonModule,
     NzIconModule,
     NzDividerModule,
+    RouterModule,
   ],
   templateUrl: './document-normal-create.component.html',
   styleUrl: './document-normal-create.component.less'
@@ -79,7 +81,7 @@ export class DocumentNormalCreateComponent implements OnInit, OnDestroy {
     this.docCurrency = this.baseCurrency;
 
     this.docFormGroup = this.formBuilder.group({
-      id: this.formBuilder.control(null),
+      id: this.formBuilder.control({value: null, disabled: true}),
       header: this.formBuilder.control(this.docHeader, [Validators.required]),
       items: this.formBuilder.array([])
     });
@@ -152,12 +154,13 @@ export class DocumentNormalCreateComponent implements OnInit, OnDestroy {
     if(this.isFieldChangable) {
       this.docFormGroup.updateValueAndValidity({ onlySelf: false });
       this.items.controls.forEach(control => {
-        control.updateValueAndValidity({ onlySelf: false, emitEvent: true });        
+        control.updateValueAndValidity({ onlySelf: true, emitEvent: false });        
       });
 
       if (this.docFormGroup.valid) {
         // Check items
-        if (this.docItems.length > 0) {
+        if (this.items.length === 0) {
+          return false;
         }
 
         return true;
@@ -186,7 +189,7 @@ export class DocumentNormalCreateComponent implements OnInit, OnDestroy {
       })
     ) {
       ModelUtility.writeConsoleLog(
-        'AC_HIH_UI [Debug]: Entering DocumentNormalCreateComponent onSave, onVerify failed...',
+        'AC_HIH_APP [Debug]: Entering DocumentNormalCreateComponent onSave, onVerify failed...',
         ConsoleLogTypeEnum.debug
       );
 
@@ -200,7 +203,6 @@ export class DocumentNormalCreateComponent implements OnInit, OnDestroy {
     this.odataService
       .createDocument(detailObject)
       .pipe(
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         takeUntil(this._destroyed$!),
         finalize(() => {
           this.isDocPosting = false;
@@ -209,15 +211,16 @@ export class DocumentNormalCreateComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (doc) => {
           ModelUtility.writeConsoleLog(
-            'AC_HIH_UI [Debug]: Entering DocumentNormalCreateComponent onSave createDocument...',
+            'AC_HIH_APP [Debug]: Entering DocumentNormalCreateComponent onSave createDocument...',
             ConsoleLogTypeEnum.debug
           );
-          this.docIdCreated = doc.Id;
           this.docPostingFailed = '';
+          this.docIdCreated = doc.Id;
+          this.router.navigate([`/finance/document/display/${this.docIdCreated}`]);
         },
         error: (err) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Entering DocumentNormalCreateComponent onSave createDocument: ${err}`,
+            `AC_HIH_APP [Error]: Entering DocumentNormalCreateComponent onSave createDocument: ${err}`,
             ConsoleLogTypeEnum.error
           );
           this.docIdCreated = undefined;
@@ -244,46 +247,24 @@ export class DocumentNormalCreateComponent implements OnInit, OnDestroy {
     e?.preventDefault();
     
     this.items.push(this.formBuilder.control(null, Validators.required));
-
-    // const id = this.listOfControl.length > 0 ? this.listOfControl[this.listOfControl.length - 1].id + 1 : 0;
-    // const control = {
-    //   id,
-    //   controlInstance: `item-${id}`
-    // };
-    // const index = this.listOfControl.push(control);
-    // //console.log(this.listOfControl[this.listOfControl.length - 1]);
-    // this.docFormGroup.addControl(
-    //   this.listOfControl[index - 1].controlInstance,
-    //   this.formBuilder.control(null, Validators.required)
-    // );
   }
 
   removeItem(index: number) {
     this.items.removeAt(index);
   }
 
-  // removeField(i: { id: number; controlInstance: string }, e: MouseEvent): void {
-  //   e.preventDefault();
-
-  //   if (this.listOfControl.length > 1) {
-  //     const index = this.listOfControl.indexOf(i);
-  //     this.listOfControl.splice(index, 1);
-  //     //console.log(this.listOfControl);
-  //     this.docFormGroup.removeControl(i.controlInstance);
-  //   }
-  // }  
-
   private _generateDocObject(): Document {
-    const detailObject: Document = new Document();
-    const docheader = this.docFormGroup.value.header as DocumentHeader;
-    detailObject.HID = this.homeService.ChosedHome?.ID ?? 0;
-    detailObject.DocType = docheader.DocType;
-    detailObject.Desp = docheader.Desp;
-    detailObject.TranCurr = docheader.TranCurr;
-    detailObject.TranDate = docheader.TranDate;
-    // detailObject.DocType = this.curDocType;
-    // detailObject.Items = this.itemsForm.get('itemControl')?.value as DocumentItem[];
+    const docobj = new Document();
+    getDocumentHeaderValue(this.docFormGroup.controls[`header`].value, this.baseCurrency, docobj);
+    docobj.HID = this.homeService.ChosedHome?.ID ?? 0;
+    docobj.DocType = financeDocTypeNormal;
+    // Items
+    this.items.controls.forEach((element, idx) => {
+      const docitem = getDocumentItemValue(element.value);
+      docitem.ItemId = idx + 1;
+      docobj.Items.push(docitem);
+    });
 
-    return detailObject;
+    return docobj;
   }
 }

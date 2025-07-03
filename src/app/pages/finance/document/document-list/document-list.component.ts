@@ -24,6 +24,7 @@ import { GeneralFilterItem, Currency, Account, UIAccountForSelection, AccountCat
   GeneralFilterValueType, BaseListModel, DateDisplayFormat, Document,
 } from '../../../../model';
 import { FinanceStorageService, HomeDefineStorageService } from '../../../../services';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'hih-document-list',
@@ -46,6 +47,7 @@ import { FinanceStorageService, HomeDefineStorageService } from '../../../../ser
     NzDropDownModule,
     NzModalModule,
     RouterModule,
+    NzIconModule,
   ],
   templateUrl: './document-list.component.html',
   styleUrl: './document-list.component.less'

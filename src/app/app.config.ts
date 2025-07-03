@@ -14,7 +14,7 @@ import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';
 import { ThemeService } from './services/theme.service';
 import { authConfig } from './auth/auth.config';
-import { provideAuth } from 'angular-auth-oidc-client';
+import { provideAuth, withAppInitializerAuthCheck } from 'angular-auth-oidc-client';
 
 registerLocaleData(zh);
 
@@ -41,6 +41,11 @@ export const appConfig: ApplicationConfig = {
       },
       loader: TranslocoHttpLoader
     }),
-    provideAuth(authConfig),
+    provideAuth(
+      {
+        config: authConfig.config,
+      },
+      withAppInitializerAuthCheck()      
+    ),
   ]
 };

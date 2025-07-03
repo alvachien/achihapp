@@ -4,8 +4,9 @@
  * UI Models with UI Framework dependent
  */
 
-import { ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
+import { ValidatorFn, ValidationErrors, AbstractControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NzTableSortOrder, NzTableSortFn, NzTableFilterList, NzTableFilterFn } from 'ng-zorro-antd/table';
+import { ConsoleLogTypeEnum, DocumentHeader, DocumentItem, DocumentType, Document, financeDocTypeCurrencyExchange, ModelUtility } from '../model';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -38,7 +39,7 @@ export const dateRangeValidator: ValidatorFn = (group: AbstractControl): Validat
 export const costObjectValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
   const cc: any = group.value.controlCenter ?? undefined; //.get('ccControl')?.value;
   const order: any = group.value.order ?? undefined; //.get('orderControl')?.value;
-  console.debug(`Entering costObjectValidator with cc = ${cc} and order = ${order}`);
+  // console.debug(`Entering costObjectValidator with cc = ${cc} and order = ${order}`);
   // const cc: any = group.get('ccControl')?.value;
   // const order: any = group.get('orderControl')?.value;
   if (cc) {
@@ -50,7 +51,7 @@ export const costObjectValidator: ValidatorFn = (group: AbstractControl): Valida
       return { nocostobject: true };
     }
   }
-  console.debug(`Exiting costObjectValidator with successful`);
+  // console.debug(`Exiting costObjectValidator with successful`);
 
   return null;
 };
@@ -87,4 +88,55 @@ export interface UITableColumnItem<T> {
   listOfFilter: NzTableFilterList;
   filterFn: NzTableFilterFn<T> | null;
   filterMultiple: boolean;
+}
+
+// Get document header from component DocumentHeaderComponent
+//
+export const getDocumentHeaderValue = (headerFormValue: any, baseCurr: string, insobj: Document): DocumentHeader => {
+  ModelUtility.writeConsoleLog(
+    'AC_HIH_APP [Debug]: Entering getDocumentHeaderValue...',
+    ConsoleLogTypeEnum.debug
+  );
+
+  insobj.DocType = headerFormValue.docType ?? undefined;
+  insobj.TranCurr = headerFormValue.currency ?? '';
+  insobj.TranDate = headerFormValue.docDate ?? new Date();
+  insobj.Desp = headerFormValue.desp ?? '';
+
+  if (insobj.TranCurr !== baseCurr) {
+    insobj.ExgRate = headerFormValue.exchangeRate ?? undefined;
+    insobj.ExgRate_Plan = headerFormValue.exchangeRateIsPlan ?? undefined;
+  } else {
+    insobj.ExgRate = undefined;
+    insobj.ExgRate_Plan = undefined;
+  }
+  if (insobj.DocType === financeDocTypeCurrencyExchange) {
+    // insobj.TranCurr2 = headerForm.controls['secondCurrency'].value ?? '';
+    // if (this.isForeignCurrency2) {
+    //   insobj.ExgRate2 = headerForm.controls['secondExchangeRate'].value ?? undefined;
+    //   insobj.ExgRate_Plan2 = headerForm.controls['secondExchangeRateIsPlan'].value ?? undefined;
+    // } else {
+    //   insobj.ExgRate2 = undefined;
+    //   insobj.ExgRate_Plan2 = undefined;
+    // }
+  } else {
+    insobj.TranCurr2 = undefined;
+    insobj.ExgRate2 = undefined;
+    insobj.ExgRate_Plan2 = undefined;
+  }
+
+  return insobj;
+}
+
+// Get document item from component DocumentItemComponent
+export const getDocumentItemValue = (itemFormValue: any): DocumentItem => {
+  const docitem: DocumentItem = new DocumentItem();
+  docitem.AccountId = itemFormValue.account ?? undefined;
+  docitem.TranType = itemFormValue.tranType ?? undefined;
+  docitem.TranAmount = itemFormValue.tranAmount ?? undefined;
+  docitem.Desp = itemFormValue.desp ?? undefined;
+  docitem.ControlCenterId = itemFormValue.controlCenter ?? undefined;
+  docitem.OrderId = itemFormValue.order ?? undefined;
+
+  return docitem;
 }

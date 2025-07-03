@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { InfoMessage } from '../../model';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { TranslocoModule } from '@jsverse/transloco';
-import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { NZ_MODAL_DATA, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 /**
  * Message dialog button type
@@ -24,6 +24,11 @@ export interface MessageDialogInfo {
   Button: MessageDialogButtonEnum;
 }
 
+export interface IMessageDialogData {
+  title: string;
+  infoMessages: InfoMessage[];
+}
+
 
 @Component({
   selector: 'hih-message-dialog',
@@ -37,8 +42,10 @@ export interface MessageDialogInfo {
 export class MessageDialogComponent {
   @Input() title = '';
   @Input() infoMessages: InfoMessage[] = [];
-
-  constructor(private modal: NzModalRef) {}
+  private readonly modal = inject(NzModalRef);
+  readonly #modal = inject(NzModalRef);
+  readonly inputdata: IMessageDialogData = inject(NZ_MODAL_DATA);
+  constructor() {}
 
   handleOk(): void {
     this.modal.destroy();
@@ -47,6 +54,7 @@ export class MessageDialogComponent {
     this.modal.destroy();
   }
 }
+
 
 /**
  * @description Popup a dialog
@@ -67,12 +75,10 @@ export function popupDialog(
       footer = [
         {
           label: 'OK',
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           onClick: (componentInstance: any) => componentInstance!.handleOk(),
         },
         {
           label: 'Cancel',
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           onClick: (componentInstance: any) => componentInstance!.handleCancel(),
         },
       ];
@@ -83,13 +89,12 @@ export function popupDialog(
       footer = [
         {
           label: 'OK',
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           onClick: (componentInstance: any) => componentInstance!.handleOk(),
         },
       ];
       break;
   }
-  const modal = modalService.create({
+  const modal = modalService.create<MessageDialogComponent, IMessageDialogData>({
     nzTitle: title,
     nzContent: MessageDialogComponent,
     nzData: {
@@ -102,12 +107,10 @@ export function popupDialog(
   });
 
   modal.afterOpen.subscribe(() => {
-    // console.log('[afterOpen] emitted!');
   });
 
   // Return a result when closed
   modal.afterClose.subscribe(() => {
-    // console.log('[afterClose] The result is:', result);
   });
 
   // // delay until modal instance created

@@ -12,6 +12,7 @@ import { ConsoleLogTypeEnum, ModelUtility } from './model';
 import { environment } from '../environments/environment';
 import { AuthService } from './services/auth.service';
 import { HomeDefineStorageService, UIStatusService } from './services';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 
 @Component({
   selector: 'app-root',
@@ -36,11 +37,12 @@ export class AppComponent implements OnInit {
   private readonly themeService = inject(ThemeService);
   private readonly translocoService = inject(TranslocoService);
   private readonly i18n = inject(NzI18nService);
-  private readonly authService = inject(AuthService);
+  // private readonly authService = inject(AuthService);
   private readonly zone = inject(NgZone);
   private readonly homesrv = inject(HomeDefineStorageService);
   private readonly uiSrv = inject(UIStatusService);
   private readonly router = inject(Router);
+  private readonly oidcSecurityService = inject(OidcSecurityService);
 
   constructor() {
     this.currentYear = new Date().getFullYear().toString(); 
@@ -48,6 +50,13 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     ModelUtility.writeConsoleLog('AC_HIH_APP [Debug]: Entering AppComponent ngOnInit', ConsoleLogTypeEnum.debug);
+
+    this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, accessToken }) => {
+      console.log('app authenticated', isAuthenticated);
+      this.isLoggedIn = isAuthenticated;
+      
+      console.log(`Current access token is '${accessToken}'`);
+    });
 
     // Check Version
     this.homesrv.checkDBVersion().subscribe({
@@ -63,18 +72,19 @@ export class AppComponent implements OnInit {
     });
 
     // Check login status
-    this.authService.authContent.subscribe((x) => {
-      ModelUtility.writeConsoleLog(
-        'AC_HIH_APP [Debug]: Entering AppComponent authService.authContent subscribe',
-        ConsoleLogTypeEnum.debug
-      );
-      this.zone.run(() => {
-        this.isLoggedIn = x.isAuthorized;
-        if (this.isLoggedIn) {
-          this.titleLogin = x.getUserName();
-        }
-      });
-    });
+    // this.authService.authContent.subscribe((x) => {
+    //   console.log(`Entering AppComponent authService.authContent subscribe: ${x.isAuthorized}, ${x.getUserName()}`);
+    //   ModelUtility.writeConsoleLog(
+    //     'AC_HIH_APP [Debug]: Entering AppComponent authService.authContent subscribe',
+    //     ConsoleLogTypeEnum.debug
+    //   );
+    //   // this.zone.run(() => {
+    //     this.isLoggedIn = x.isAuthorized;
+    //     if (this.isLoggedIn) {
+    //       this.titleLogin = x.getUserName();
+    //     }
+    //   // });
+    // });
   }
 
   toggleTheme(): void {
@@ -94,14 +104,21 @@ export class AppComponent implements OnInit {
     ModelUtility.writeConsoleLog('AC_HIH_APP [Debug]: Entering AppComponent onLogon', ConsoleLogTypeEnum.debug);
 
     if (environment.LoginRequired) {
-      this.authService.doLogin();
+      //this.oidcSecurityService.authorize();
+      const somePopupOptions = { width: 500, height: 500, left: 50, top: 50 };
+      this.oidcSecurityService.authorizeWithPopUp() .subscribe(({ isAuthenticated, userData, accessToken, errorMessage }) => {
+        /* use data */
+        console.log(isAuthenticated);
+        console.log(errorMessage);
+      });
+      //this.authService.doLogin();
     }
   }
   public onLogout(): void {
     ModelUtility.writeConsoleLog('AC_HIH_APP [Debug]: Entering AppComponent onLogout', ConsoleLogTypeEnum.debug);
 
     if (environment.LoginRequired) {
-      this.authService.doLogout();
+      //this.authService.doLogout();
     }
   }
   public onGoToUserDetail() : void {
