@@ -12,7 +12,7 @@ import { ConsoleLogTypeEnum, ModelUtility } from './model';
 import { environment } from '../environments/environment';
 import { AuthService } from './services/auth.service';
 import { HomeDefineStorageService, UIStatusService } from './services';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { User } from 'oidc-client-ts';
 
 @Component({
   selector: 'app-root',
@@ -31,32 +31,64 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 export class AppComponent implements OnInit {
   isCollapsed = false;
   currentYear = '';
+  currentUser: User | null = null;
   isLoggedIn = false;
   public titleLogin?: string;
   public userDisplayAs?: string;
   private readonly themeService = inject(ThemeService);
   private readonly translocoService = inject(TranslocoService);
   private readonly i18n = inject(NzI18nService);
-  // private readonly authService = inject(AuthService);
-  private readonly zone = inject(NgZone);
+  private readonly authService = inject(AuthService);
   private readonly homesrv = inject(HomeDefineStorageService);
   private readonly uiSrv = inject(UIStatusService);
   private readonly router = inject(Router);
-  private readonly oidcSecurityService = inject(OidcSecurityService);
 
   constructor() {
     this.currentYear = new Date().getFullYear().toString(); 
   }
 
+  // parseIdToken = (idToken: any) => {
+  //   try {
+  //       // JWT格式为header.payload.signature
+  //       const base64Url = idToken.split('.')[1];
+  //       // 替换Base64URL特殊字符
+  //       const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  //       // 解码Base64
+  //       const jsonPayload = decodeURIComponent(
+  //           atob(base64)
+  //           .split('')
+  //           .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+  //           .join('')
+  //       );
+        
+  //       return JSON.parse(jsonPayload);
+  //   } catch (error) {
+  //       console.error('Failed to parse ID Token:', error);
+  //       return null;
+  //   }
+  // };
+
   ngOnInit(): void {
     ModelUtility.writeConsoleLog('AC_HIH_APP [Debug]: Entering AppComponent ngOnInit', ConsoleLogTypeEnum.debug);
 
-    this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, accessToken }) => {
-      console.log('app authenticated', isAuthenticated);
-      this.isLoggedIn = isAuthenticated;
-      
-      console.log(`Current access token is '${accessToken}'`);
-    });
+    this.authService.getUser().then(user => {
+      this.currentUser = user;
+
+      if (user) {
+        this.isLoggedIn = true;
+        // console.log(user);
+        this.titleLogin = user.profile.name;
+        // console.log('User logged in');
+        // //this.addMessage('User Logged In');
+
+        // const pardata = this.parseIdToken(user.id_token);
+        // console.log(pardata);
+      } else {
+        this.isLoggedIn = false;
+        console.log('User not logged in');
+        //this.addMessage('User Not Logged In');
+      }
+    }).catch(err => console.error(err));
 
     // Check Version
     this.homesrv.checkDBVersion().subscribe({
@@ -104,14 +136,7 @@ export class AppComponent implements OnInit {
     ModelUtility.writeConsoleLog('AC_HIH_APP [Debug]: Entering AppComponent onLogon', ConsoleLogTypeEnum.debug);
 
     if (environment.LoginRequired) {
-      //this.oidcSecurityService.authorize();
-      const somePopupOptions = { width: 500, height: 500, left: 50, top: 50 };
-      this.oidcSecurityService.authorizeWithPopUp() .subscribe(({ isAuthenticated, userData, accessToken, errorMessage }) => {
-        /* use data */
-        console.log(isAuthenticated);
-        console.log(errorMessage);
-      });
-      //this.authService.doLogin();
+      this.authService.login();
     }
   }
   public onLogout(): void {

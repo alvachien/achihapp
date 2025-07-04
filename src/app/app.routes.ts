@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { autoLoginPartialRoutesGuard } from 'angular-auth-oidc-client';
 import { homeChosenGuard } from './util';
+import { SigninCallbackComponent } from './signin-callback.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/welcome' },
@@ -9,7 +9,7 @@ export const routes: Routes = [
   { path: 'welcome', loadComponent: () => import('./pages/welcome').then( m=> m.WelcomeComponent ) },
 
   // Home Def.
-  { path: 'homedef', loadChildren: () => import('./pages/home-def/home-def.routes').then( m=> m.HOMEDEF_ROUTES ), canLoad: [autoLoginPartialRoutesGuard], },
+  { path: 'homedef', loadChildren: () => import('./pages/home-def/home-def.routes').then( m=> m.HOMEDEF_ROUTES )},
 
   // Finance
   { 
@@ -32,6 +32,9 @@ export const routes: Routes = [
 
   // Fatal error
   { path: 'fatalerror', loadChildren: () => import('./pages/fatal-error/fatal-error.routes').then( m=> m.FATALERROR_ROUTES ) },  
+
+  // Sign-in call back
+  { path: 'signin-callback', component: SigninCallbackComponent },
 
   // Other => 404
   { path: '**', loadChildren: () => import('./pages/not-found/not-found.routes').then(m => m.NOT_FOUND_ROUTES) },

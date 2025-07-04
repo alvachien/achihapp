@@ -1,8 +1,9 @@
 import { inject, Injectable } from '@angular/core';
-import { EventTypes, OidcSecurityService, PublicEventsService } from 'angular-auth-oidc-client';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { User, UserManager } from 'oidc-client-ts';
 
 import { UserAuthInfo, ModelUtility, ConsoleLogTypeEnum } from '../model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -10,84 +11,54 @@ import { UserAuthInfo, ModelUtility, ConsoleLogTypeEnum } from '../model';
 export class AuthService {
   public authSubject: BehaviorSubject<UserAuthInfo> = new BehaviorSubject(new UserAuthInfo());
   public authContent: Observable<UserAuthInfo> = this.authSubject.asObservable();
-
-  // private readonly authService = inject(OidcSecurityService);
-  // private readonly eventService = inject(PublicEventsService);
+  userManager: UserManager;
 
   constructor() {
-    ModelUtility.writeConsoleLog('AC_HIH_UI [Debug]: Entering AuthService constructor...', ConsoleLogTypeEnum.debug);
     console.log('AC_HIH_APP [Debug]: Entering AuthService constructor...');
 
-    // this.eventService
-    //   .registerForEvents()
-    //   // .pipe(filter((notification) => notification.type === EventTypes.CheckSessionReceived))
-    //   .subscribe((value) => {
-    //     switch (value.type) {
-    //       case EventTypes.CheckSessionReceived:
-    //         ModelUtility.writeConsoleLog(
-    //           'AC_HIH_UI [Debug]: Entering AuthService: Check session received...',
-    //           ConsoleLogTypeEnum.debug
-    //         );
-    //         console.log('AC_HIH_UI [Debug]: Entering AuthService: Check session received...');
-    //         break;
-    //       case EventTypes.ConfigLoaded:
-    //         ModelUtility.writeConsoleLog(
-    //           'AC_HIH_UI [Debug]: Entering AuthService: Config loaded...',
-    //           ConsoleLogTypeEnum.debug
-    //         );
-    //         console.log('AC_HIH_UI [Debug]: Entering AuthService: Config loaded...');
-    //         break;
-    //       case EventTypes.ConfigLoadingFailed:
-    //         ModelUtility.writeConsoleLog(
-    //           'AC_HIH_UI [Debug]: Entering AuthService: Config loading failed...',
-    //           ConsoleLogTypeEnum.debug
-    //         );
-    //         console.log('AC_HIH_UI [Debug]: Entering AuthService: Config loading failed...');
-    //         break;
-    //       case EventTypes.UserDataChanged:
-    //         ModelUtility.writeConsoleLog(
-    //           'AC_HIH_UI [Debug]: Entering AuthService: User data changed...',
-    //           ConsoleLogTypeEnum.debug
-    //         );
-    //         console.log('AC_HIH_UI [Debug]: Entering AuthService: User data changed...');
-    //         break;
-    //       case EventTypes.NewAuthenticationResult:
-    //         ModelUtility.writeConsoleLog(
-    //           'AC_HIH_UI [Debug]: Entering AuthService: New authentication result...',
-    //           ConsoleLogTypeEnum.debug
-    //         );
-    //         console.log('AC_HIH_UI [Debug]: Entering AuthService: New authentication result...');
-    //         this.checkAuth();
-    //         break;
-    //       case EventTypes.TokenExpired:
-    //         ModelUtility.writeConsoleLog(
-    //           'AC_HIH_UI [Debug]: Entering AuthService: Token expired...',
-    //           ConsoleLogTypeEnum.debug
-    //         );
-    //         break;
-    //       case EventTypes.IdTokenExpired:
-    //         ModelUtility.writeConsoleLog(
-    //           'AC_HIH_UI [Debug]: Entering AuthService: ID token expired...',
-    //           ConsoleLogTypeEnum.debug
-    //         );
-    //         break;
-    //       case EventTypes.SilentRenewStarted:
-    //         ModelUtility.writeConsoleLog(
-    //           'AC_HIH_UI [Debug]: Entering AuthService: Silent renew started...',
-    //           ConsoleLogTypeEnum.debug
-    //         );
-    //         break;
-    //       default:
-    //         break;
-    //     }
-    //     ModelUtility.writeConsoleLog(
-    //       `AC_HIH_UI [Debug]: Entering AuthService: CheckSessionChanged with value: ${value}`,
-    //       ConsoleLogTypeEnum.debug
-    //     );
-    //   });
+    // authority: environment.IDServerUrl,
 
-    // this.checkAuth();
+    // redirectUrl: environment.AppHost, // window.location.origin,
+    // postLogoutRedirectUri: environment.AppHost,
+
+    // clientId: 'achihui.js',
+    // scope: 'openid profile api.hih offline_access', // 'openid profile ' + your scopes
+    // // scope: 'please-enter-scopes', // 'openid profile offline_access ' + your scopes
+    // responseType: 'code',
+
+    // silentRenew: true,
+    // useRefreshToken: true,
+    // renewTimeBeforeTokenExpiresInSeconds: 30,
+
+    const settings = {
+      authority: environment.IDServerUrl,
+      client_id: 'achihui.js',
+      redirect_uri: `${environment.AppHost}/signin-callback`,
+      silent_redirect_uri: `${environment.AppHost}/silent-callback.html`,
+      post_logout_redirect_uri: `${environment.AppHost}`,
+      response_type: 'code',
+      scope: 'openid profile api.hih offline_access',
+    };
+    this.userManager = new UserManager(settings);
   }
+
+  getUser(): Promise<User | null> {
+    return this.userManager.getUser();
+  }
+
+  login(): Promise<void> {
+    return this.userManager.signinRedirect();
+  }
+
+  renewToken(): Promise<User | null> {
+    return this.userManager.signinSilent();
+  }
+
+  logout(): Promise<void> {
+    return this.userManager.signoutRedirect();
+  }
+  // private readonly authService = inject(OidcSecurityService);
+  // private readonly eventService = inject(PublicEventsService);
 
   public doLogin(): void {
     // ModelUtility.writeConsoleLog('AC_HIH_UI [Debug]: Entering AuthService logon...', ConsoleLogTypeEnum.debug);
