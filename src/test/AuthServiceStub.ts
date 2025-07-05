@@ -7,7 +7,7 @@ export class AuthServiceStub {
   public authContent: Observable<UserAuthInfo> = this.authSubject.asObservable();
   private isAuthenticated = false;
 
-  public doLogin(): void {
+  public login(): void {
     // Login - stub
     if (this.isAuthenticated) {
       const usrAuthInfo = this.authSubject.value;

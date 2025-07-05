@@ -47,27 +47,6 @@ export class AppComponent implements OnInit {
     this.currentYear = new Date().getFullYear().toString(); 
   }
 
-  // parseIdToken = (idToken: any) => {
-  //   try {
-  //       // JWT格式为header.payload.signature
-  //       const base64Url = idToken.split('.')[1];
-  //       // 替换Base64URL特殊字符
-  //       const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  //       // 解码Base64
-  //       const jsonPayload = decodeURIComponent(
-  //           atob(base64)
-  //           .split('')
-  //           .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-  //           .join('')
-  //       );
-        
-  //       return JSON.parse(jsonPayload);
-  //   } catch (error) {
-  //       console.error('Failed to parse ID Token:', error);
-  //       return null;
-  //   }
-  // };
-
   ngOnInit(): void {
     ModelUtility.writeConsoleLog('AC_HIH_APP [Debug]: Entering AppComponent ngOnInit', ConsoleLogTypeEnum.debug);
 
@@ -76,17 +55,11 @@ export class AppComponent implements OnInit {
 
       if (user) {
         this.isLoggedIn = true;
-        // console.log(user);
+        console.log(user);
         this.titleLogin = user.profile.name;
-        // console.log('User logged in');
-        // //this.addMessage('User Logged In');
-
-        // const pardata = this.parseIdToken(user.id_token);
-        // console.log(pardata);
       } else {
         this.isLoggedIn = false;
         console.log('User not logged in');
-        //this.addMessage('User Not Logged In');
       }
     }).catch(err => console.error(err));
 

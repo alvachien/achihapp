@@ -16,20 +16,6 @@ export class AuthService {
   constructor() {
     console.log('AC_HIH_APP [Debug]: Entering AuthService constructor...');
 
-    // authority: environment.IDServerUrl,
-
-    // redirectUrl: environment.AppHost, // window.location.origin,
-    // postLogoutRedirectUri: environment.AppHost,
-
-    // clientId: 'achihui.js',
-    // scope: 'openid profile api.hih offline_access', // 'openid profile ' + your scopes
-    // // scope: 'please-enter-scopes', // 'openid profile offline_access ' + your scopes
-    // responseType: 'code',
-
-    // silentRenew: true,
-    // useRefreshToken: true,
-    // renewTimeBeforeTokenExpiresInSeconds: 30,
-
     const settings = {
       authority: environment.IDServerUrl,
       client_id: 'achihui.js',
@@ -47,6 +33,7 @@ export class AuthService {
   }
 
   login(): Promise<void> {
+    ModelUtility.writeConsoleLog('AC_HIH_UI [Debug]: Entering AuthService login...', ConsoleLogTypeEnum.debug);
     return this.userManager.signinRedirect();
   }
 
@@ -55,6 +42,7 @@ export class AuthService {
   }
 
   logout(): Promise<void> {
+    ModelUtility.writeConsoleLog('AC_HIH_UI [Debug]: Entering AuthService logout...', ConsoleLogTypeEnum.debug);
     return this.userManager.signoutRedirect();
   }
   // private readonly authService = inject(OidcSecurityService);

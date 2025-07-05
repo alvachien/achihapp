@@ -37,7 +37,7 @@ export const homeChosenGuard: CanActivateChildFn = (route, state) => {
       ConsoleLogTypeEnum.debug
     );
 
-    authService.doLogin();
+    authService.login();
     return false;
   }
 
