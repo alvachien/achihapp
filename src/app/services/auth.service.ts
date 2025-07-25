@@ -23,7 +23,7 @@ export class AuthService {
       silent_redirect_uri: `${environment.AppHost}/silent-callback.html`,
       post_logout_redirect_uri: `${environment.AppHost}`,
       response_type: 'code',
-      scope: 'openid profile api.hih offline_access',
+      scope: 'openid profile email api.hih offline_access',
     };
     this.userManager = new UserManager(settings);
   }
@@ -33,7 +33,7 @@ export class AuthService {
   }
 
   login(): Promise<void> {
-    ModelUtility.writeConsoleLog('AC_HIH_UI [Debug]: Entering AuthService login...', ConsoleLogTypeEnum.debug);
+    ModelUtility.writeConsoleLog('AC_HIH_APP [Debug]: Entering AuthService login...', ConsoleLogTypeEnum.debug);
     return this.userManager.signinRedirect();
   }
 
@@ -42,46 +42,7 @@ export class AuthService {
   }
 
   logout(): Promise<void> {
-    ModelUtility.writeConsoleLog('AC_HIH_UI [Debug]: Entering AuthService logout...', ConsoleLogTypeEnum.debug);
+    ModelUtility.writeConsoleLog('AC_HIH_APP [Debug]: Entering AuthService logout...', ConsoleLogTypeEnum.debug);
     return this.userManager.signoutRedirect();
-  }
-  // private readonly authService = inject(OidcSecurityService);
-  // private readonly eventService = inject(PublicEventsService);
-
-  public doLogin(): void {
-    // ModelUtility.writeConsoleLog('AC_HIH_UI [Debug]: Entering AuthService logon...', ConsoleLogTypeEnum.debug);
-    // console.log('AC_HIH_APP [Debug]: Entering AuthService logon...');
-    // this.authService.authorize();
-  }
-  public doLogout(): void {
-    // ModelUtility.writeConsoleLog('AC_HIH_UI [Debug]: Entering AuthService doLogout...', ConsoleLogTypeEnum.debug);
-    // this.authService.logoffAndRevokeTokens().subscribe(() => {
-    //   const usrAuthInfo = this.authSubject.value;
-    //   usrAuthInfo.cleanContent();
-    //   this.authSubject.next(usrAuthInfo);
-    // });
-  }
-
-  public checkAuth() {
-    // this.authService.checkAuth().subscribe(({ isAuthenticated, userData, accessToken }) => {
-    //   ModelUtility.writeConsoleLog(
-    //     `AC_HIH_UI [Debug]: Entering AuthService checkAuth callback with 'IsAuthenticated' = ${isAuthenticated}.`,
-    //     ConsoleLogTypeEnum.debug
-    //   );
-    //   console.log(`AC_HIH_UI [Debug]: Entering AuthService checkAuth callback with 'IsAuthenticated' = ${isAuthenticated}.`);
-    //   if (isAuthenticated) {
-    //     const usrAuthInfo = this.authSubject.value;
-    //     usrAuthInfo.setContent({
-    //       userId: userData.sub,
-    //       userName: userData.name,
-    //       accessToken: accessToken,
-    //     });
-    //     this.authSubject.next(usrAuthInfo);
-    //   } else {
-    //     const usrAuthInfo = this.authSubject.value;
-    //     usrAuthInfo.cleanContent();
-    //     this.authSubject.next(usrAuthInfo);
-    //   }
-    //   });
   }
 }
