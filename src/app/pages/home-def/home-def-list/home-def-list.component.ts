@@ -54,7 +54,7 @@ export class HomeDefListComponent implements OnInit, OnDestroy {
 
   constructor() {
     ModelUtility.writeConsoleLog(
-      'AC_HIH_UI [Debug]: Entering HomeDefListComponent constructor...',
+      'AC_HIH_APP [Debug]: Entering HomeDefListComponent constructor...',
       ConsoleLogTypeEnum.debug
     );
 
@@ -63,7 +63,7 @@ export class HomeDefListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     ModelUtility.writeConsoleLog(
-      'AC_HIH_UI [Debug]: Entering HomeDefListComponent ngOnInit...',
+      'AC_HIH_APP [Debug]: Entering HomeDefListComponent ngOnInit...',
       ConsoleLogTypeEnum.debug
     );
 
@@ -73,7 +73,7 @@ export class HomeDefListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     ModelUtility.writeConsoleLog(
-      'AC_HIH_UI [Debug]: Entering HomeDefListComponent ngOnDestroy...',
+      'AC_HIH_APP [Debug]: Entering HomeDefListComponent ngOnDestroy...',
       ConsoleLogTypeEnum.debug
     );
 
@@ -85,17 +85,16 @@ export class HomeDefListComponent implements OnInit, OnDestroy {
 
   public onChooseHome(row: HomeDef): void {
     ModelUtility.writeConsoleLog(
-      'AC_HIH_UI [Debug]: Entering HomeDefListComponent onChooseHome...',
+      'AC_HIH_APP [Debug]: Entering HomeDefListComponent onChooseHome...',
       ConsoleLogTypeEnum.debug
     );
     this.homeService.ChosedHome = row;
+
     // Set current home member
-    // const usrid = this.authService.authSubject.value.getUserId();
-    // console.debug(usrid);
     this.homeService.ChosedHome.Members.forEach((mem) => {
       if (mem.User === this.authService.authSubject.value.getUserId()) {
         ModelUtility.writeConsoleLog(
-          'AC_HIH_UI [Debug]: Entering HomeDefListComponent onChooseHome, set CurrentMemberInChosedHome...',
+          'AC_HIH_APP [Debug]: Entering HomeDefListComponent onChooseHome, set CurrentMemberInChosedHome...',
           ConsoleLogTypeEnum.debug
         );
         this.homeService.CurrentMemberInChosedHome = mem;
@@ -128,7 +127,7 @@ export class HomeDefListComponent implements OnInit, OnDestroy {
         },
         error: (err) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Entering HomeDefListComponent ngOnInit, fetchAllHomeDef failed: ${err}`,
+            `AC_HIH_APP [Error]: Entering HomeDefListComponent ngOnInit, fetchAllHomeDef failed: ${err}`,
             ConsoleLogTypeEnum.error
           );
 
