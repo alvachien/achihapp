@@ -7,6 +7,7 @@ import { ThemeService } from './services/theme.service';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 import { en_US, NzI18nService, zh_CN } from 'ng-zorro-antd/i18n';
+import { from } from 'rxjs';
 
 import { ConsoleLogTypeEnum, ModelUtility } from './model';
 import { environment } from '../environments/environment';
@@ -50,19 +51,6 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     ModelUtility.writeConsoleLog('AC_HIH_APP [Debug]: Entering AppComponent ngOnInit', ConsoleLogTypeEnum.debug);
 
-    this.authService.getUser().then(user => {
-      this.currentUser = user;
-
-      if (user) {
-        this.isLoggedIn = true;
-        console.log(user);
-        this.titleLogin = user.profile.name;
-      } else {
-        this.isLoggedIn = false;
-        console.log('User not logged in');
-      }
-    }).catch(err => console.error(err));
-
     // Check Version
     this.homesrv.checkDBVersion().subscribe({
       next: (val) => {
@@ -76,20 +64,29 @@ export class AppComponent implements OnInit {
       },
     });
 
-    // Check login status
-    // this.authService.authContent.subscribe((x) => {
-    //   console.log(`Entering AppComponent authService.authContent subscribe: ${x.isAuthorized}, ${x.getUserName()}`);
-    //   ModelUtility.writeConsoleLog(
-    //     'AC_HIH_APP [Debug]: Entering AppComponent authService.authContent subscribe',
-    //     ConsoleLogTypeEnum.debug
-    //   );
-    //   // this.zone.run(() => {
-    //     this.isLoggedIn = x.isAuthorized;
-    //     if (this.isLoggedIn) {
-    //       this.titleLogin = x.getUserName();
-    //     }
-    //   // });
-    // });
+    from(this.authService.getUser()).subscribe({
+      next: (user) => {
+        this.currentUser = user;
+
+        if (user) {
+          this.isLoggedIn = true;
+          console.log(user);
+          this.titleLogin = user.profile.name;
+
+          const usrAuthInfo = this.authService.authSubject.value;
+          usrAuthInfo.setContent({
+            userId: user.profile.sub,
+            userName: user.profile.name ?? user.profile.email,
+            accessToken: user.access_token
+          });
+          this.authService.authSubject.next(usrAuthInfo);
+        } else {
+          this.isLoggedIn = false;
+          console.log('User not logged in');
+        }
+      },
+      error: (err) => console.error(err)
+    });
   }
 
   toggleTheme(): void {
