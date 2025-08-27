@@ -29,7 +29,7 @@ export class HomeDefineStorageService {
   }
   set ChosedHome(hd: HomeDef | null) {
     ModelUtility.writeConsoleLog(
-      `AC_HIH_UI [Debug]: Entering HomeDefineStorageService ChosedHome setter: ${hd}`,
+      `AC_HIH_APP [Debug]: Entering HomeDefineStorageService ChosedHome setter: ${hd?.ID} (${hd?.Name})`,
       ConsoleLogTypeEnum.debug
     );
 
@@ -45,7 +45,7 @@ export class HomeDefineStorageService {
   }
   set CurrentMemberInChosedHome(hm: HomeMember | null) {
     ModelUtility.writeConsoleLog(
-      `AC_HIH_UI [Debug]: Entering HomeDefineStorageService CurrentMemberInChosedHome setter: ${hm}`,
+      `AC_HIH_APP [Debug]: Entering HomeDefineStorageService CurrentMemberInChosedHome setter: ${hm?.HomeID}, ${hm?.User}, ${hm?.DisplayAs}`,
       ConsoleLogTypeEnum.debug
     );
 
@@ -75,7 +75,7 @@ export class HomeDefineStorageService {
 
   constructor() {
     ModelUtility.writeConsoleLog(
-      `AC_HIH_UI [Debug]: Entering HomeDefineStorageService constructor...`,
+      `AC_HIH_APP [Debug]: Entering HomeDefineStorageService constructor...`,
       ConsoleLogTypeEnum.debug
     );
 
@@ -105,7 +105,7 @@ export class HomeDefineStorageService {
         .pipe(
           map((response: any) => {
             ModelUtility.writeConsoleLog(
-              `AC_HIH_UI [Debug]: Entering HomeDefineStorageService, fetchAllHomeDef...`,
+              `AC_HIH_APP [Debug]: Entering HomeDefineStorageService, fetchAllHomeDef...`,
               ConsoleLogTypeEnum.debug
             );
 
@@ -125,7 +125,7 @@ export class HomeDefineStorageService {
           }),
           catchError((error: HttpErrorResponse) => {
             ModelUtility.writeConsoleLog(
-              `AC_HIH_UI [Error]: Entering HomeDefineStorageService, fetchAllHomeDef failed: ${error}`,
+              `AC_HIH_APP [Error]: Entering HomeDefineStorageService, fetchAllHomeDef failed: ${error}`,
               ConsoleLogTypeEnum.error
             );
 
@@ -209,7 +209,7 @@ export class HomeDefineStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Debug]: Entering HomeDefineStorageService, createHomeDef, map.`,
+            `AC_HIH_APP [Debug]: Entering HomeDefineStorageService, createHomeDef, map.`,
             ConsoleLogTypeEnum.debug
           );
 
@@ -222,7 +222,7 @@ export class HomeDefineStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Entering HomeDefineStorageService createHomeDef failed: ${error}`,
+            `AC_HIH_APP [Error]: Entering HomeDefineStorageService createHomeDef failed: ${error}`,
             ConsoleLogTypeEnum.error
           );
 
@@ -248,7 +248,7 @@ export class HomeDefineStorageService {
     return this._http.put(apipath, jdata, { headers, }).pipe(
       map(() => {
         ModelUtility.writeConsoleLog(
-          `AC_HIH_UI [Debug]: Entering HomeDefineStorageService, changeHomeDef, map.`,
+          `AC_HIH_APP [Debug]: Entering HomeDefineStorageService, changeHomeDef, map.`,
           ConsoleLogTypeEnum.debug
         );
 
@@ -268,7 +268,7 @@ export class HomeDefineStorageService {
       }),
       catchError((error: HttpErrorResponse) => {
         ModelUtility.writeConsoleLog(
-          `AC_HIH_UI [Error]: Entering HomeDefineStorageService changeHomeDef failed: ${error}`,
+          `AC_HIH_APP [Error]: Entering HomeDefineStorageService changeHomeDef failed: ${error}`,
           ConsoleLogTypeEnum.error
         );
 
@@ -294,7 +294,7 @@ export class HomeDefineStorageService {
     return this._http.get<any>(requestUrl, { headers }).pipe(
       map((x: HttpResponse<any>) => {
         ModelUtility.writeConsoleLog(
-          `AC_HIH_UI [Debug]: Entering HomeDefineStorageService, getHomeKeyFigure, map.`,
+          `AC_HIH_APP [Debug]: Entering HomeDefineStorageService, getHomeKeyFigure, map.`,
           ConsoleLogTypeEnum.debug
         );
 
@@ -304,7 +304,7 @@ export class HomeDefineStorageService {
       }),
       catchError((error: HttpErrorResponse) => {
         ModelUtility.writeConsoleLog(
-          `AC_HIH_UI [Error]: Entering HomeDefineStorageService, getHomeKeyFigure, Failed: ${error}`,
+          `AC_HIH_APP [Error]: Entering HomeDefineStorageService, getHomeKeyFigure, Failed: ${error}`,
           ConsoleLogTypeEnum.error
         );
 
@@ -331,7 +331,7 @@ export class HomeDefineStorageService {
       .pipe(
         map((response: any) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Debug]: Entering HomeDefineStorageService, checkDBVersion.`,
+            `AC_HIH_APP [Debug]: Entering HomeDefineStorageService, checkDBVersion.`,
             ConsoleLogTypeEnum.debug
           );
 
@@ -339,7 +339,7 @@ export class HomeDefineStorageService {
         }),
         catchError((error: HttpErrorResponse) => {
           ModelUtility.writeConsoleLog(
-            `AC_HIH_UI [Error]: Entering HomeDefineStorageService, checkDBVersion, Failed ${error}`,
+            `AC_HIH_APP [Error]: Entering HomeDefineStorageService, checkDBVersion, Failed ${error}`,
             ConsoleLogTypeEnum.error
           );
 

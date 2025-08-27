@@ -1,1 +1,215 @@
-<p>document-transfer-create works!</p>
+<nz-page-header nzBackIcon>
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item><a routerLink="/finance/overview">{{ 'Common.Overview' | transloco }}</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item><a routerLink="/finance/document/list">{{ 'Finance.Documents' | transloco }}</a></nz-breadcrumb-item>
+    <nz-breadcrumb-item>{{ 'Common.Create' | transloco }}</nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <nz-page-header-title>{{ 'Finance.TransferDocument' | transloco }}</nz-page-header-title>
+  <nz-page-header-subtitle>{{ 'Common.Create' | transloco }}</nz-page-header-subtitle>
+</nz-page-header>
+
+<nz-steps [nzCurrent]="currentStep">
+  <nz-step [nzTitle]="'Common.GenericInfo' | transloco"></nz-step>
+  <nz-step [nzTitle]="'Finance.TransferFrom' | transloco"></nz-step>
+  <nz-step [nzTitle]="'Finance.TransferTo' | transloco"></nz-step>
+  <nz-step [nzTitle]="'Common.Confirm' | transloco"></nz-step>
+  <nz-step [nzTitle]="'Common.Result' | transloco"></nz-step>
+</nz-steps>
+
+<div class="steps-content">
+  <!-- Header -->
+  <form nz-form [formGroup]="headerFormGroup" [hidden]="currentStep !== 0">
+    <hih-fin-document-header
+      formControlName="headerControl"
+      [docType]="curDocType"
+      [currentUIMode]="curMode"
+      [arDocTypes]="arDocTypes"
+      [arCurrencies]="arCurrencies"
+      [baseCurrency]="baseCurrency">
+    </hih-fin-document-header>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>{{ 'Finance.Amount' | transloco }}</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="amountTpl">
+        <nz-input-number
+          [nzMin]="0.01"
+          [nzStep]="0.01"
+          formControlName="amountControl"
+          [nzPlaceHolder]="'Finance.Amount' | transloco">
+        </nz-input-number>
+        <ng-template #amountTpl let-control>
+          @if(control.hasError('required')) {
+            <ng-container>
+              {{ 'Common.FieldIsMandatory' | transloco }}
+            </ng-container>  
+          }
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+
+  <!-- From -->
+  <form nz-form [formGroup]="fromFormGroup" [hidden]="currentStep !== 1">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>{{ 'Finance.Account' | transloco }}</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="accountTpl">
+        <nz-select formControlName="accountControl">
+          @for(acnt of arUIAccounts; track acnt.Id) {
+            <nz-option [nzValue]="acnt.Id" [nzLabel]="acnt.Name"></nz-option>
+          }
+        </nz-select>
+        <ng-template #accountTpl let-control>
+          @if(control.hasError('required')) {
+            <ng-container>
+              {{ 'Common.FieldIsMandatory' | transloco }}
+            </ng-container>  
+          }
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7">{{ 'Finance.ControlCenter' | transloco }}</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback>
+        <nz-select formControlName="ccControl" nzAllowClear>
+          @for(tt of arControlCenters; track tt.Id) {
+            <nz-option [nzValue]="tt.Id" [nzLabel]="tt.Name"></nz-option>
+          }          
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7">{{ 'Finance.Activity' | transloco }}</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback>
+        <nz-select formControlName="orderControl" nzAllowClear>
+          @for(tt of arUIOrders; track tt.Id) {
+            <nz-option [nzValue]="tt.Id" [nzLabel]="tt.Name"></nz-option>
+          }          
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+
+  <!-- To -->
+  <form nz-form [formGroup]="toFormGroup" [hidden]="currentStep !== 2">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>{{ 'Finance.Account' | transloco }}</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="accountTpl">
+        <nz-select formControlName="accountControl">
+          @for(acnt of arUIAccounts; track acnt.Id) {
+            <nz-option [nzValue]="acnt.Id" [nzLabel]="acnt.Name"></nz-option>
+          }
+          
+        </nz-select>
+        <ng-template #accountTpl let-control>
+          @if(control.hasError('required')) {
+            <ng-container>
+              {{ 'Common.FieldIsMandatory' | transloco }}
+            </ng-container>  
+          }
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7">{{ 'Finance.ControlCenter' | transloco }}</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback>
+        <nz-select formControlName="ccControl" nzAllowClear>
+          @for(tt of arControlCenters; track tt.Id) {
+            <nz-option [nzValue]="tt.Id" [nzLabel]="tt.Name"></nz-option>
+          }          
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7">{{ 'Finance.Activity' | transloco }}</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback>
+        <nz-select formControlName="orderControl" nzAllowClear>
+          @for(tt of arUIOrders; track tt.Id) {
+            <nz-option [nzValue]="tt.Id" [nzLabel]="tt.Name"></nz-option>
+          }
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+
+  <!-- Review and Confirm -->
+  <div [hidden]="currentStep !== 3">
+    <div>
+      <h3 nz-title>{{ 'Common.Date' | transloco }}: {{ confirmInfo?.tranDateString }}</h3>
+      <h2 nz-title>{{ 'Common.Description' | transloco }}: {{ confirmInfo?.tranDesp }}</h2>
+      <h2 nz-title>
+        {{ 'Finance.Incoming' | transloco }}:
+        {{ confirmInfo?.inAmount | number : '1.2-2' }}
+        {{ confirmInfo?.tranCurrency }}
+      </h2>
+      <h2 nz-title>
+        {{ 'Finance.Outgoing' | transloco }}:
+        {{ confirmInfo?.outAmount | number : '1.2-2' }}
+        {{ confirmInfo?.tranCurrency }}
+      </h2>
+    </div>
+  </div>
+
+  <!-- Result -->
+  <div [hidden]="currentStep !== 4">
+    <nz-spin [nzSize]="'large'" [nzSpinning]="isDocPosting">
+      @if(docIdCreated) {
+        <div>
+          <nz-result
+            nzStatus="success"
+            [nzTitle]="'Finance.DocumentPosted' | transloco"
+            [nzSubTitle]="'Finance.DocumentPosted' | transloco">
+            <div nz-result-extra>
+              <button nz-button (click)="onDisplayCreatedDoc()" nzType="primary">
+                {{ 'Common.Display' | transloco }}
+              </button>
+              <button nz-button>
+                {{ 'Common.CreateAnotherOne' | transloco }}
+              </button>
+            </div>
+          </nz-result>
+        </div>  
+      }
+      @if(!docIdCreated) {
+        <div>
+          <nz-result
+            [nzTitle]="'Common.SubmissionFailed' | transloco"
+            nzStatus="error"
+            [nzSubTitle]="'Common.ResubmissionHint' | transloco">
+            <div nz-result-content>
+              <div class="desc">
+                <h4 nz-title>{{ 'Common.TitleOfSubmitError' | transloco }}</h4>
+                <p nz-paragraph>
+                  <i nz-icon nzType="close-circle"></i>
+                  {{ docPostingFailed }}
+                </p>
+              </div>
+            </div>
+            <div nz-result-extra>
+              <button nz-button nzType="primary" (click)="pre()">
+                <i nz-icon nzType="left"></i>{{ 'Common.PreviousButton' | transloco }}
+              </button>
+            </div>
+          </nz-result>
+        </div>  
+      }
+    </nz-spin>
+  </div>
+</div>
+
+<div class="steps-action">
+  @if(currentStep > 0 && currentStep < 4) {
+    <button nz-button (click)="pre()">
+      <i nz-icon nzType="left"></i>{{ 'Common.PreviousButton' | transloco }}
+    </button>  
+  }
+  @if(currentStep < 4) {
+    <button
+      nz-button
+      nzType="primary"
+      id="button_next_step"
+      (click)="next()"
+      [disabled]="!nextButtonEnabled">
+      {{ 'Common.NextButton' | transloco }}<i nz-icon nzType="right"></i>
+    </button>
+  }
+</div>

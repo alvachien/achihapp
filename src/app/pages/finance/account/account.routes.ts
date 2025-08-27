@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 export const ACCOUNT_ROUTES: Routes = [
     {
         path: '',
-        loadComponent: () => import('./account-hierarchy/').then((m) => m.AccountHierarchyComponent),
+        loadComponent: () => import('./account-list/').then((m) => m.AccountListComponent),
     },
     {
         path: 'list',

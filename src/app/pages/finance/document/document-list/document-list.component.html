@@ -7,10 +7,10 @@
     <nz-page-header-title>{{ 'Finance.Document' | transloco }}</nz-page-header-title>
     <nz-page-header-subtitle>{{ 'Common.ListView' | transloco }}</nz-page-header-subtitle>
     <nz-page-header-extra>
-      <input nz-input class="shotcut-id" placeholder="{{ 'Common.ShortcutID' | transloco }}" [(ngModel)]="shortcutDocID" />
+      <!-- <input nz-input class="shotcut-id" placeholder="{{ 'Common.ShortcutID' | transloco }}" [(ngModel)]="shortcutDocID" />
       <button nz-button nzType="text" [disabled]="!shortcutDocID" (click)="onOpenShortCutDocID()">
         <i nz-icon nzType="folder-open" nzTheme="outline"></i>
-      </button>
+      </button> -->
       <nz-divider nzType="vertical"></nz-divider>
       <button nz-button nzType="primary" nz-dropdown [nzDropdownMenu]="menuCreateDocument">
         {{ 'Common.Create' | transloco }}
@@ -21,10 +21,10 @@
           <li nz-menu-item (click)="onCreateNormalDocument()">
             {{ 'Finance.Document' | transloco }}
           </li>
-          <!-- <li nz-menu-item [nzDisabled]="isChildMode" (click)="onCreateTransferDocument()">
+          <li nz-menu-item [nzDisabled]="isChildMode" (click)="onCreateTransferDocument()">
             {{ 'Finance.TransferDocument' | transloco }}
           </li>
-          <li nz-menu-item [nzDisabled]="isChildMode" (click)="onCreateExgDocument()">
+          <!-- <li nz-menu-item [nzDisabled]="isChildMode" (click)="onCreateExgDocument()">
             {{ 'Finance.CurrencyExchange' | transloco }}
           </li>
           <li nz-menu-divider></li>

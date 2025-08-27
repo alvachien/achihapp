@@ -14,8 +14,10 @@ export class SigninCallbackComponent implements OnInit {
   private readonly authService = inject(AuthService);
 
   ngOnInit() {
+    console.log('Entering SigninCallbackComponent');
     this.authService.userManager.signinCallback().finally(() => {
-      this.router.navigate(['']);
+      console.log('Navigating to initial page');
+      this.router.navigate(['/']);
     });
   }
 }

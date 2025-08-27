@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ConsoleLogTypeEnum, ModelUtility } from '../model';
 
 enum ThemeType {
   dark = 'dark',
@@ -38,7 +39,11 @@ export class ThemeService {
   }
 
   public loadTheme(firstLoad = true): Promise<Event> {
-    console.debug(`Entering loadTheme with ${firstLoad}`);
+    ModelUtility.writeConsoleLog(
+      `AC_HIH_APP [Debug]: Entering loadTheme with ${firstLoad}`,
+      ConsoleLogTypeEnum.debug
+    );
+
     const theme = this.currentTheme;
     if (firstLoad) {
       document.documentElement.classList.add(theme);
@@ -47,7 +52,10 @@ export class ThemeService {
     return new Promise<Event>((resolve, reject) => {
       this.loadCss(`${theme}.css`, theme).then(        
         (e) => {
-          console.debug(`Got CSS file for ${theme}`);
+          ModelUtility.writeConsoleLog(
+            `AC_HIH_APP [Debug]: CSS file loaded successfully for ${theme}`,
+            ConsoleLogTypeEnum.debug
+          );
 
           if (!firstLoad) {
             document.documentElement.classList.add(theme);
@@ -61,6 +69,11 @@ export class ThemeService {
   }
 
   public toggleTheme(): Promise<Event> {
+    ModelUtility.writeConsoleLog(
+      `AC_HIH_APP [Debug]: Toggle Theme started`,
+      ConsoleLogTypeEnum.debug      
+    );
+
     this.currentTheme = this.reverseTheme(this.currentTheme);
     return this.loadTheme(false);
   }

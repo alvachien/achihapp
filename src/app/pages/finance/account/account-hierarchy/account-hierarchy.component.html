@@ -6,7 +6,7 @@
     <nz-page-header-title>{{ 'Finance.Account' | transloco }}</nz-page-header-title>
     <nz-page-header-subtitle>{{ 'Common.HierarchyView' | transloco }}</nz-page-header-subtitle>
     <nz-page-header-extra>
-      <nz-select
+      <!-- <nz-select
         [(ngModel)]="listSelectedAccountStatus"
         nzMode="multiple"
         nzAllowClear
@@ -17,7 +17,7 @@
             [nzValue]="option.value"
             [nzLabel]="option.i18nterm | transloco"></nz-option>
         }
-      </nz-select>
+      </nz-select> -->
       <nz-select [(ngModel)]="selectedScope" nzPlaceHolder="Scope" (ngModelChange)="onScopeChanged($event)">
         @for(option of arrayScopes; track $index) {
           <nz-option
