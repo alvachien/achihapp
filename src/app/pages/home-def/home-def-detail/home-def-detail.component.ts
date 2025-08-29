@@ -278,6 +278,41 @@ export class HomeDefDetailComponent implements OnInit, OnDestroy {
     return translate(cr.Name!) + ' - ' + cr.Symbol;
   }
 
+  onDelete() {
+    // // Delete the data
+    // if (this.uiMode === UIMode.Update) {
+    //   const hdobj = new HomeDef();
+    //   hdobj.ID = +this.routerID;
+
+    //   this.storageService
+    //     .deleteHomeDef(hdobj)
+    //     .pipe(takeUntil(this._destroyed$!))
+    //     .subscribe({
+    //       next: () => {
+    //         // Shall delete successfully.
+    //         this.router.navigate(['/homedef']);
+    //       },
+    //       error: (err) => {
+    //         // Show error
+    //         this.modalService.error({
+    //           nzTitle: translate('Common.Error'),
+    //           nzContent: err.toString(),
+    //           nzClosable: true,
+    //         });
+    //       },
+    //     });
+    // }
+    ModelUtility.writeConsoleLog(
+      'AC_HIH_APP [Debug]: Entering HomeDefListComponent onChooseHome...',
+      ConsoleLogTypeEnum.debug
+    );
+    this.storageService.ChosedHome = null;
+
+    // Set current home member
+    this.storageService.CurrentMemberInChosedHome = null;
+    this.storageService.RedirectURL = '';
+  }
+
   onSave() {
     // Save the data
     if (this.uiMode === UIMode.Create) {

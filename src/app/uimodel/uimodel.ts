@@ -36,24 +36,53 @@ export const dateRangeValidator: ValidatorFn = (group: AbstractControl): Validat
  * Validator for cost object
  * @param group Instance of the form group
  */
-export const costObjectValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
-  const cc: any = group.value.controlCenter ?? undefined; //.get('ccControl')?.value;
-  const order: any = group.value.order ?? undefined; //.get('orderControl')?.value;
-  // console.debug(`Entering costObjectValidator with cc = ${cc} and order = ${order}`);
-  // const cc: any = group.get('ccControl')?.value;
-  // const order: any = group.get('orderControl')?.value;
-  if (cc) {
-    if (order) {
+// export const costObjectValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
+  // const cc: any = group.value.controlCenter ?? undefined; //.get('ccControl')?.value;
+  // const order: any = group.value.order ?? undefined; //.get('orderControl')?.value;
+  // // console.debug(`Entering costObjectValidator with cc = ${cc} and order = ${order}`);
+  // // const cc: any = group.get('ccControl')?.value;
+  // // const order: any = group.get('orderControl')?.value;
+  // if (cc) {
+  //   if (order) {
+  //     return { costobjectoverassign: true };
+  //   }
+  // } else {
+  //   if (!order) {
+  //     return { nocostobject: true };
+  //   }
+  // }
+  // // console.debug(`Exiting costObjectValidator with successful`);
+
+  // return null;
+//};
+export const costObjectValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  // Check it is a FormGroup
+  if (!(control instanceof FormGroup)) {
+    return null; // 如果不是 FormGroup，则不应用此验证器
+  }
+
+  const ccControl = control.get('ccControl');
+  const orderControl = control.get('orderControl');
+
+  // Check control exists
+  if (!ccControl || !orderControl) {
+    return null; // If missing contro, no validation
+  }
+
+  const ccValue = ccControl.value;
+  const orderValue = orderControl.value;
+
+  if (ccValue) {
+    if (orderValue) {
       return { costobjectoverassign: true };
     }
   } else {
-    if (!order) {
+    if (!orderValue) {
       return { nocostobject: true };
     }
   }
-  // console.debug(`Exiting costObjectValidator with successful`);
-
-  return null;
+  
+  return null; // No error
 };
 
 /**

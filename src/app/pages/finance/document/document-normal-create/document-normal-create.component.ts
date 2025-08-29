@@ -40,7 +40,8 @@ import { getDocumentHeaderValue, getDocumentItemValue } from '../../../../uimode
     RouterModule,
   ],
   templateUrl: './document-normal-create.component.html',
-  styleUrl: './document-normal-create.component.less'
+  styleUrl: './document-normal-create.component.less',
+  standalone: true,
 })
 export class DocumentNormalCreateComponent implements OnInit, OnDestroy {
   currentMode = 'Common.Create';
@@ -131,7 +132,7 @@ export class DocumentNormalCreateComponent implements OnInit, OnDestroy {
   
   ngOnDestroy(): void {
     ModelUtility.writeConsoleLog(
-      'AC_HIH_UI [Debug]: Entering DocumentNormalCreateComponent ngOnDestroy...',
+      'AC_HIH_APP [Debug]: Entering DocumentNormalCreateComponent ngOnDestroy...',
       ConsoleLogTypeEnum.debug
     );
 
@@ -143,7 +144,7 @@ export class DocumentNormalCreateComponent implements OnInit, OnDestroy {
 
   onCurrencyChanged(event: any) {
     ModelUtility.writeConsoleLog(
-      `AC_HIH_UI [Debug]: Entering DocumentNormalCreateComponent onCurrencyChanged: ${event}...`,
+      `AC_HIH_APP [Debug]: Entering DocumentNormalCreateComponent onCurrencyChanged: ${event}...`,
       ConsoleLogTypeEnum.debug
     );
 

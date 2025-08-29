@@ -91,6 +91,11 @@
 
   <!-- To -->
   <form nz-form [formGroup]="toFormGroup" [hidden]="currentStep !== 2">
+    @if (toFormGroup.hasError('duplicatedccount') && (toFormGroup.touched || toFormGroup.dirty)) {
+      <div style="color: red;">
+        Cannot transfer between same account.
+      </div>
+    }
     <nz-form-item>
       <nz-form-label [nzSpan]="7" nzRequired>{{ 'Finance.Account' | transloco }}</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="accountTpl">

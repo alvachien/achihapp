@@ -1,6 +1,7 @@
 import { DecimalPipe } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormsModule, ReactiveFormsModule, UntypedFormControl, FormBuilder, FormGroup, FormControl, ValidationErrors, 
+  ValidatorFn, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { translate, TranslocoModule } from '@jsverse/transloco';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
@@ -50,6 +51,7 @@ import { popupDialog } from '../../../message-dialog';
   ],
   templateUrl: './document-transfer-create.component.html',
   styleUrl: './document-transfer-create.component.less',
+  standalone: true,
 })
 export class DocumentTransferCreateComponent implements OnInit, OnDestroy {
   private _destroyed$: ReplaySubject<boolean> | null = null;
@@ -72,14 +74,15 @@ export class DocumentTransferCreateComponent implements OnInit, OnDestroy {
   public isDocPosting = false;
   public docPostingFailed: string | null = null;
   // Step: Header
-  public headerFormGroup: UntypedFormGroup;
+  public headerFormGroup: FormGroup;
   // Step: From
-  public fromFormGroup: UntypedFormGroup;
+  public fromFormGroup: FormGroup;
   // Step: To
-  public toFormGroup: UntypedFormGroup;
+  public toFormGroup: FormGroup;
   // Step: Confirm
   public confirmInfo: any = {};
 
+  private readonly formBuilder = inject(FormBuilder);
   private readonly homeService = inject(HomeDefineStorageService);
   private readonly odataService = inject(FinanceStorageService);
   private readonly modalService = inject(NzModalService);
@@ -90,25 +93,29 @@ export class DocumentTransferCreateComponent implements OnInit, OnDestroy {
       'AC_HIH_APP [Debug]: Entering DocumentTransferCreateComponent constructor...',
       ConsoleLogTypeEnum.debug
     );
-    this.headerFormGroup = new UntypedFormGroup({
-      headerControl: new UntypedFormControl(new Document(), [Validators.required]),
-      amountControl: new UntypedFormControl(0, [Validators.required, Validators.min(0.01)]),
+    this.headerFormGroup = this.formBuilder.group({
+      headerControl: this.formBuilder.control(new Document(), [Validators.required]),
+      amountControl: this.formBuilder.control(0, [Validators.required, Validators.min(0.01)]),
     });
-    this.fromFormGroup = new UntypedFormGroup(
+    this.fromFormGroup = this.formBuilder.group(
       {
-        accountControl: new UntypedFormControl('', [Validators.required]),
-        ccControl: new UntypedFormControl(),
-        orderControl: new UntypedFormControl(),
+        accountControl: this.formBuilder.control<number | null>(null, [Validators.required]),
+        ccControl: this.formBuilder.control<number | null>(null),
+        orderControl: this.formBuilder.control<number | null>(null),
       },
-      [costObjectValidator]
+      {
+        validators: [costObjectValidator]
+      }
     );
-    this.toFormGroup = new UntypedFormGroup(
+    this.toFormGroup = this.formBuilder.group(
       {
-        accountControl: new UntypedFormControl('', [Validators.required]),
-        ccControl: new UntypedFormControl(),
-        orderControl: new UntypedFormControl(),
+        accountControl: this.formBuilder.control('', [Validators.required]),
+        ccControl: this.formBuilder.control<number | null>(null),
+        orderControl: this.formBuilder.control<number | null>(null),
       },
-      [costObjectValidator, this._duplicateAccountValidator]
+      {
+        validators: [costObjectValidator, this._duplicateAccountValidator]
+      }
     );
     this.baseCurrency = this.homeService.ChosedHome?.BaseCurrency ?? '';
   }
@@ -333,9 +340,10 @@ export class DocumentTransferCreateComponent implements OnInit, OnDestroy {
 
     return detailObject;
   }
+
   private _duplicateAccountValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
     ModelUtility.writeConsoleLog(
-      `AC_HIH_UI [Debug]: Entering DocumentTransferCreateComponent _duplicateAccountValidator`,
+      `AC_HIH_APP [Debug]: Entering DocumentTransferCreateComponent _duplicateAccountValidator`,
       ConsoleLogTypeEnum.debug
     );
 
