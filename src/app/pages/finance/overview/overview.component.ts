@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { NzCardModule } from 'ng-zorro-antd/card';
 
 @Component({
   selector: 'hih-overview',
-  imports: [],
+  imports: [NzCardModule],
   templateUrl: './overview.component.html',
-  styleUrl: './overview.component.less'
+  styleUrl: './overview.component.less',
+  standalone: true
 })
 export class OverviewComponent {
 

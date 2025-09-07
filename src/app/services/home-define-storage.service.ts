@@ -95,7 +95,7 @@ export class HomeDefineStorageService {
         .append('Authorization', 'Bearer ' + this._authService.authSubject.getValue().getAccessToken());
       let params: HttpParams = new HttpParams();
       params = params.append('$count', 'true');
-      params = params.append('$expand', 'HomeMembers');
+      params = params.append('$expand', 'Members');
 
       return this._http
         .get(this.apiUrl, {
@@ -150,9 +150,9 @@ export class HomeDefineStorageService {
       .append('Accept', 'application/json')
       .append('Authorization', 'Bearer ' + this._authService.authSubject.getValue().getAccessToken());
     let params: HttpParams = new HttpParams();
-    params = params.append('$expand', 'HomeMembers');    
+    params = params.append('$expand', 'Members');    
 
-    return this._http.get(`${this.apiUrl}(${hid})`, {
+    return this._http.get(`${this.apiUrl}/${hid}`, {
       headers,
       params,
     })
@@ -164,7 +164,7 @@ export class HomeDefineStorageService {
           );
 
           const hd: HomeDef = new HomeDef();
-          hd.parseJSONData(response as any);
+          hd.parseJSONData(response.value as any);
 
           // Buffer it
           const nidx: number = this._listHomeDefList.findIndex((val: HomeDef) => {
